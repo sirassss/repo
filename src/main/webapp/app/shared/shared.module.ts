@@ -12,9 +12,30 @@ import { FormatMediumDatePipe } from './date/format-medium-date.pipe';
 import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
+import {
+  AccordionModule,
+  BsDatepickerModule,
+  BsDropdownConfig,
+  BsDropdownModule,
+  ModalModule,
+  PaginationModule,
+  TabsModule,
+  TooltipConfig,
+  TooltipModule,
+} from 'ngx-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [SharedLibsModule],
+  imports: [
+    SharedLibsModule,
+    AccordionModule.forRoot(),
+    BsDatepickerModule,
+    BsDropdownModule.forRoot(),
+    ModalModule,
+    PaginationModule.forRoot(),
+    TooltipModule.forRoot(),
+    TabsModule,
+  ],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -42,5 +63,6 @@ import { ItemCountComponent } from './pagination/item-count.component';
     SortDirective,
     ItemCountComponent,
   ],
+  providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig],
 })
 export class SharedModule {}
