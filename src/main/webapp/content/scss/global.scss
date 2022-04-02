@@ -3,6 +3,10 @@
 @import '~bootswatch/dist/darkly/variables';
 @import '~bootstrap/scss/variables';
 
+//style import by anhlam
+@import '../css/style.css';
+@import '../css/font-awesome.min.css';
+
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
@@ -171,3 +175,7 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+body {
+  background-color: white;
+}
