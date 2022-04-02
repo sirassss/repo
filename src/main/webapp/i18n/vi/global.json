@@ -37,6 +37,8 @@
       "username.placeholder": "Nhập tên tài khoản của bạn",
       "newpassword.label": "Mật khẩu mới",
       "newpassword.placeholder": "Nhập mật khẩu mới",
+      "currentpassword.placeholder": "Nhập mật khẩu hiện tại",
+      "currentpassword.label": "Mật khẩu hiện tại",
       "confirmpassword.label": "Xác nhận mật khẩu mới",
       "confirmpassword.placeholder": "Nhập lại mật khẩu mới",
       "email.label": "Email",

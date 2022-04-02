@@ -836,18 +836,18 @@ span.total-pro {
   height: 40px;
   line-height: 40px;
   overflow: hidden;
-  padding-left: 45px;
+  padding-left: 20px;
   position: relative;
   text-transform: uppercase;
 }
 
 .vertical-menu > span::after {
-  content: '';
-  font-family: 'Ionicons';
-  font-size: 27px;
-  font-weight: normal;
-  left: 16px;
-  position: absolute;
+  /*content: '';*/
+  /*font-family: 'Ionicons', serif;*/
+  /*font-size: 27px;*/
+  /*font-weight: normal;*/
+  /*left: 16px;*/
+  /*position: absolute;*/
 }
 
 /* vertical mega menu css start */
