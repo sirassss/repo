@@ -46,9 +46,12 @@
             "styles": [
               "src/main/webapp/content/scss/vendor.scss",
               "src/main/webapp/content/scss/global.scss",
-              "src/main/webapp/content/css/nivo-slider.css"
+              "src/main/webapp/content/css/nivo-slider.css",
+              "src/main/webapp/content/css/default.css",
+              "src/main/webapp/content/css/responsive.css",
+              "src/main/webapp/content/css/linearicons.css"
             ],
-            "scripts": ["src/main/webapp/content/js/jquery.nivo.slider.js"]
+            "scripts": ["src/main/webapp/content/js/jquery.nivo.slider.js", "src/main/webapp/content/js/vendor/jquery-3.2.1.min.js"]
           },
           "configurations": {
             "production": {
