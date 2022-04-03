@@ -28,6 +28,9 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { SidebarInNavComponent } from './layouts/sidebar-in-nav/sidebar-in-nav.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
+// import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   imports: [
@@ -52,6 +55,8 @@ import { ErrorComponent } from './layouts/error/error.component';
         useFactory: missingTranslationHandler,
       },
     }),
+    BsDropdownModule,
+    // BrowserAnimationsModule,
   ],
   providers: [
     Title,
@@ -59,7 +64,15 @@ import { ErrorComponent } from './layouts/error/error.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    SidebarInNavComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
