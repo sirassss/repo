@@ -30,7 +30,7 @@ import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { SidebarInNavComponent } from './layouts/sidebar-in-nav/sidebar-in-nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
-// import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -56,7 +56,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
       },
     }),
     BsDropdownModule,
-    // BrowserAnimationsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     Title,

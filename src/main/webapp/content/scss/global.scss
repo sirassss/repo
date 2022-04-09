@@ -4,7 +4,7 @@
 @import '~bootstrap/scss/variables';
 
 //style import by anhlam
-@import '../css/style.css';
+//@import '../css/style.css';
 @import '../css/font-awesome.min.css';
 
 /* ==============================================================
@@ -26,6 +26,7 @@ a:hover {
 
 .dropdown-item:hover {
   color: $dropdown-link-hover-color;
+  background-color: $dropdown-link-hover-color;
 }
 
 /* ==========================================================================
@@ -162,7 +163,6 @@ ui bootstrap tweaks
 ========================================================================== */
 .nav,
 .pagination,
-.carousel,
 .panel-title a {
   cursor: pointer;
 }
