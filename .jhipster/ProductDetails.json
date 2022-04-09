@@ -1,0 +1,52 @@
+{
+  "fields": [
+    {
+      "fieldName": "productID",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "manufacturerID",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "capacity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "screen",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "camera",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "oSAndCPU",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pIN",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imageUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "service": "serviceImpl",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "ProductDetails",
+  "changelogDate": "20220409160104"
+}

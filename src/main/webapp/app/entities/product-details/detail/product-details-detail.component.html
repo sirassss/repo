@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="productDetails">
+      <h2 data-cy="productDetailsDetailsHeading">
+        <span jhiTranslate="sellphonealamApp.productDetails.detail.title">Product Details</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ productDetails.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.productID">Product ID</span></dt>
+        <dd>
+          <span>{{ productDetails.productID }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.manufacturerID">Manufacturer ID</span></dt>
+        <dd>
+          <span>{{ productDetails.manufacturerID }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.capacity">Capacity</span></dt>
+        <dd>
+          <span>{{ productDetails.capacity }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.screen">Screen</span></dt>
+        <dd>
+          <span>{{ productDetails.screen }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.camera">Camera</span></dt>
+        <dd>
+          <span>{{ productDetails.camera }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.oSAndCPU">O S And CPU</span></dt>
+        <dd>
+          <span>{{ productDetails.oSAndCPU }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.pIN">P IN</span></dt>
+        <dd>
+          <span>{{ productDetails.pIN }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.imageUrl">Image Url</span></dt>
+        <dd>
+          <span>{{ productDetails.imageUrl }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.color">Color</span></dt>
+        <dd>
+          <span>{{ productDetails.color }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.productDetails.description">Description</span></dt>
+        <dd>
+          <span>{{ productDetails.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product-details', productDetails.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

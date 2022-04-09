@@ -1,0 +1,33 @@
+{
+  "sellphonealamApp": {
+    "productDetails": {
+      "home": {
+        "title": "Product Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Product Details",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Product Details",
+        "notFound": "No Product Details found"
+      },
+      "created": "Một Product Details mới được tạo với định danh {{ param }}",
+      "updated": "Một Product Details cập nhật với định danh {{ param }}",
+      "deleted": "Một Product Details đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Product Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Details"
+      },
+      "id": "ID",
+      "productID": "Product ID",
+      "manufacturerID": "Manufacturer ID",
+      "capacity": "Capacity",
+      "screen": "Screen",
+      "camera": "Camera",
+      "oSAndCPU": "O S And CPU",
+      "pIN": "P IN",
+      "imageUrl": "Image Url",
+      "color": "Color",
+      "description": "Description"
+    }
+  }
+}

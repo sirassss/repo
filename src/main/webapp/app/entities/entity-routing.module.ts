@@ -9,6 +9,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'sellphonealamApp.voucher.home.title' },
         loadChildren: () => import('./voucher/voucher.module').then(m => m.VoucherModule),
       },
+      {
+        path: 'product-details',
+        data: { pageTitle: 'sellphonealamApp.productDetails.home.title' },
+        loadChildren: () => import('./product-details/product-details.module').then(m => m.ProductDetailsModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
