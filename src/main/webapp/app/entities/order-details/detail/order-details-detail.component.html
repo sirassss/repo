@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="orderDetails">
+      <h2 data-cy="orderDetailsDetailsHeading"><span jhiTranslate="sellphonealamApp.orderDetails.detail.title">Order Details</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ orderDetails.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.orderDetails.productID">Product ID</span></dt>
+        <dd>
+          <span>{{ orderDetails.productID }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.orderDetails.orderID">Order ID</span></dt>
+        <dd>
+          <span>{{ orderDetails.orderID }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.orderDetails.quantity">Quantity</span></dt>
+        <dd>
+          <span>{{ orderDetails.quantity }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.orderDetails.unitPrice">Unit Price</span></dt>
+        <dd>
+          <span>{{ orderDetails.unitPrice }}</span>
+        </dd>
+        <dt><span jhiTranslate="sellphonealamApp.orderDetails.total">Total</span></dt>
+        <dd>
+          <span>{{ orderDetails.total }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order-details', orderDetails.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

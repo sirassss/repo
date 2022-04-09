@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-order-details-heading"
+        data-cy="OrderDetailsCreateUpdateHeading"
+        jhiTranslate="sellphonealamApp.orderDetails.home.createOrEditLabel"
+      >
+        Create or edit a Order Details
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="sellphonealamApp.orderDetails.productID" for="field_productID">Product ID</label>
+          <input type="number" class="form-control" name="productID" id="field_productID" data-cy="productID" formControlName="productID" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="sellphonealamApp.orderDetails.orderID" for="field_orderID">Order ID</label>
+          <input type="number" class="form-control" name="orderID" id="field_orderID" data-cy="orderID" formControlName="orderID" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="sellphonealamApp.orderDetails.quantity" for="field_quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="sellphonealamApp.orderDetails.unitPrice" for="field_unitPrice">Unit Price</label>
+          <input type="number" class="form-control" name="unitPrice" id="field_unitPrice" data-cy="unitPrice" formControlName="unitPrice" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="sellphonealamApp.orderDetails.total" for="field_total">Total</label>
+          <input type="number" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

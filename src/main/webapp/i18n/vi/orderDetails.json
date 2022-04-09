@@ -1,0 +1,28 @@
+{
+  "sellphonealamApp": {
+    "orderDetails": {
+      "home": {
+        "title": "Order Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Order Details",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Order Details",
+        "notFound": "No Order Details found"
+      },
+      "created": "Một Order Details mới được tạo với định danh {{ param }}",
+      "updated": "Một Order Details cập nhật với định danh {{ param }}",
+      "deleted": "Một Order Details đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Order Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Order Details"
+      },
+      "id": "ID",
+      "productID": "Product ID",
+      "orderID": "Order ID",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "total": "Total"
+    }
+  }
+}
