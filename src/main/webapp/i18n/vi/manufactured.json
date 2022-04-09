@@ -1,0 +1,26 @@
+{
+  "sellphonealamApp": {
+    "manufactured": {
+      "home": {
+        "title": "Manufactureds",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Manufactured",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Manufactured",
+        "notFound": "No Manufactureds found"
+      },
+      "created": "Một Manufactured mới được tạo với định danh {{ param }}",
+      "updated": "Một Manufactured cập nhật với định danh {{ param }}",
+      "deleted": "Một Manufactured đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Manufactured {{ id }}?"
+      },
+      "detail": {
+        "title": "Manufactured"
+      },
+      "id": "ID",
+      "name": "Name",
+      "image": "Image",
+      "description": "Description"
+    }
+  }
+}
