@@ -4,8 +4,12 @@
 @import '~bootstrap/scss/variables';
 
 //style import by anhlam
-//@import '../css/style.css';
-@import '../css/font-awesome.min.css';
+@import '../css/style.css';
+@import '../css/font-awesome.min.css'; //icon
+@import '../css/default.css';
+@import '../css/linearicons.css'; //icon
+//@import '../css/responsive.css';
+//@import '../css/owl.carousel.min.css';
 
 /* ==============================================================
 Bootstrap tweaks
@@ -176,6 +180,10 @@ ui bootstrap tweaks
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
 
+// custom by anh lam
 body {
   background-color: white;
+  a:hover {
+    text-decoration: none;
+  }
 }
