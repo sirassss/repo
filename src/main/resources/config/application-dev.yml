@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:sqlserver://localhost:1433;database=sellphone
+    url: jdbc:sqlserver://localhost:1433;database=sellphone_prod
     username: sa
     password: 123456
     hikari:
