@@ -16,17 +16,16 @@ public class Bank implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "account_name")
+    @Column(name = "accountname")
     private String accountName;
 
-    @Column(name = "bank_name")
+    @Column(name = "bankname")
     private String bankName;
 
-    @Column(name = "account_number")
+    @Column(name = "accountnumber")
     private String accountNumber;
 
     @Column(name = "branch")

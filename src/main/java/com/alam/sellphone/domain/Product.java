@@ -18,8 +18,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "code")
@@ -31,28 +30,28 @@ public class Product implements Serializable {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "unit_price", precision = 21, scale = 2)
+    @Column(name = "unitprice", precision = 21, scale = 2)
     private BigDecimal unitPrice;
 
     @Column(name = "installment")
     private Boolean installment;
 
-    @Column(name = "accompanying_products")
+    @Column(name = "accompanyingproducts")
     private String accompanyingProducts;
 
     @Column(name = "warranty")
     private Integer warranty;
 
-    @Column(name = "created_date")
+    @Column(name = "createddate")
     private LocalDate createdDate;
 
-    @Column(name = "modified_date")
+    @Column(name = "modifieddate")
     private LocalDate modifiedDate;
 
-    @Column(name = "created_user")
+    @Column(name = "createduser")
     private String createdUser;
 
-    @Column(name = "modified_user")
+    @Column(name = "modifieduser")
     private String modifiedUser;
 
     @Column(name = "status")

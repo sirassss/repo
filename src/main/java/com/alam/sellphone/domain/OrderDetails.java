@@ -10,27 +10,26 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A OrderDetails.
  */
 @Entity
-@Table(name = "order_details")
+@Table(name = "orderdetail")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class OrderDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_id")
+    @Column(name = "productid")
     private Long productID;
 
-    @Column(name = "order_id")
+    @Column(name = "orderid")
     private Long orderID;
 
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "unit_price", precision = 21, scale = 2)
+    @Column(name = "unitprice", precision = 21, scale = 2)
     private BigDecimal unitPrice;
 
     @Column(name = "total", precision = 21, scale = 2)
