@@ -22,16 +22,16 @@ public class Voucher implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "voucher_code")
+    @Column(name = "vouchercode")
     private String voucherCode;
 
-    @Column(name = "product_id")
+    @Column(name = "productid")
     private Long productID;
 
-    @Column(name = "promotion_price", precision = 21, scale = 2)
+    @Column(name = "promotionprice", precision = 21, scale = 2)
     private BigDecimal promotionPrice;
 
-    @Column(name = "date_issue")
+    @Column(name = "dateissue")
     private LocalDate dateIssue;
 
     @Column(name = "status")
