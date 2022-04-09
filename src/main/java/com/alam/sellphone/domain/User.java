@@ -21,15 +21,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A user.
  */
 @Entity
-@Table(name = "jhi_user")
+@Table(name = "account")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -41,15 +40,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @NotNull
     @Size(min = 60, max = 60)
-    @Column(name = "password_hash", length = 60, nullable = false)
+    @Column(name = "password", length = 60, nullable = false)
     private String password;
 
     @Size(max = 50)
-    @Column(name = "first_name", length = 50)
+    @Column(name = "firstname", length = 50)
     private String firstName;
 
     @Size(max = 50)
-    @Column(name = "last_name", length = 50)
+    @Column(name = "lastname", length = 50)
     private String lastName;
 
     @Email
@@ -57,37 +56,37 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(length = 254, unique = true)
     private String email;
 
+    @Size(max = 256)
+    @Column(name = "image", length = 256)
+    private String imageUrl;
+
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "activated")
     private boolean activated = false;
 
     @Size(min = 2, max = 10)
     @Column(name = "lang_key", length = 10)
     private String langKey;
 
-    @Size(max = 256)
-    @Column(name = "image_url", length = 256)
-    private String imageUrl;
-
     @Size(max = 20)
-    @Column(name = "activation_key", length = 20)
+    @Column(name = "activationkey", length = 20)
     @JsonIgnore
     private String activationKey;
 
     @Size(max = 20)
-    @Column(name = "reset_key", length = 20)
+    @Column(name = "resetkey", length = 20)
     @JsonIgnore
     private String resetKey;
 
-    @Column(name = "reset_date")
+    @Column(name = "resetdate")
     private Instant resetDate = null;
 
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "jhi_user_authority",
-        joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
-        inverseJoinColumns = { @JoinColumn(name = "authority_name", referencedColumnName = "name") }
+        name = "userauthority",
+        joinColumns = { @JoinColumn(name = "userid", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "authorityname", referencedColumnName = "name") }
     )
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
