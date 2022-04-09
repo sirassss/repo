@@ -1,0 +1,32 @@
+{
+  "fields": [
+    {
+      "fieldName": "voucherCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "productID",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "promotionPrice",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "dateIssue",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "service": "serviceImpl",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Voucher",
+  "changelogDate": "20220409155122"
+}

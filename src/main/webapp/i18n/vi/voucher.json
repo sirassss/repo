@@ -1,0 +1,28 @@
+{
+  "sellphonealamApp": {
+    "voucher": {
+      "home": {
+        "title": "Vouchers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Voucher",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Voucher",
+        "notFound": "No Vouchers found"
+      },
+      "created": "Một Voucher mới được tạo với định danh {{ param }}",
+      "updated": "Một Voucher cập nhật với định danh {{ param }}",
+      "deleted": "Một Voucher đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Voucher {{ id }}?"
+      },
+      "detail": {
+        "title": "Voucher"
+      },
+      "id": "ID",
+      "voucherCode": "Voucher Code",
+      "productID": "Product ID",
+      "promotionPrice": "Promotion Price",
+      "dateIssue": "Date Issue",
+      "status": "Status"
+    }
+  }
+}
