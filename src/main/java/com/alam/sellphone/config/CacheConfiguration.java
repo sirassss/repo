@@ -50,6 +50,7 @@ public class CacheConfiguration {
             createCache(cm, com.alam.sellphone.domain.User.class.getName() + ".authorities");
             createCache(cm, com.alam.sellphone.domain.Voucher.class.getName());
             createCache(cm, com.alam.sellphone.domain.ProductDetails.class.getName());
+            createCache(cm, com.alam.sellphone.domain.Product.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
