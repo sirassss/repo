@@ -65,7 +65,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private boolean activated = false;
 
     @Size(min = 2, max = 10)
-    @Column(name = "lang_key", length = 10)
+    @Column(name = "langkey", length = 10)
     private String langKey;
 
     @Size(max = 20)
