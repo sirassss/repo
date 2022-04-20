@@ -9,6 +9,7 @@ import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { EventManager } from '../../core/util/event-manager.service';
 
 @Component({
   selector: 'jhi-navbar',
@@ -23,13 +24,16 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
 
+  varSearch: any;
+
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private eventManager: EventManager
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
@@ -65,5 +69,12 @@ export class NavbarComponent implements OnInit {
 
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+
+  changeSearch(): void {
+    this.eventManager.broadcast({
+      name: 'varSearch',
+      content: { data: this.varSearch },
+    });
   }
 }

@@ -13,6 +13,10 @@
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
+        <repository>
+            <id>jaspersoft-third-party</id>
+            <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -41,6 +45,7 @@
         <profile.no-liquibase />
         <profile.api-docs />
         <profile.tls />
+        <archunit-junit5.version>0.21.0</archunit-junit5.version>
 
         <!-- Dependency versions -->
         <jhipster-dependencies.version>7.1.0</jhipster-dependencies.version>
@@ -314,6 +319,18 @@
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit</artifactId>
+            <version>0.21.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5-engine</artifactId>
+            <version>${archunit-junit5.version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>

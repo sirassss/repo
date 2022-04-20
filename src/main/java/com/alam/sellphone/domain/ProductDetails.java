@@ -1,5 +1,8 @@
 package com.alam.sellphone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -48,10 +51,6 @@ public class ProductDetails implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "productid")
-    private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -195,14 +194,6 @@ public class ProductDetails implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Product getProductl() {
-        return product;
-    }
-
-    public void setProductl(Product productl) {
-        this.product = productl;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IProduct } from '../product.model';
@@ -9,13 +9,15 @@ import { IProduct } from '../product.model';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { ProductService } from '../service/product.service';
 import { ProductClientModule } from '../product-for-client.module';
+import { EventManager } from '../../core/util/event-manager.service';
+import { BaseComponent } from '../../shared/base-component/base.component';
 
 @Component({
   selector: 'jhi-product-for-client',
   templateUrl: './product-for-client.component.html',
   styleUrls: ['./product-for-client.component.scss'],
 })
-export class ProductClientComponent implements OnInit {
+export class ProductClientComponent extends BaseComponent implements OnInit {
   products?: IProduct[];
   isLoading = false;
   totalItems = 0;
@@ -25,12 +27,19 @@ export class ProductClientComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  eventSubscriber: Subscription | any;
+
+  varSearch: any;
+
   constructor(
     protected productService: ProductService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    private eventManager: EventManager
+  ) {
+    super();
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -41,6 +50,7 @@ export class ProductClientComponent implements OnInit {
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
+        varSearch: this.varSearch ? this.varSearch.data : '',
       })
       .subscribe(
         (res: HttpResponse<IProduct[]>) => {
@@ -56,6 +66,7 @@ export class ProductClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.registerVarSearch();
   }
 
   trackId(index: number, item: IProduct): number {
@@ -68,6 +79,18 @@ export class ProductClientComponent implements OnInit {
 
   addToCart(product: IProduct): void {
     this.loadPage();
+  }
+
+  registerVarSearch(): void {
+    this.eventSubscriber = this.eventManager.subscribe('varSearch', res => {
+      if (res) {
+        if (typeof res !== 'string') {
+          this.varSearch = res.content;
+          this.loadPage();
+        }
+      }
+    });
+    this.eventSubscribers.push(this.eventSubscriber);
   }
 
   protected sort(): string[] {
@@ -97,7 +120,7 @@ export class ProductClientComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/product'], {
+      this.router.navigate(['/product-client'], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

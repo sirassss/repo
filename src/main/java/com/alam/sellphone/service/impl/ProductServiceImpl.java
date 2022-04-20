@@ -85,9 +85,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Product> findAll(Pageable pageable) {
-        log.debug("Request to get all Products");
-        return productRepository.findAll(pageable);
+    public Page<Product> findAll(Pageable pageable, String varSearch) {
+        log.debug("LẤY TẤT CẢ SẢN PHẨM");
+        return productRepository.findAllByKeySearch(pageable, varSearch);
     }
 
     @Override

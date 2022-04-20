@@ -61,7 +61,8 @@ public class Product implements Serializable {
     @Column(name = "status")
     private Boolean status;
 
-    @OneToOne(mappedBy = "product")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "productid")
     private ProductDetails productDetails;
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
