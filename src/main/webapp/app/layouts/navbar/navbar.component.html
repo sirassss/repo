@@ -1,9 +1,4 @@
 <nav data-cy="navbar" class="navbar navbar-light navbar-expand-md">
-  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-    <span class="logo-img"></span>
-    <span jhiTranslate="global.title" class="navbar-title">Sellphonealam</span>
-    <span class="navbar-version">{{ version }}</span>
-  </a>
   <a
     class="navbar-toggler d-lg-none"
     href="javascript:void(0);"
@@ -265,7 +260,11 @@
   <div class="container">
     <div class="row align-items-center no-gutters">
       <div class="col-lg-3 col-md-12">
-        <div class="logo mb-all-30">
+        <div style="margin-left: 60px">
+          <a class="navbar-brand" routerLink="/" (click)="collapseNavbar()">
+            <span class="logo-img"></span>
+            <!--    <span class="navbar-version">{{ version }}</span>-->
+          </a>
           <!--          <a href="index.html"><img src="img\logo\logo.png" alt="logo-image"></a>-->
         </div>
       </div>
@@ -273,8 +272,8 @@
       <div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">
         <div class="categorie-search-box">
           <form action="#">
-            <input type="text" name="search" placeholder="I’m shopping for..." />
-            <button><i class="lnr lnr-magnifier"></i></button>
+            <input type="text" name="search" placeholder="Tìm kiếm ..." />
+            <button routerLink="/product-client"><i class="lnr lnr-magnifier"></i></button>
           </form>
         </div>
       </div>
@@ -284,60 +283,13 @@
         <div class="cart-box mt-all-30">
           <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">
             <li>
-              <a href="#"
+              <a routerLink="/cart"
                 ><i class="lnr lnr-cart"></i><span class="my-cart"><span class="total-pro">2</span><span>cart</span></span></a
               >
-              <ul class="ht-dropdown cart-box-width">
-                <li>
-                  <!-- Cart Box Start -->
-                  <div class="single-cart-box">
-                    <div class="cart-img">
-                      <a href="#"><img src="img\products\1.jpg" alt="cart-image" /></a>
-                      <span class="pro-quantity">1X</span>
-                    </div>
-                    <div class="cart-content">
-                      <h6><a href="product.html">Printed Summer Red </a></h6>
-                      <span class="cart-price">27.45</span>
-                      <span>Size: S</span>
-                      <span>Color: Yellow</span>
-                    </div>
-                    <a class="del-icone" href="#"><i class="ion-close"></i></a>
-                  </div>
-                  <!-- Cart Box End -->
-                  <!-- Cart Box Start -->
-                  <div class="single-cart-box">
-                    <div class="cart-img">
-                      <a href="#"><img src="img\products\2.jpg" alt="cart-image" /></a>
-                      <span class="pro-quantity">1X</span>
-                    </div>
-                    <div class="cart-content">
-                      <h6><a href="product.html">Printed Round Neck</a></h6>
-                      <span class="cart-price">45.00</span>
-                      <span>Size: XL</span>
-                      <span>Color: Green</span>
-                    </div>
-                    <a class="del-icone" href="#"><i class="ion-close"></i></a>
-                  </div>
-                  <!-- Cart Box End -->
-                  <!-- Cart Footer Inner Start -->
-                  <div class="cart-footer">
-                    <ul class="price-content">
-                      <li>Subtotal <span>$57.95</span></li>
-                      <li>Shipping <span>$7.00</span></li>
-                      <li>Taxes <span>$0.00</span></li>
-                      <li>Total <span>$64.95</span></li>
-                    </ul>
-                    <div class="cart-actions text-center">
-                      <a class="cart-checkout" href="checkout.html">Checkout</a>
-                    </div>
-                  </div>
-                  <!-- Cart Footer Inner End -->
-                </li>
-              </ul>
             </li>
             <li>
               <a href="#"
-                ><i class="lnr lnr-heart"></i><span class="my-cart"><span>Wish</span><span>list (0)</span></span></a
+                ><i class="lnr lnr-heart"></i><span class="my-cart"><span>Yêu</span><span>Thích (0)</span></span></a
               >
             </li>
             <li>
@@ -352,36 +304,6 @@
         </div>
       </div>
       <!-- Cart Box End Here -->
-    </div>
-    <!-- Row End -->
-  </div>
-  <!-- Container End -->
-</div>
-
-<!--nav bar by anhlam-->
-<div class="header-bottom header-sticky">
-  <div class="container">
-    <div class="row align-items-center">
-      <!--      <jhi-sidebar-in-nav></jhi-sidebar-in-nav>-->
-      <div class="col-xl-9 col-lg-8 col-md-12 div-category">
-        <nav class="d-none d-lg-block mt-2">
-          <ul class="header-bottom-list d-flex">
-            <li class="active category-nav text-nowrap">
-              <a routerLink="/">Điện thoại</a>
-            </li>
-            <li class="category-nav text-nowrap">
-              <a href="shop.html">Laptop<i class="fa fa-angle-down"></i></a>
-            </li>
-            <li class="category-nav text-nowrap">
-              <a href="blog.html">Tablet</a>
-            </li>
-            <li class="category-nav text-nowrap">
-              <a href="#">Phụ kiện</a>
-            </li>
-            <li class="category-nav text-nowrap"><a href="about.html">Đồng hồ thông minh</a></li>
-          </ul>
-        </nav>
-      </div>
     </div>
     <!-- Row End -->
   </div>

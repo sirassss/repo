@@ -20,14 +20,19 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
       },
       {
+        path: 'product-client',
+        data: { pageTitle: 'sellphonealamApp.product.home.title' },
+        loadChildren: () => import('../product-for-client/product-for-client.module').then(m => m.ProductClientModule),
+      },
+      {
         path: 'order',
         data: { pageTitle: 'sellphonealamApp.order.home.title' },
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
       },
       {
-        path: 'order-details',
+        path: 'cart',
         data: { pageTitle: 'sellphonealamApp.orderDetails.home.title' },
-        loadChildren: () => import('./order-details/order-details.module').then(m => m.OrderDetailsModule),
+        loadChildren: () => import('../cart/order-details.module').then(m => m.OrderDetailsModule),
       },
       {
         path: 'manufactured',

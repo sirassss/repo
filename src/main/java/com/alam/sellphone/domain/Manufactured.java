@@ -1,6 +1,8 @@
 package com.alam.sellphone.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,6 +29,10 @@ public class Manufactured implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "manufacturerid")
+    private List<ProductDetails> productDetails = new ArrayList<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {

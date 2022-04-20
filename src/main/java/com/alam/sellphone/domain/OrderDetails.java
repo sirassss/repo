@@ -2,7 +2,10 @@ package com.alam.sellphone.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,6 +37,16 @@ public class OrderDetails implements Serializable {
 
     @Column(name = "total", precision = 21, scale = 2)
     private BigDecimal total;
+
+    @ManyToMany
+    @JoinTable(
+        name = "payment",
+        joinColumns = { @JoinColumn(name = "orderdetailid", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "bankid", referencedColumnName = "id") }
+    )
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    //    @BatchSize(size = 20)
+    private Set<Bank> banks = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {

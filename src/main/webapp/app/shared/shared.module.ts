@@ -24,6 +24,11 @@ import {
   TooltipModule,
 } from 'ngx-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { FlexModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -35,6 +40,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     TabsModule,
+    MatCardModule,
+    MatDividerModule,
+    MatIconModule,
+    FlexModule,
+    MatButtonModule,
   ],
   declarations: [
     FindLanguageFromKeyPipe,
@@ -62,6 +72,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    MatCardModule,
+    MatDividerModule,
+    MatIconModule,
+    FlexModule,
+    MatButtonModule,
   ],
   providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig],
 })

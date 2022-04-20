@@ -22,64 +22,14 @@ Main page styles
   }
 }
 
-//--------------------- slide
-#carouselExampleIndicators {
-  box-shadow: -9px 8px 14px 5px #35383a;
-}
+//---------------------- Custom by anh lam
 
-.w-100 {
-  height: 60vh;
-}
-
-@media screen and (min-width: 1200px) {
-}
-
-@media (min-width: 991.98px) {
-  h1 {
-    font-size: 90px;
+.div-category {
+  //margin-left: auto;
+  //margin-right: auto;
+  height: 40px;
+  margin: auto auto auto auto;
+  .category-nav {
+    padding-right: 15px;
   }
-}
-
-@media (max-width: 767.98px) {
-  .w-100 {
-    height: 50vh;
-  }
-}
-
-@media (max-width: 575.98px) {
-  h1 {
-    font-size: 20px;
-  }
-
-  h5,
-  p {
-    font-size: 12px;
-  }
-
-  .w-100 {
-    height: auto;
-  }
-}
-//----------------------Custom
-
-.flex-products {
-  display: flex;
-}
-
-.double-product {
-  padding-right: 10px;
-}
-
-.single-product-2 {
-  background: #fff none repeat scroll 0 0;
-  position: relative;
-  transition: all 0.5s ease-in-out 0s;
-  margin: 10px 0;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 35px;
-}
-
-.banner-site-box {
-  margin-top: auto;
-  margin-bottom: auto;
 }

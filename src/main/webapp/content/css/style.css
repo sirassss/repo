@@ -2352,7 +2352,7 @@ li.megamenu-img a {
 .breadcrumb-area .breadcrumb {
   background: #f8f8f8;
   margin-bottom: 0;
-  padding: 16px 15px;
+  padding: 6px 15px;
 }
 
 .breadcrumb li + li::before {

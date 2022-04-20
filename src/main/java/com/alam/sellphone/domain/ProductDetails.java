@@ -49,6 +49,10 @@ public class ProductDetails implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "productid")
+    private Product product;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -191,6 +195,14 @@ public class ProductDetails implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Product getProductl() {
+        return product;
+    }
+
+    public void setProductl(Product productl) {
+        this.product = productl;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
