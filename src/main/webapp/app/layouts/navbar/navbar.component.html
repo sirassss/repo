@@ -284,7 +284,10 @@
           <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">
             <li>
               <a routerLink="/cart"
-                ><i class="lnr lnr-cart"></i><span class="my-cart"><span class="total-pro">2</span><span>cart</span></span></a
+                ><i class="lnr lnr-cart"></i
+                ><span class="my-cart"
+                  ><span class="total-pro">{{ cart.orderDetails!.length }}</span></span
+                ></a
               >
             </li>
             <li>

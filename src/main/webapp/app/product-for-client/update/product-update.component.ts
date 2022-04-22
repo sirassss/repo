@@ -14,6 +14,7 @@ import { ProductService } from '../service/product.service';
 })
 export class ProductUpdateComponent implements OnInit {
   isSaving = false;
+  product!: IProduct;
 
   editForm = this.fb.group({
     id: [],
@@ -45,7 +46,7 @@ export class ProductUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const product = this.createFromForm();
+    const product = this.product;
     if (product.id !== undefined) {
       this.subscribeToSaveResponse(this.productService.update(product));
     } else {
@@ -86,26 +87,7 @@ export class ProductUpdateComponent implements OnInit {
       modifiedDate: product.modifiedDate,
       createdUser: product.createdUser,
       modifiedUser: product.modifiedUser,
-      status: product.status,
+      rate: product.rate,
     });
-  }
-
-  protected createFromForm(): IProduct {
-    return {
-      ...new Product(),
-      id: this.editForm.get(['id'])!.value,
-      code: this.editForm.get(['code'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      quantity: this.editForm.get(['quantity'])!.value,
-      unitPrice: this.editForm.get(['unitPrice'])!.value,
-      installment: this.editForm.get(['installment'])!.value,
-      accompanyingProducts: this.editForm.get(['accompanyingProducts'])!.value,
-      warranty: this.editForm.get(['warranty'])!.value,
-      createdDate: this.editForm.get(['createdDate'])!.value,
-      modifiedDate: this.editForm.get(['modifiedDate'])!.value,
-      createdUser: this.editForm.get(['createdUser'])!.value,
-      modifiedUser: this.editForm.get(['modifiedUser'])!.value,
-      status: this.editForm.get(['status'])!.value,
-    };
   }
 }

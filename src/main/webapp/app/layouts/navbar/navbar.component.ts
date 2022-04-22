@@ -10,13 +10,17 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EventManager } from '../../core/util/event-manager.service';
+import { OrderService } from '../../entities/order/service/order.service';
+import { IOrder } from '../../entities/order/order.model';
+import { BaseComponent } from '../../shared/base-component/base.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent extends BaseComponent implements OnInit {
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
@@ -25,6 +29,8 @@ export class NavbarComponent implements OnInit {
   account: Account | null = null;
 
   varSearch: any;
+  cart!: IOrder;
+  eventSubscriber: Subscription | any;
 
   constructor(
     private loginService: LoginService,
@@ -33,8 +39,10 @@ export class NavbarComponent implements OnInit {
     private accountService: AccountService,
     private profileService: ProfileService,
     private router: Router,
-    private eventManager: EventManager
+    private eventManager: EventManager,
+    private orderService: OrderService
   ) {
+    super();
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
     }
@@ -46,6 +54,13 @@ export class NavbarComponent implements OnInit {
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
     this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    this.cart = { status: false, orderDetails: [] };
+    this.orderService.findOderUnpaid().subscribe(res => {
+      if (res && res.body) {
+        this.cart = res.body;
+      }
+    });
+    this.registerChangeCart();
   }
 
   changeLanguage(languageKey: string): void {
@@ -76,5 +91,16 @@ export class NavbarComponent implements OnInit {
       name: 'varSearch',
       content: { data: this.varSearch },
     });
+  }
+
+  registerChangeCart(): void {
+    this.eventSubscriber = this.eventManager.subscribe('addCartSuccess', res => {
+      this.orderService.findOderUnpaid().subscribe(res => {
+        if (res && res.body) {
+          this.cart = res.body;
+        }
+      });
+    });
+    this.eventSubscribers.push(this.eventSubscriber);
   }
 }

@@ -14,8 +14,8 @@ export interface IProduct {
   modifiedDate?: dayjs.Dayjs | null;
   createdUser?: string | null;
   modifiedUser?: string | null;
-  status?: boolean | null;
-  productDetail?: IProductDetails | null;
+  rate?: number | null;
+  productDetails?: IProductDetails | null;
 }
 
 export class Product implements IProduct {
@@ -32,10 +32,9 @@ export class Product implements IProduct {
     public modifiedDate?: dayjs.Dayjs | null,
     public createdUser?: string | null,
     public modifiedUser?: string | null,
-    public status?: boolean | null
+    public rate?: number | null
   ) {
     this.installment = this.installment ?? false;
-    this.status = this.status ?? false;
   }
 }
 

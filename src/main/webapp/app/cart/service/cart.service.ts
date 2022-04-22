@@ -11,7 +11,7 @@ export type EntityResponseType = HttpResponse<IOrderDetails>;
 export type EntityArrayResponseType = HttpResponse<IOrderDetails[]>;
 
 @Injectable({ providedIn: 'root' })
-export class OrderDetailsService {
+export class CartService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/order-details');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}

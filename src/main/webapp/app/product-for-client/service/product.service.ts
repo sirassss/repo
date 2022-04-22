@@ -9,13 +9,14 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IProduct, getProductIdentifier } from '../product.model';
+import { IOrderDetails } from '../../cart/order-details.model';
 
 export type EntityResponseType = HttpResponse<IProduct>;
 export type EntityArrayResponseType = HttpResponse<IProduct[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products-for-client');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 

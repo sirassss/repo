@@ -5,11 +5,11 @@ import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 import { IOrderDetails, OrderDetails } from '../order-details.model';
-import { OrderDetailsService } from '../service/order-details.service';
+import { CartService } from '../service/cart.service';
 
 @Injectable({ providedIn: 'root' })
 export class OrderDetailsRoutingResolveService implements Resolve<IOrderDetails> {
-  constructor(protected service: OrderDetailsService, protected router: Router) {}
+  constructor(protected service: CartService, protected router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<IOrderDetails> | Observable<never> {
     const id = route.params['id'];

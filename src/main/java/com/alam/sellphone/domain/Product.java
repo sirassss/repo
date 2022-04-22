@@ -58,8 +58,8 @@ public class Product implements Serializable {
     @Column(name = "modifieduser")
     private String modifiedUser;
 
-    @Column(name = "status")
-    private Boolean status;
+    @Column(name = "rate")
+    private Integer rate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "productid")
@@ -230,19 +230,6 @@ public class Product implements Serializable {
         this.modifiedUser = modifiedUser;
     }
 
-    public Boolean getStatus() {
-        return this.status;
-    }
-
-    public Product status(Boolean status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
@@ -302,7 +289,14 @@ public class Product implements Serializable {
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdUser='" + getCreatedUser() + "'" +
             ", modifiedUser='" + getModifiedUser() + "'" +
-            ", status='" + getStatus() + "'" +
             "}";
+    }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
     }
 }

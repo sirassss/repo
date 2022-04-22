@@ -13,7 +13,6 @@ const productRoute: Routes = [
     data: {
       defaultSort: 'id,asc',
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: 'new',
@@ -21,7 +20,6 @@ const productRoute: Routes = [
     resolve: {
       product: ProductRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/edit',
@@ -29,7 +27,6 @@ const productRoute: Routes = [
     resolve: {
       product: ProductRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
 ];
 

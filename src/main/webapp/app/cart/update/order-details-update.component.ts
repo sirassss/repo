@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IOrderDetails, OrderDetails } from '../order-details.model';
-import { OrderDetailsService } from '../service/order-details.service';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'jhi-order-details-update',
@@ -24,7 +24,7 @@ export class OrderDetailsUpdateComponent implements OnInit {
     total: [],
   });
 
-  constructor(protected orderDetailsService: OrderDetailsService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(protected orderDetailsService: CartService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ orderDetails }) => {

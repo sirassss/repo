@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { IProduct } from '../product.model';
 
@@ -11,6 +11,10 @@ import { ProductService } from '../service/product.service';
 import { ProductClientModule } from '../product-for-client.module';
 import { EventManager } from '../../core/util/event-manager.service';
 import { BaseComponent } from '../../shared/base-component/base.component';
+import { AccountService } from '../../core/auth/account.service';
+import { UserRouteAccessService } from '../../core/auth/user-route-access.service';
+import { map } from 'rxjs/operators';
+import { ModaCartComponent } from '../../shared/modalCart/moda-cart';
 
 @Component({
   selector: 'jhi-product-for-client',
@@ -28,15 +32,19 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   ngbPaginationPage = 1;
 
   eventSubscriber: Subscription | any;
+  modalRef!: NgbModalRef;
 
   varSearch: any;
+  productInCart!: IProduct;
 
   constructor(
     protected productService: ProductService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal,
-    private eventManager: EventManager
+    private eventManager: EventManager,
+    private principal: AccountService,
+    private login: UserRouteAccessService
   ) {
     super();
   }
@@ -78,8 +86,19 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   addToCart(product: IProduct): void {
-    this.loadPage();
+    this.principal.identity().subscribe(account => {
+      if (account) {
+        this.account = account;
+        this.modalRef = this.modalService.open(ModaCartComponent, { backdrop: 'static', windowClass: 'width-60' });
+        product.quantity = 1;
+        this.modalRef.componentInstance.productInCart = product;
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
+
+  fillToCart(): void {}
 
   registerVarSearch(): void {
     this.eventSubscriber = this.eventManager.subscribe('varSearch', res => {
@@ -134,5 +153,9 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  star(rate: any) {
+    return new Array(rate);
   }
 }

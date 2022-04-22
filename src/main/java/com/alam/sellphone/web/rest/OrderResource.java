@@ -174,4 +174,10 @@ public class OrderResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/orders/find-oder-unpaid")
+    public ResponseEntity<Order> getOrderUnpaid() {
+        Order order = orderService.getOrderUnpaid();
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
 }

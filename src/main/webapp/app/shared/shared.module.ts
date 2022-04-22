@@ -29,6 +29,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { ModaCartComponent } from './modalCart/moda-cart';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -39,6 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
     ModalModule,
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
+    ToastrModule.forRoot(),
     TabsModule,
     MatCardModule,
     MatDividerModule,
@@ -58,6 +61,7 @@ import { MatButtonModule } from '@angular/material/button';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    ModaCartComponent,
   ],
   exports: [
     SharedLibsModule,
@@ -77,6 +81,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     FlexModule,
     MatButtonModule,
+    TooltipModule,
+    ModaCartComponent,
+    ToastrModule,
   ],
   providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig],
 })

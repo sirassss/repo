@@ -1,3 +1,5 @@
+import { IProduct } from '../product-for-client/product.model';
+
 export interface IOrderDetails {
   id?: number;
   productID?: number | null;
@@ -5,6 +7,7 @@ export interface IOrderDetails {
   quantity?: number | null;
   unitPrice?: number | null;
   total?: number | null;
+  product?: IProduct | null;
 }
 
 export class OrderDetails implements IOrderDetails {
@@ -14,7 +17,8 @@ export class OrderDetails implements IOrderDetails {
     public orderID?: number | null,
     public quantity?: number | null,
     public unitPrice?: number | null,
-    public total?: number | null
+    public total?: number | null,
+    public product?: IProduct | null
   ) {}
 }
 

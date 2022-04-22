@@ -95,4 +95,10 @@ export class OrderService {
     }
     return res;
   }
+
+  findOderUnpaid(): Observable<EntityResponseType> {
+    return this.http
+      .get<IOrder>(this.resourceUrl + '/find-oder-unpaid', { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
 }

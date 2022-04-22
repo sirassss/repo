@@ -1,8 +1,11 @@
 package com.alam.sellphone.service.impl;
 
 import com.alam.sellphone.domain.Order;
+import com.alam.sellphone.domain.User;
 import com.alam.sellphone.repository.OrderRepository;
 import com.alam.sellphone.service.OrderService;
+import com.alam.sellphone.service.UserService;
+import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,14 +25,22 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    private final UserService userService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, UserService userService) {
         this.orderRepository = orderRepository;
+        this.userService = userService;
     }
 
     @Override
     public Order save(Order order) {
         log.debug("Request to save Order : {}", order);
-        return orderRepository.save(order);
+        Optional<User> user = userService.getUserWithAuthorities();
+        if (user.isPresent()) {
+            order.setUserID(user.get().getId());
+            return orderRepository.save(order);
+        }
+        throw new BadRequestAlertException("", "", "");
     }
 
     @Override
@@ -80,5 +91,11 @@ public class OrderServiceImpl implements OrderService {
     public void delete(Long id) {
         log.debug("Request to delete Order : {}", id);
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public Order getOrderUnpaid() {
+        Optional<User> user = userService.getUserWithAuthorities();
+        return orderRepository.getOrderUnpaid(user.get().getId()).get();
     }
 }

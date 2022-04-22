@@ -252,3 +252,25 @@ body {
 .black-text {
   color: #000000de !important;
 }
+
+.margin-5 {
+  padding-top: 5%;
+}
+
+.width-80 .modal-dialog {
+  width: 80%;
+  min-width: 80%;
+}
+
+.width-60 .modal-dialog {
+  width: 60%;
+  min-width: 60%;
+}
+
+.width-40 .modal-dialog {
+  width: 51%;
+  min-width: 51%;
+}
+
+.height-90 {
+}

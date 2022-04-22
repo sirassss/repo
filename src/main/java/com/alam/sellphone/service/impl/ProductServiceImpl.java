@@ -3,6 +3,7 @@ package com.alam.sellphone.service.impl;
 import com.alam.sellphone.domain.Product;
 import com.alam.sellphone.repository.ProductRepository;
 import com.alam.sellphone.service.ProductService;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,8 +74,8 @@ public class ProductServiceImpl implements ProductService {
                     if (product.getModifiedUser() != null) {
                         existingProduct.setModifiedUser(product.getModifiedUser());
                     }
-                    if (product.getStatus() != null) {
-                        existingProduct.setStatus(product.getStatus());
+                    if (product.getRate() != null) {
+                        existingProduct.setRate(product.getRate());
                     }
 
                     return existingProduct;
@@ -101,5 +102,10 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> getAllProductsByID(List<Long> productID) {
+        return productRepository.getAllProductsByID(productID);
     }
 }

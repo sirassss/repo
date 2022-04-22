@@ -98,4 +98,9 @@ export class ProductService {
     }
     return res;
   }
+
+  findListProductById(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProduct[]>(this.resourceUrl + '/find-list-product-by-id', { params: options, observe: 'response' });
+  }
 }
