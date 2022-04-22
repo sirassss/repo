@@ -29,8 +29,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { ModaCartComponent } from './modalCart/moda-cart';
+import { ModaCartComponent } from './modal/modalCart/moda-cart';
 import { ToastrModule } from 'ngx-toastr';
+import { ModalVoucherComponent } from './modal/modalVoucher/modal-voucher';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { ToastrModule } from 'ngx-toastr';
     SortDirective,
     ItemCountComponent,
     ModaCartComponent,
+    ModalVoucherComponent,
   ],
   exports: [
     SharedLibsModule,
@@ -84,6 +86,7 @@ import { ToastrModule } from 'ngx-toastr';
     TooltipModule,
     ModaCartComponent,
     ToastrModule,
+    ModalVoucherComponent,
   ],
   providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig],
 })

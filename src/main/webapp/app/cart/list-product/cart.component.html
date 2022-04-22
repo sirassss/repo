@@ -42,6 +42,7 @@
             <div class="buttons-cart">
               <input type="submit" (click)="updateCart()" value="Sửa giỏ hàng" />
               <a routerLink="/">Tiếp tục mua hàng</a>
+              <button class="btn btn-outline-danger" type="button" (click)="selectVoucher()">Chọn mã giảm giá</button>
             </div>
           </div>
           <!-- Cart Button Start -->
@@ -69,7 +70,7 @@
                 </tbody>
               </table>
               <div class="wc-proceed-to-checkout">
-                <a routerLink="/">Thanh toán</a>
+                <a (click)="checkOut()" style="color: #ffff">Thanh toán</a>
               </div>
             </div>
           </div>

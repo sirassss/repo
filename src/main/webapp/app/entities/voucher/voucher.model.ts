@@ -4,7 +4,7 @@ export interface IVoucher {
   id?: number;
   voucherCode?: string | null;
   productID?: number | null;
-  promotionPrice?: number | null;
+  promotionRate?: number | null;
   dateIssue?: dayjs.Dayjs | null;
   status?: number | null;
 }
@@ -14,7 +14,7 @@ export class Voucher implements IVoucher {
     public id?: number,
     public voucherCode?: string | null,
     public productID?: number | null,
-    public promotionPrice?: number | null,
+    public promotionRate?: number | null,
     public dateIssue?: dayjs.Dayjs | null,
     public status?: number | null
   ) {}

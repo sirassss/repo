@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { OrderDetailsUpdateComponent } from '../update/order-details-update.component';
+import { CheckOutComponent } from '../update/check-out.component';
 import { OrderDetailsRoutingResolveService } from './order-details-routing-resolve.service';
 import { CartComponent } from '../list-product/cart.component';
 
@@ -14,7 +14,7 @@ const orderDetailsRoute: Routes = [
   },
   {
     path: 'checkout',
-    component: OrderDetailsUpdateComponent,
+    component: CheckOutComponent,
     resolve: {
       orderDetails: OrderDetailsRoutingResolveService,
     },
@@ -22,7 +22,7 @@ const orderDetailsRoute: Routes = [
   },
   {
     path: ':id/edit',
-    component: OrderDetailsUpdateComponent,
+    component: CheckOutComponent,
     resolve: {
       orderDetails: OrderDetailsRoutingResolveService,
     },

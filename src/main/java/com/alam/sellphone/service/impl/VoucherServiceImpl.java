@@ -46,8 +46,8 @@ public class VoucherServiceImpl implements VoucherService {
                     if (voucher.getProductID() != null) {
                         existingVoucher.setProductID(voucher.getProductID());
                     }
-                    if (voucher.getPromotionPrice() != null) {
-                        existingVoucher.setPromotionPrice(voucher.getPromotionPrice());
+                    if (voucher.getPromotionRate() != null) {
+                        existingVoucher.setPromotionRate(voucher.getPromotionRate());
                     }
                     if (voucher.getDateIssue() != null) {
                         existingVoucher.setDateIssue(voucher.getDateIssue());

@@ -14,7 +14,7 @@ import { BaseComponent } from '../../shared/base-component/base.component';
 import { AccountService } from '../../core/auth/account.service';
 import { UserRouteAccessService } from '../../core/auth/user-route-access.service';
 import { map } from 'rxjs/operators';
-import { ModaCartComponent } from '../../shared/modalCart/moda-cart';
+import { ModaCartComponent } from '../../shared/modal/modalCart/moda-cart';
 
 @Component({
   selector: 'jhi-product-for-client',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { IOrderDetails } from '../order-details.model';
 
@@ -17,6 +17,8 @@ import { finalize } from 'rxjs/operators';
 import { EventManager } from '../../core/util/event-manager.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { ModaCartComponent } from '../../shared/modal/modalCart/moda-cart';
+import { ModalVoucherComponent } from '../../shared/modal/modalVoucher/modal-voucher';
 
 @Component({
   selector: 'jhi-cart-checkout',
@@ -26,14 +28,9 @@ export class CartComponent implements OnInit {
   cart!: IOrder;
   orderDetails!: IOrderDetails[];
   isLoading = false;
-  totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
-  page?: number;
-  predicate!: string;
-  ascending!: boolean;
-  ngbPaginationPage = 1;
   listProducts!: IProduct[];
   private isSaving = false;
+  modalRef!: NgbModalRef;
 
   constructor(
     protected orderDetailsService: CartService,
@@ -106,5 +103,13 @@ export class CartComponent implements OnInit {
       total += n.total!;
     });
     return total;
+  }
+
+  checkOut() {
+    this.router.navigate(['./cart/checkout']);
+  }
+
+  selectVoucher() {
+    this.modalRef = this.modalService.open(ModalVoucherComponent, { backdrop: 'static', windowClass: 'width-60' });
   }
 }

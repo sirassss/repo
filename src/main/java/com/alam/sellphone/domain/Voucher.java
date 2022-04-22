@@ -27,14 +27,17 @@ public class Voucher implements Serializable {
     @Column(name = "productid")
     private Long productID;
 
-    @Column(name = "promotionprice", precision = 21, scale = 2)
-    private BigDecimal promotionPrice;
+    @Column(name = "promotionrate", precision = 21, scale = 2)
+    private BigDecimal promotionRate;
 
     @Column(name = "dateissue")
     private LocalDate dateIssue;
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "userid")
+    private Long userID;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -74,19 +77,6 @@ public class Voucher implements Serializable {
 
     public void setProductID(Long productID) {
         this.productID = productID;
-    }
-
-    public BigDecimal getPromotionPrice() {
-        return this.promotionPrice;
-    }
-
-    public Voucher promotionPrice(BigDecimal promotionPrice) {
-        this.promotionPrice = promotionPrice;
-        return this;
-    }
-
-    public void setPromotionPrice(BigDecimal promotionPrice) {
-        this.promotionPrice = promotionPrice;
     }
 
     public LocalDate getDateIssue() {
@@ -141,9 +131,25 @@ public class Voucher implements Serializable {
             "id=" + getId() +
             ", voucherCode='" + getVoucherCode() + "'" +
             ", productID=" + getProductID() +
-            ", promotionPrice=" + getPromotionPrice() +
+            ", promotionPrice=" + getPromotionRate() +
             ", dateIssue='" + getDateIssue() + "'" +
             ", status=" + getStatus() +
             "}";
+    }
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public BigDecimal getPromotionRate() {
+        return promotionRate;
+    }
+
+    public void setPromotionRate(BigDecimal promotionRate) {
+        this.promotionRate = promotionRate;
     }
 }

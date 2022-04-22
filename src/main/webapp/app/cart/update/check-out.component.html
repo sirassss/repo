@@ -1,0 +1,135 @@
+<div class="checkout-area pb-100 pt-15 pb-sm-60">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="checkbox-form mb-sm-40">
+          <h3>Thông tin hóa đơn</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="country-select clearfix mb-30">
+                <label>Thành phố <span class="required">*</span></label>
+                <select class="wide" [(ngModel)]="city" (ngModelChange)="changeAddress()">
+                  <option [ngValue]="'Hà nội'">Hà nội</option>
+                  <option [ngValue]="'Hồ Chí Minh'">Hồ Chí Minh</option>
+                  <option [ngValue]="'Hải Dương'">Hải Dương</option>
+                  <option [ngValue]="'Đà Nẵng'">Đà Nẵng</option>
+                  <option [ngValue]="'Hải Phòng'">Hải Phòng</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="checkout-form-list mb-sm-30">
+                <label>Họ <span class="required">*</span></label>
+                <input type="text" placeholder="" [(ngModel)]="user.firstName" readonly />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="checkout-form-list mb-30">
+                <label>Tên <span class="required">*</span></label>
+                <input type="text" placeholder="" [(ngModel)]="user.lastName" readonly />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="checkout-form-list mb-30">
+                <label>Địa chỉ <span class="required">*</span></label>
+                <input type="text" placeholder="Địa chỉ" [(ngModel)]="address" (ngModelChange)="changeAddress()" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="checkout-form-list mb-30">
+                <label>Email Address <span class="required">*</span></label>
+                <input type="email" placeholder="" [(ngModel)]="user.email" readonly />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="checkout-form-list mb-30">
+                <label>Phone <span class="required">*</span></label>
+                <input type="text" placeholder="Phone" [(ngModel)]="cart.orderPhone" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="checkout-form-list create-acc mb-30">
+                <input id="cbox" type="checkbox" />
+                <label>Create an account?</label>
+              </div>
+              <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
+                <p class="mb-10">
+                  Create an account by entering the information below. If you are a returning customer please login at the top of the page.
+                </p>
+                <label>Account password <span class="required">*</span></label>
+                <input type="password" placeholder="password" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="your-order">
+          <h3>Giỏ hàng của bạn</h3>
+          <div class="your-order-table table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th class="product-name">Sản phẩm</th>
+                  <th class="product-total">Tổng tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="cart_item" *ngFor="let product of orderDetails; let i = index">
+                  <td class="product-name">
+                    {{ product.product!.name }}<span class="product-quantity"> × {{ product.quantity }}</span>
+                  </td>
+                  <td class="product-total">
+                    <span class="amount">{{ product.unitPrice | currency: 'VND':true }}</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="cart-subtotal">
+                  <th>Tổng tiền</th>
+                  <td>
+                    <span class="amount">{{ getTotalAmount() | currency: 'VND':true }}</span>
+                  </td>
+                </tr>
+                <tr class="order-total">
+                  <th>Tổng thanh toán</th>
+                  <td>
+                    <span class="total amount">{{ getTotalAmount() | currency: 'VND':true }}</span>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="payment-method">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingone">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      data-toggle="collapse"
+                      data-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      Direct Bank Transfer
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingone" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>
+                      Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t
+                      be shipped until the funds have cleared in our account.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
