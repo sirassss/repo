@@ -5,6 +5,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { CheckOutComponent } from '../update/check-out.component';
 import { OrderDetailsRoutingResolveService } from './order-details-routing-resolve.service';
 import { CartComponent } from '../list-product/cart.component';
+import { CanDeactiveGuardService } from '../../shared/can-deactive-guard/can-deactive-guard.service';
 
 const orderDetailsRoute: Routes = [
   {

@@ -26,10 +26,12 @@
                 <td class="product-price">
                   <span class="amount">{{ product.unitPrice | currency: 'VND':true }}</span>
                 </td>
-                <td class="product-quantity"><input type="number" [(ngModel)]="product.quantity" /></td>
+                <td class="product-quantity">
+                  <input type="number" min="1" [(ngModel)]="product.quantity" (ngModelChange)="changeQuantity()" />
+                </td>
                 <td class="product-subtotal">{{ product.total | currency: 'VND':true }}</td>
                 <td class="product-remove">
-                  <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+                  <a (click)="deleteInCart(i)"><i class="fa fa-times" aria-hidden="true"></i></a>
                 </td>
               </tr>
             </tbody>
@@ -40,9 +42,7 @@
           <!-- Cart Button Start -->
           <div class="col-md-8 col-sm-12">
             <div class="buttons-cart">
-              <input type="submit" (click)="updateCart()" value="Sửa giỏ hàng" />
               <a routerLink="/">Tiếp tục mua hàng</a>
-              <button class="btn btn-outline-danger" type="button" (click)="selectVoucher()">Chọn mã giảm giá</button>
             </div>
           </div>
           <!-- Cart Button Start -->

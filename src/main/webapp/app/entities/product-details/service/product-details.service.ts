@@ -46,26 +46,4 @@ export class ProductDetailsService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-
-  addProductDetailsToCollectionIfMissing(
-    productDetailsCollection: IProductDetails[],
-    ...productDetailsToCheck: (IProductDetails | null | undefined)[]
-  ): IProductDetails[] {
-    const productDetails: IProductDetails[] = productDetailsToCheck.filter(isPresent);
-    if (productDetails.length > 0) {
-      const productDetailsCollectionIdentifiers = productDetailsCollection.map(
-        productDetailsItem => getProductDetailsIdentifier(productDetailsItem)!
-      );
-      const productDetailsToAdd = productDetails.filter(productDetailsItem => {
-        const productDetailsIdentifier = getProductDetailsIdentifier(productDetailsItem);
-        if (productDetailsIdentifier == null || productDetailsCollectionIdentifiers.includes(productDetailsIdentifier)) {
-          return false;
-        }
-        productDetailsCollectionIdentifiers.push(productDetailsIdentifier);
-        return true;
-      });
-      return [...productDetailsToAdd, ...productDetailsCollection];
-    }
-    return productDetailsCollection;
-  }
 }

@@ -40,4 +40,6 @@ export abstract class BaseComponent implements OnDestroy {
       });
     }
   }
+
+  canDeactive(): any {}
 }

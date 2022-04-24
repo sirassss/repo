@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { VoucherComponent } from '../list/voucher.component';
-import { VoucherDetailComponent } from '../detail/voucher-detail.component';
 import { VoucherUpdateComponent } from '../update/voucher-update.component';
 import { VoucherRoutingResolveService } from './voucher-routing-resolve.service';
 
@@ -13,14 +12,6 @@ const voucherRoute: Routes = [
     component: VoucherComponent,
     data: {
       defaultSort: 'id,asc',
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/view',
-    component: VoucherDetailComponent,
-    resolve: {
-      voucher: VoucherRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },

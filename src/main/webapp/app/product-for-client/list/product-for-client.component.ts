@@ -73,6 +73,8 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.products = [];
+    // this.products
     this.handleNavigation();
     this.registerVarSearch();
   }
@@ -148,6 +150,10 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
       });
     }
     this.products = data ?? [];
+    this.products.forEach(n => {
+      n.isPromotion = n.vouchers!.length > 0;
+      n.promotionPrice = n.unitPrice! - (n.unitPrice! * (n.vouchers![0] ? n.vouchers![0].promotionRate! : 0)) / 100;
+    });
     this.ngbPaginationPage = this.page;
   }
 

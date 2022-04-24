@@ -16,10 +16,15 @@
             <a href="#">{{ product.name }}</a>
           </h4>
           <p>
-            <span class="price">{{ product.unitPrice | currency: 'VND':true }}</span>
-            <del class="prev-price">{{ product.unitPrice | currency: 'VND':true }}</del>
+            <span class="price" *ngIf="!product.isPromotion; else notpromotion">{{ product.unitPrice | currency: 'VND':true }}</span>
+            <ng-template #notpromotion>
+              <span class="price" *ngIf="product.isPromotion">{{ product.promotionPrice | currency: 'VND':true }}</span>
+              <del class="prev-price" *ngIf="product.isPromotion">{{ product.unitPrice | currency: 'VND':true }}</del>
+            </ng-template>
           </p>
-          <div class="label-product l_sale">15<span class="symbol-percent">%</span></div>
+          <div class="label-product l_sale" *ngIf="product.isPromotion">
+            {{ product.vouchers![0].promotionRate }}<span class="symbol-percent">%</span>
+          </div>
         </div>
         <div class="pro-actions">
           <div class="actions-primary">
@@ -34,80 +39,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #addToCartModal let-modal="dismiss">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="modal('Close')">&times;</button>
-  </div>
-  <div class="main-product-thumbnail ptb-50 ptb-sm-60">
-    <div class="container">
-      <div class="row">
-        <!-- Main Thumbnail Image Start -->
-        <div class="col-lg-5 mb-all-40">
-          <!-- Thumbnail Large Image start -->
-          <div class="tab-content">
-            <div id="thumb1" class="tab-pane fade show active">
-              <a data-fancybox="images" href="./content/img/products/35.jpg"
-                ><img src="./content/img/products/35.jpg" alt="product-view"
-              /></a>
-            </div>
-          </div>
-          <!-- Thumbnail image end -->
-        </div>
-        <!-- Main Thumbnail Image End -->
-        <!-- Thumbnail Description Start -->
-        <div class="col-lg-7">
-          <div class="thubnail-desc fix">
-            <h3 class="product-header">{{ productInCart.name }}</h3>
-            <div class="rating-summary fix mtb-10">
-              <div class="rating">
-                <i class="fa fa-star" *ngFor="let start of star(productInCart.rate)"></i>
-                <i class="fa fa-star-o" *ngFor="let start of star(5 - (productInCart.rate ? productInCart.rate : 0))"></i>
-              </div>
-              <div class="rating-feedback">
-                <a href="#">(1 review)</a>
-                <a href="#">add to your review</a>
-              </div>
-            </div>
-            <div class="pro-price mtb-30">
-              <p class="d-flex align-items-center">
-                <span class="prev-price">{{ productInCart.unitPrice | currency: 'VND':true }}</span>
-                <span class="price">{{ productInCart.unitPrice | currency: 'VND':true }}</span
-                ><span class="saving-price">save 8%</span>
-              </p>
-            </div>
-            <p class="mb-20 pro-desc-details">
-              {{ productInCart.productDetails!.description }}
-            </p>
-            <div class="product-size mb-20 clearfix d-flex">
-              <div>
-                <label>Màu</label>
-                <select class="">
-                  <option>Hồng</option>
-                  <option>Đen</option>
-                  <option>Trắng</option>
-                </select>
-              </div>
-              <div class="ml-30">
-                <label for="quantity">Số lượng</label>
-                <input class="quantity mr-15" id="quantity" type="number" min="1" [(ngModel)]="productInCart.quantity" />
-              </div>
-            </div>
-            <div class="box-quantity d-flex hot-product2">
-              <div class="pro-actions">
-                <div class="actions-primary">
-                  <a tooltip="Thêm vào giỏ hàng" (click)="fillToCart()"> + Thêm vào giỏ hàng</a>
-                </div>
-                <div class="actions-secondary">
-                  <a tooltip="Thêm vào yêu thích"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Thumbnail Description End -->
-      </div>
-    </div>
-    <!-- Container End -->
-  </div>
-</ng-template>

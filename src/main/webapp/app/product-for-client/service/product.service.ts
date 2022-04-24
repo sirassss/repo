@@ -58,23 +58,6 @@ export class ProductService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addProductToCollectionIfMissing(productCollection: IProduct[], ...productsToCheck: (IProduct | null | undefined)[]): IProduct[] {
-    const products: IProduct[] = productsToCheck.filter(isPresent);
-    if (products.length > 0) {
-      const productCollectionIdentifiers = productCollection.map(productItem => getProductIdentifier(productItem)!);
-      const productsToAdd = products.filter(productItem => {
-        const productIdentifier = getProductIdentifier(productItem);
-        if (productIdentifier == null || productCollectionIdentifiers.includes(productIdentifier)) {
-          return false;
-        }
-        productCollectionIdentifiers.push(productIdentifier);
-        return true;
-      });
-      return [...productsToAdd, ...productCollection];
-    }
-    return productCollection;
-  }
-
   protected convertDateFromClient(product: IProduct): IProduct {
     return Object.assign({}, product, {
       createdDate: product.createdDate?.isValid() ? product.createdDate.format(DATE_FORMAT) : undefined,

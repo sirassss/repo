@@ -1,6 +1,7 @@
 package com.alam.sellphone.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,12 @@ public class Order implements Serializable {
 
     @Column(name = "status")
     private Boolean status;
+
+    @Column(name = "voucherid")
+    private Long voucherID;
+
+    @Column(name = "totalamount", precision = 21, scale = 2)
+    private BigDecimal totalAmount;
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "orderid")
@@ -158,5 +165,21 @@ public class Order implements Serializable {
             ", orderPhone='" + getOrderPhone() + "'" +
             ", status='" + getStatus() + "'" +
             "}";
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Long getVoucherID() {
+        return voucherID;
+    }
+
+    public void setVoucherID(Long voucherID) {
+        this.voucherID = voucherID;
     }
 }

@@ -20,79 +20,27 @@ export class VoucherService {
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(voucher: IVoucher): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(voucher);
-    return this.http
-      .post<IVoucher>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.post<IVoucher>(this.resourceUrl, voucher, { observe: 'response' });
   }
 
   update(voucher: IVoucher): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(voucher);
-    return this.http
-      .put<IVoucher>(`${this.resourceUrl}/${getVoucherIdentifier(voucher) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.put<IVoucher>(`${this.resourceUrl}/${getVoucherIdentifier(voucher) as number}`, voucher, { observe: 'response' });
   }
 
   partialUpdate(voucher: IVoucher): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(voucher);
-    return this.http
-      .patch<IVoucher>(`${this.resourceUrl}/${getVoucherIdentifier(voucher) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.patch<IVoucher>(`${this.resourceUrl}/${getVoucherIdentifier(voucher) as number}`, voucher, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http
-      .get<IVoucher>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.get<IVoucher>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http
-      .get<IVoucher[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    return this.http.get<IVoucher[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  addVoucherToCollectionIfMissing(voucherCollection: IVoucher[], ...vouchersToCheck: (IVoucher | null | undefined)[]): IVoucher[] {
-    const vouchers: IVoucher[] = vouchersToCheck.filter(isPresent);
-    if (vouchers.length > 0) {
-      const voucherCollectionIdentifiers = voucherCollection.map(voucherItem => getVoucherIdentifier(voucherItem)!);
-      const vouchersToAdd = vouchers.filter(voucherItem => {
-        const voucherIdentifier = getVoucherIdentifier(voucherItem);
-        if (voucherIdentifier == null || voucherCollectionIdentifiers.includes(voucherIdentifier)) {
-          return false;
-        }
-        voucherCollectionIdentifiers.push(voucherIdentifier);
-        return true;
-      });
-      return [...vouchersToAdd, ...voucherCollection];
-    }
-    return voucherCollection;
-  }
-
-  protected convertDateFromClient(voucher: IVoucher): IVoucher {
-    return Object.assign({}, voucher, {
-      dateIssue: voucher.dateIssue?.isValid() ? voucher.dateIssue.format(DATE_FORMAT) : undefined,
-    });
-  }
-
-  protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-    if (res.body) {
-      res.body.dateIssue = res.body.dateIssue ? dayjs(res.body.dateIssue) : undefined;
-    }
-    return res;
-  }
-
-  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    if (res.body) {
-      res.body.forEach((voucher: IVoucher) => {
-        voucher.dateIssue = voucher.dateIssue ? dayjs(voucher.dateIssue) : undefined;
-      });
-    }
-    return res;
   }
 }

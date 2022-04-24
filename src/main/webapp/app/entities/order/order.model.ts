@@ -8,7 +8,9 @@ export interface IOrder {
   orderAddress?: string | null;
   orderPhone?: string | null;
   status?: boolean | null;
+  voucherID?: number | null;
   orderDetails?: IOrderDetails[] | null;
+  totalAmount?: number | null;
 }
 
 export class Order implements IOrder {
@@ -19,7 +21,9 @@ export class Order implements IOrder {
     public orderAddress?: string | null,
     public orderPhone?: string | null,
     public status?: boolean | null,
-    public orderDetails?: IOrderDetails[] | null
+    public voucherID?: number | null,
+    public orderDetails?: IOrderDetails[] | null,
+    public totalAmount?: number | null
   ) {
     this.status = this.status ?? false;
   }

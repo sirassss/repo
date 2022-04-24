@@ -32,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ModaCartComponent } from './modal/modalCart/moda-cart';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalVoucherComponent } from './modal/modalVoucher/modal-voucher';
+import { ConfirmLeaveComponent } from './can-deactive-guard/confirm-leave.component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { ModalVoucherComponent } from './modal/modalVoucher/modal-voucher';
     ItemCountComponent,
     ModaCartComponent,
     ModalVoucherComponent,
+    ConfirmLeaveComponent,
   ],
   exports: [
     SharedLibsModule,

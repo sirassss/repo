@@ -67,10 +67,6 @@ public class Product implements Serializable {
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "productid")
-    private List<OrderDetails> orderDetails = new ArrayList<>();
-
-    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "productid")
     private Set<Voucher> vouchers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -228,14 +224,6 @@ public class Product implements Serializable {
 
     public void setModifiedUser(String modifiedUser) {
         this.modifiedUser = modifiedUser;
-    }
-
-    public List<OrderDetails> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetails> orderDetails) {
-        this.orderDetails = orderDetails;
     }
 
     public ProductDetails getProductDetails() {

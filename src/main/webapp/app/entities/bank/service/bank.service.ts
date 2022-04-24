@@ -40,21 +40,4 @@ export class BankService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-
-  addBankToCollectionIfMissing(bankCollection: IBank[], ...banksToCheck: (IBank | null | undefined)[]): IBank[] {
-    const banks: IBank[] = banksToCheck.filter(isPresent);
-    if (banks.length > 0) {
-      const bankCollectionIdentifiers = bankCollection.map(bankItem => getBankIdentifier(bankItem)!);
-      const banksToAdd = banks.filter(bankItem => {
-        const bankIdentifier = getBankIdentifier(bankItem);
-        if (bankIdentifier == null || bankCollectionIdentifiers.includes(bankIdentifier)) {
-          return false;
-        }
-        bankCollectionIdentifiers.push(bankIdentifier);
-        return true;
-      });
-      return [...banksToAdd, ...bankCollection];
-    }
-    return bankCollection;
-  }
 }

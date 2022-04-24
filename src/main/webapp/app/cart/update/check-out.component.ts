@@ -11,17 +11,26 @@ import { Account } from '../../core/auth/account.model';
 import { OrderService } from '../../entities/order/service/order.service';
 import { ProductService } from '../../entities/product/service/product.service';
 import { IProduct } from '../../product-for-client/product.model';
+import { VoucherComponent } from '../../entities/voucher/list/voucher.component';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { BaseComponent } from '../../shared/base-component/base.component';
+import { Subscription } from 'rxjs';
+import { EventManager } from '../../core/util/event-manager.service';
 
 @Component({
   selector: 'jhi-order-details-update',
   templateUrl: './check-out.component.html',
+  styleUrls: ['./check-out.component.scss'],
 })
-export class CheckOutComponent implements OnInit {
+export class CheckOutComponent extends BaseComponent implements OnInit {
   isSaving = false;
   cart!: IOrder;
   orderDetails!: IOrderDetails[];
   listProducts!: IProduct[];
   user!: Account;
+  modalRef!: NgbModalRef;
+  eventSubscriber: Subscription | any;
+  paymentMethod!: any;
 
   city = '';
   address = '';
@@ -32,11 +41,21 @@ export class CheckOutComponent implements OnInit {
     protected fb: FormBuilder,
     private accountService: AccountService,
     private orderService: OrderService,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    protected modalService: NgbModal,
+    private eventManager: EventManager
+  ) {
+    super();
+  }
+
+  setupValue() {
+    this.user = { activated: true, authorities: [], email: '', firstName: '', lastName: '', login: '', imageUrl: '', langKey: '' };
+    this.cart = { orderPhone: '', orderAddress: '' };
+    this.orderDetails = [];
+  }
 
   ngOnInit(): void {
-    this.user = { activated: true, authorities: [], email: '', firstName: '', lastName: '', login: '', imageUrl: '', langKey: '' };
+    this.setupValue();
     this.accountService.getAuthenticationState().subscribe(account => (this.user = account!));
     this.orderService.findOderUnpaid().subscribe(res => {
       if (res && res.body) {
@@ -54,6 +73,7 @@ export class CheckOutComponent implements OnInit {
         });
       }
     });
+    this.registerChangeCart();
   }
 
   changeAddress() {
@@ -65,8 +85,24 @@ export class CheckOutComponent implements OnInit {
   getTotalAmount() {
     let total = 0;
     this.orderDetails.forEach(n => {
-      total += n.total!;
+      total += n.total ? n.total! : 0;
     });
     return total;
+  }
+
+  selectVoucher() {
+    this.modalRef = this.modalService.open(VoucherComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.modalRef.componentInstance.cart = this.cart;
+  }
+
+  registerChangeCart(): void {
+    this.eventSubscriber = this.eventManager.subscribe('addCartSuccess', () => {
+      this.orderService.findOderUnpaid().subscribe(res => {
+        if (res && res.body) {
+          this.cart = res.body;
+        }
+      });
+    });
+    this.eventSubscribers.push(this.eventSubscriber);
   }
 }

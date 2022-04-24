@@ -44,26 +44,4 @@ export class ManufacturedService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-
-  addManufacturedToCollectionIfMissing(
-    manufacturedCollection: IManufactured[],
-    ...manufacturedsToCheck: (IManufactured | null | undefined)[]
-  ): IManufactured[] {
-    const manufactureds: IManufactured[] = manufacturedsToCheck.filter(isPresent);
-    if (manufactureds.length > 0) {
-      const manufacturedCollectionIdentifiers = manufacturedCollection.map(
-        manufacturedItem => getManufacturedIdentifier(manufacturedItem)!
-      );
-      const manufacturedsToAdd = manufactureds.filter(manufacturedItem => {
-        const manufacturedIdentifier = getManufacturedIdentifier(manufacturedItem);
-        if (manufacturedIdentifier == null || manufacturedCollectionIdentifiers.includes(manufacturedIdentifier)) {
-          return false;
-        }
-        manufacturedCollectionIdentifiers.push(manufacturedIdentifier);
-        return true;
-      });
-      return [...manufacturedsToAdd, ...manufacturedCollection];
-    }
-    return manufacturedCollection;
-  }
 }

@@ -94,7 +94,7 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   }
 
   registerChangeCart(): void {
-    this.eventSubscriber = this.eventManager.subscribe('addCartSuccess', res => {
+    this.eventSubscriber = this.eventManager.subscribe('addCartSuccess', () => {
       this.orderService.findOderUnpaid().subscribe(res => {
         if (res && res.body) {
           this.cart = res.body;

@@ -1,40 +1,61 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVoucher } from '../voucher.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { VoucherService } from '../service/voucher.service';
 import { VoucherDeleteDialogComponent } from '../delete/voucher-delete-dialog.component';
+import { PageChangedEvent } from 'ngx-bootstrap';
+import { IProduct } from '../../../product-for-client/product.model';
+import { IOrder } from '../../order/order.model';
+import { EventManager } from '../../../core/util/event-manager.service';
+import * as dayjs from 'dayjs';
+import { finalize } from 'rxjs/operators';
+import { OrderService } from '../../order/service/order.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-voucher',
   templateUrl: './voucher.component.html',
+  styleUrls: ['./voucher.component.scss'],
 })
 export class VoucherComponent implements OnInit {
-  vouchers?: IVoucher[];
+  vouchers!: IVoucher[];
   isLoading = false;
+  private isSaving = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
-  page?: number;
+  page!: number;
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  pageChangeEvent!: PageChangedEvent;
+  eventSubscriber: Subscription | any;
+
+  productInCart!: IProduct;
+  cart!: IOrder;
 
   constructor(
     protected voucherService: VoucherService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private activeModal: NgbActiveModal,
+    private eventManager: EventManager,
+    private orderService: OrderService,
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {}
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
+  loadPage(pageChangeEvent: PageChangedEvent, dontNavigate?: boolean): void {
     this.isLoading = true;
-    const pageToLoad: number = page ?? this.page ?? 1;
-
+    pageChangeEvent.itemsPerPage = this.itemsPerPage;
+    let pageToLoad: number = pageChangeEvent.page ?? this.page ?? 1;
     this.voucherService
       .query({
         page: pageToLoad - 1,
@@ -67,32 +88,18 @@ export class VoucherComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        this.loadPage();
+        this.loadPage(this.pageChangeEvent);
       }
     });
   }
 
   protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
+    return ['id,DESC'];
   }
 
   protected handleNavigation(): void {
-    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
-      const page = params.get('page');
-      const pageNumber = page !== null ? +page : 1;
-      const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
-      const predicate = sort[0];
-      const ascending = sort[1] === ASC;
-      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
-        this.predicate = predicate;
-        this.ascending = ascending;
-        this.loadPage(pageNumber, true);
-      }
-    });
+    this.pageChangeEvent = { page: this.page, itemsPerPage: this.itemsPerPage };
+    this.loadPage(this.pageChangeEvent, true);
   }
 
   protected onSuccess(data: IVoucher[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
@@ -108,10 +115,64 @@ export class VoucherComponent implements OnInit {
       });
     }
     this.vouchers = data ?? [];
+    this.vouchers.forEach(n => {
+      n.isSelect = !!this.cart.voucherID;
+    });
     this.ngbPaginationPage = this.page;
   }
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  closePopup() {
+    this.activeModal.close(false);
+  }
+
+  save(order: IOrder): void {
+    this.isSaving = true;
+    if (order.id !== undefined) {
+      this.subscribeToSaveResponse(this.orderService.update(order));
+    } else {
+      order.createdDate = dayjs(new Date());
+      this.subscribeToSaveResponse(this.orderService.create(order));
+    }
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IOrder>>): void {
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    this.eventManager.broadcast({
+      name: 'addCartSuccess',
+      content: { data: true },
+    });
+    this.closePopup();
+  }
+
+  protected onSaveError(): void {
+    this.toastr.error(this.translate.instant('error.internalServerError'));
+    this.closePopup();
+  }
+
+  protected onSaveFinalize(): void {
+    this.isSaving = false;
+  }
+
+  applyVoucher(voucher: IVoucher) {
+    if (this.cart.totalAmount) {
+      let total = 0;
+      this.cart.orderDetails?.forEach(n => {
+        total += n.total ? n.total : 0;
+      });
+      this.cart.totalAmount = total - total * (voucher.promotionRate ? voucher.promotionRate / 100 : 0);
+      this.cart.voucherID = voucher.id;
+      this.save(this.cart);
+      this.closePopup();
+    }
   }
 }

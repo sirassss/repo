@@ -33,8 +33,14 @@
           </div>
           <div class="pro-price mtb-30">
             <p class="d-flex align-items-center">
-              <span class="prev-price">{{ productInCart.unitPrice | currency: 'VND':true }}</span>
-              <span class="price">{{ productInCart.unitPrice | currency: 'VND':true }}</span><span class="saving-price">save 8%</span>
+              <ng-container *ngIf="productInCart.isPromotion; else notpromotion">
+                <span class="prev-price">{{ productInCart.unitPrice | currency: 'VND':true }}</span>
+                <span class="price">{{ productInCart.promotionPrice | currency: 'VND':true }}</span>
+                <span class="saving-price">save {{ productInCart.vouchers![0].promotionRate }}%</span>
+              </ng-container>
+              <ng-template #notpromotion>
+                <span class="price">{{ productInCart.promotionPrice | currency: 'VND':true }}</span>
+              </ng-template>
             </p>
           </div>
           <p class="mb-20 pro-desc-details">{{ productInCart.productDetails!.description }}</p>

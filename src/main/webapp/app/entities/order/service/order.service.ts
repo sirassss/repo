@@ -57,23 +57,6 @@ export class OrderService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addOrderToCollectionIfMissing(orderCollection: IOrder[], ...ordersToCheck: (IOrder | null | undefined)[]): IOrder[] {
-    const orders: IOrder[] = ordersToCheck.filter(isPresent);
-    if (orders.length > 0) {
-      const orderCollectionIdentifiers = orderCollection.map(orderItem => getOrderIdentifier(orderItem)!);
-      const ordersToAdd = orders.filter(orderItem => {
-        const orderIdentifier = getOrderIdentifier(orderItem);
-        if (orderIdentifier == null || orderCollectionIdentifiers.includes(orderIdentifier)) {
-          return false;
-        }
-        orderCollectionIdentifiers.push(orderIdentifier);
-        return true;
-      });
-      return [...ordersToAdd, ...orderCollection];
-    }
-    return orderCollection;
-  }
-
   protected convertDateFromClient(order: IOrder): IOrder {
     return Object.assign({}, order, {
       createdDate: order.createdDate?.isValid() ? order.createdDate.format(DATE_FORMAT) : undefined,

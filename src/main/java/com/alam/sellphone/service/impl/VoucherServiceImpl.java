@@ -1,8 +1,11 @@
 package com.alam.sellphone.service.impl;
 
+import com.alam.sellphone.domain.User;
 import com.alam.sellphone.domain.Voucher;
 import com.alam.sellphone.repository.VoucherRepository;
+import com.alam.sellphone.service.UserService;
 import com.alam.sellphone.service.VoucherService;
+import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +25,11 @@ public class VoucherServiceImpl implements VoucherService {
 
     private final VoucherRepository voucherRepository;
 
-    public VoucherServiceImpl(VoucherRepository voucherRepository) {
+    private final UserService userService;
+
+    public VoucherServiceImpl(VoucherRepository voucherRepository, UserService userService) {
         this.voucherRepository = voucherRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -66,7 +72,11 @@ public class VoucherServiceImpl implements VoucherService {
     @Transactional(readOnly = true)
     public Page<Voucher> findAll(Pageable pageable) {
         log.debug("Request to get all Vouchers");
-        return voucherRepository.findAll(pageable);
+        Optional<User> user = userService.getUserWithAuthorities();
+        if (user.isPresent()) {
+            return voucherRepository.findAllNotForProduct(pageable, user.get().getId());
+        }
+        throw new BadRequestAlertException("", "", "");
     }
 
     @Override

@@ -1,5 +1,6 @@
 import * as dayjs from 'dayjs';
 import { IProductDetails } from '../entities/product-details/product-details.model';
+import { IVoucher } from '../entities/voucher/voucher.model';
 
 export interface IProduct {
   id?: number;
@@ -7,6 +8,7 @@ export interface IProduct {
   name?: string | null;
   quantity?: number | null;
   unitPrice?: number | null;
+  promotionPrice?: number | null;
   installment?: boolean | null;
   accompanyingProducts?: string | null;
   warranty?: number | null;
@@ -16,6 +18,8 @@ export interface IProduct {
   modifiedUser?: string | null;
   rate?: number | null;
   productDetails?: IProductDetails | null;
+  vouchers?: IVoucher[] | null;
+  isPromotion?: boolean | null;
 }
 
 export class Product implements IProduct {

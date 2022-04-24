@@ -1,0 +1,18 @@
+<div class="text-center p-5">
+  <div class="avatar-icon-wrapper rounded-circle m-0">
+    <div class="d-inline-flex justify-content-center p-0 rounded-circle avatar-icon-wrapper bg-warning text-white m-0 d-130">
+      <fa-icon [icon]="'exclamation-triangle'" class="d-flex align-self-center display-3"></fa-icon>
+    </div>
+  </div>
+  <div class="font-weight-bold font-size-lg mt-4">
+    {{ 'Dữ liệu đã bị thay đổi, Bạn có chắc chắn chuyển hướng đến trang khác?' }}
+  </div>
+  <div class="pt-4">
+    <button (click)="action(true)" class="btn btn-pill btn-outline-primary mx-1" type="button">
+      <span class="btn-wrapper--label"> {{ 'Có' }} </span>
+    </button>
+    <button (click)="action(false)" class="btn btn-pill btn-outline-danger mx-1" type="button">
+      <span class="btn-wrapper--label"> {{ 'Không' }} </span>
+    </button>
+  </div>
+</div>

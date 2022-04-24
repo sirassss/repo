@@ -14,6 +14,7 @@ import { OrderService } from '../../../entities/order/service/order.service';
 import * as dayjs from 'dayjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { IVoucher } from '../../../entities/voucher/voucher.model';
 
 @Component({
   selector: 'jhi-product-for-client',
@@ -24,9 +25,9 @@ export class ModalVoucherComponent implements OnInit {
   eventSubscriber: Subscription | any;
   modalRef: NgbModalRef | any;
 
-  varSearch: any;
   productInCart!: IProduct;
   cart!: IOrder;
+  vouchers!: IVoucher;
   private isSaving = false;
 
   constructor(

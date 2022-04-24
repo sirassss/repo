@@ -1,0 +1,28 @@
+.modal-body {
+  border-top: solid 1px #c4ccd4;
+}
+.modal-footer {
+  border: none;
+}
+.btn-outline-success {
+  background-color: #218838;
+  color: #ffffff;
+  border-color: #1e7e34;
+}
+.btn-outline-success:hover {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.btn-outline-dark {
+  background-color: #23272b;
+  border-color: #1d2124;
+  color: #ffffff;
+}
+.btn-outline-dark:hover {
+  background-color: #070919;
+  border-color: #070919;
+}
+.close {
+  margin-right: 15px;
+  margin-top: 5px;
+}

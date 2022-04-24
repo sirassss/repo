@@ -31,13 +31,16 @@ public class Voucher implements Serializable {
     private BigDecimal promotionRate;
 
     @Column(name = "dateissue")
-    private LocalDate dateIssue;
+    private Integer dateIssue;
 
     @Column(name = "status")
     private Integer status;
 
     @Column(name = "userid")
     private Long userID;
+
+    @Column(name = "description")
+    private String description;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -79,16 +82,16 @@ public class Voucher implements Serializable {
         this.productID = productID;
     }
 
-    public LocalDate getDateIssue() {
+    public Integer getDateIssue() {
         return this.dateIssue;
     }
 
-    public Voucher dateIssue(LocalDate dateIssue) {
+    public Voucher dateIssue(Integer dateIssue) {
         this.dateIssue = dateIssue;
         return this;
     }
 
-    public void setDateIssue(LocalDate dateIssue) {
+    public void setDateIssue(Integer dateIssue) {
         this.dateIssue = dateIssue;
     }
 
@@ -151,5 +154,13 @@ public class Voucher implements Serializable {
 
     public void setPromotionRate(BigDecimal promotionRate) {
         this.promotionRate = promotionRate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

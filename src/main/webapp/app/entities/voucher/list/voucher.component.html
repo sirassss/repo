@@ -1,114 +1,25 @@
-<div>
-  <h2 id="page-heading" data-cy="VoucherHeading">
-    <span jhiTranslate="sellphonealamApp.voucher.home.title">Vouchers</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="sellphonealamApp.voucher.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-voucher"
-        [routerLink]="['/voucher/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="sellphonealamApp.voucher.home.createLabel"> Create a new Voucher </span>
-      </button>
-    </div>
-  </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="vouchers?.length === 0">
-    <span jhiTranslate="sellphonealamApp.voucher.home.notFound">No vouchers found</span>
+<div class="bossWrapp">
+  <div class="cardTitle">
+    MÃ GIẢM GIÁ
+    <button type="button" class="close" style="padding-left: 740px" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">
+      &times;
+    </button>
   </div>
+  <div class="single" *ngFor="let voucher of vouchers; let i = index">
+    <div class="icon" *ngIf="voucher.isSelect"><fa-icon [icon]="'check'"></fa-icon></div>
+    <div class="text">
+      <div class="header">
+        <h3>{{ voucher.voucherCode }}</h3>
+        <div class="desc">
+          <h5>{{ voucher.description }}</h5>
+        </div>
+      </div>
 
-  <div class="table-responsive" id="entities" *ngIf="vouchers && vouchers.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="voucherCode">
-            <span jhiTranslate="sellphonealamApp.voucher.voucherCode">Voucher Code</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="productID">
-            <span jhiTranslate="sellphonealamApp.voucher.productID">Product ID</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="promotionPrice">
-            <span jhiTranslate="sellphonealamApp.voucher.promotionPrice">Promotion Price</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="dateIssue">
-            <span jhiTranslate="sellphonealamApp.voucher.dateIssue">Date Issue</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="status">
-            <span jhiTranslate="sellphonealamApp.voucher.status">Status</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let voucher of vouchers; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/voucher', voucher.id, 'view']">{{ voucher.id }}</a>
-          </td>
-          <td>{{ voucher.voucherCode }}</td>
-          <td>{{ voucher.productID }}</td>
-          <td>{{ voucher.promotionRate }}</td>
-          <td>{{ voucher.dateIssue | formatMediumDate }}</td>
-          <td>{{ voucher.status }}</td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/voucher', voucher.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/voucher', voucher.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(voucher)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="vouchers && vouchers.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
+      <div class="functions">
+        <span class="soon">{{ 'Hiệu lực trong ' + voucher.dateIssue + ' ngày' }}</span>
+        <span (click)="applyVoucher(voucher)" *ngIf="!voucher.isSelect">Chọn mã giảm</span>
+      </div>
     </div>
   </div>
+  <div class="devider">Expired</div>
 </div>

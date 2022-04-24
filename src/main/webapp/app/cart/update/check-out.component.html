@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-lg-6 col-md-6">
         <div class="checkbox-form mb-sm-40">
-          <h3>Thông tin hóa đơn</h3>
+          <h3>Thông tin người nhận</h3>
           <div class="row">
             <div class="col-md-12">
-              <div class="country-select clearfix mb-30">
+              <div class="country-select clearfix mb-10">
                 <label>Thành phố <span class="required">*</span></label>
                 <select class="wide" [(ngModel)]="city" (ngModelChange)="changeAddress()">
                   <option [ngValue]="'Hà nội'">Hà nội</option>
@@ -18,50 +18,53 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="checkout-form-list mb-sm-30">
+              <div class="checkout-form-list mb-sm-0">
                 <label>Họ <span class="required">*</span></label>
                 <input type="text" placeholder="" [(ngModel)]="user.firstName" readonly />
               </div>
             </div>
             <div class="col-md-6">
-              <div class="checkout-form-list mb-30">
+              <div class="checkout-form-list mb-10">
                 <label>Tên <span class="required">*</span></label>
                 <input type="text" placeholder="" [(ngModel)]="user.lastName" readonly />
               </div>
             </div>
             <div class="col-md-12">
-              <div class="checkout-form-list mb-30">
+              <div class="checkout-form-list mb-10">
                 <label>Địa chỉ <span class="required">*</span></label>
                 <input type="text" placeholder="Địa chỉ" [(ngModel)]="address" (ngModelChange)="changeAddress()" />
               </div>
             </div>
             <div class="col-md-6">
-              <div class="checkout-form-list mb-30">
+              <div class="checkout-form-list mb-10">
                 <label>Email Address <span class="required">*</span></label>
                 <input type="email" placeholder="" [(ngModel)]="user.email" readonly />
               </div>
             </div>
             <div class="col-md-6">
-              <div class="checkout-form-list mb-30">
+              <div class="checkout-form-list mb-10">
                 <label>Phone <span class="required">*</span></label>
                 <input type="text" placeholder="Phone" [(ngModel)]="cart.orderPhone" />
               </div>
             </div>
+          </div>
+          <h3>Loại hình thanh toán</h3>
+          <div class="row">
             <div class="col-md-12">
-              <div class="checkout-form-list create-acc mb-30">
-                <input id="cbox" type="checkbox" />
-                <label>Create an account?</label>
+              <div class="checkout-form-list mb-10 d-flex">
+                <input type="radio" name="paymentMethod" id="paymentNormal" [(ngModel)]="paymentMethod" [value]="0" />
+                <label for="paymentNormal" class="label-radio">Thanh toán tiền mặt <span class="required">*</span></label>
               </div>
-              <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
-                <p class="mb-10">
-                  Create an account by entering the information below. If you are a returning customer please login at the top of the page.
-                </p>
-                <label>Account password <span class="required">*</span></label>
-                <input type="password" placeholder="password" />
+            </div>
+            <div class="col-md-12">
+              <div class="checkout-form-list mb-10 d-flex">
+                <input type="radio" name="paymentMethod" id="paymentByBank" [(ngModel)]="paymentMethod" [value]="1" />
+                <label for="paymentByBank" class="label-radio">Thanh toán bằng tài khoản ngân hàng <span class="required">*</span></label>
               </div>
             </div>
           </div>
         </div>
+        <button class="btn btn-outline-dark float-right" type="button" (click)="selectVoucher()">Thanh toán</button>
       </div>
       <div class="col-lg-6 col-md-6">
         <div class="your-order">
@@ -92,9 +95,10 @@
                   </td>
                 </tr>
                 <tr class="order-total">
-                  <th>Tổng thanh toán</th>
+                  <th style="padding-top: 56px">Tổng thanh toán</th>
                   <td>
-                    <span class="total amount">{{ getTotalAmount() | currency: 'VND':true }}</span>
+                    <button class="btn btn-outline-danger" type="button" (click)="selectVoucher()">Chọn mã giảm giá</button>
+                    <span class="total amount">{{ cart.totalAmount | currency: 'VND':true }}</span>
                   </td>
                 </tr>
               </tfoot>

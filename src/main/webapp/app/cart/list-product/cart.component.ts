@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
@@ -19,14 +19,18 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { ModaCartComponent } from '../../shared/modal/modalCart/moda-cart';
 import { ModalVoucherComponent } from '../../shared/modal/modalVoucher/modal-voucher';
+import { BaseComponent } from '../../shared/base-component/base.component';
+import { UtilsService } from '../../shared/UtilsService/Utils.service';
+import { VoucherComponent } from '../../entities/voucher/list/voucher.component';
 
 @Component({
   selector: 'jhi-cart-checkout',
   templateUrl: './cart.component.html',
 })
-export class CartComponent implements OnInit {
+export class CartComponent extends BaseComponent implements OnInit, OnDestroy {
   cart!: IOrder;
   orderDetails!: IOrderDetails[];
+  orderDetailsCopy!: IOrderDetails[];
   isLoading = false;
   listProducts!: IProduct[];
   private isSaving = false;
@@ -41,8 +45,11 @@ export class CartComponent implements OnInit {
     private productService: ProductService,
     private eventManager: EventManager,
     private toastr: ToastrService,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    public utilsService: UtilsService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.cart = { status: false, orderDetails: [] };
@@ -60,6 +67,7 @@ export class CartComponent implements OnInit {
               n.product = this.listProducts.find(m => m.id === n.productID);
             });
           }
+          this.copy();
         });
       }
     });
@@ -67,6 +75,7 @@ export class CartComponent implements OnInit {
 
   updateCart() {
     this.isSaving = true;
+    this.cart.orderDetails = this.orderDetails;
     if (this.cart.id !== undefined) {
       this.subscribeToSaveResponse(this.orderService.update(this.cart));
     } else {
@@ -83,6 +92,7 @@ export class CartComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
+    this.copy();
     this.eventManager.broadcast({
       name: 'addCartSuccess',
       content: { data: true },
@@ -98,18 +108,44 @@ export class CartComponent implements OnInit {
   }
 
   getTotalAmount() {
-    let total = 0;
+    this.cart.totalAmount = 0;
     this.orderDetails.forEach(n => {
-      total += n.total!;
+      this.cart.totalAmount! += n.total ? n.total! : 0;
     });
-    return total;
+    return this.cart.totalAmount;
   }
 
   checkOut() {
     this.router.navigate(['./cart/checkout']);
   }
 
-  selectVoucher() {
-    this.modalRef = this.modalService.open(ModalVoucherComponent, { backdrop: 'static', windowClass: 'width-60' });
+  deleteInCart(index: number) {
+    this.orderDetails?.splice(index, 1);
+    this.updateCart();
+  }
+
+  changeQuantity() {
+    this.orderDetails.forEach(n => {
+      n.total = n.quantity! * n.unitPrice!;
+    });
+  }
+
+  copy() {
+    this.orderDetailsCopy = this.orderDetails.map(object => ({ ...object }));
+  }
+
+  canDeactive(): boolean {
+    if (this.orderDetails) {
+      return this.utilsService.isEquivalentArray(this.orderDetails, this.orderDetailsCopy);
+    } else {
+      return true;
+    }
+  }
+  ngOnDestroy() {
+    if (this.orderDetails) {
+      if (!this.utilsService.isEquivalentArray(this.orderDetails, this.orderDetailsCopy)) {
+        this.updateCart();
+      }
+    }
   }
 }

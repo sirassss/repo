@@ -45,8 +45,8 @@ export class ModaCartComponent implements OnInit {
   fillToCart(): void {
     this.productCart.productID = this.productInCart.id;
     this.productCart.quantity = this.productInCart.quantity;
-    this.productCart.unitPrice = this.productInCart.unitPrice;
-    this.productCart.total = this.productInCart.unitPrice! * this.productInCart.quantity!;
+    this.productCart.unitPrice = this.productInCart.promotionPrice;
+    this.productCart.total = this.productInCart.promotionPrice! * this.productInCart.quantity!;
     let productCart = this.cart.orderDetails?.find(n => n.productID === this.productCart.productID);
     if (productCart) {
       const index = this.cart.orderDetails?.indexOf(productCart);

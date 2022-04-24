@@ -3,20 +3,24 @@ import * as dayjs from 'dayjs';
 export interface IVoucher {
   id?: number;
   voucherCode?: string | null;
+  description?: string | null;
   productID?: number | null;
   promotionRate?: number | null;
-  dateIssue?: dayjs.Dayjs | null;
+  dateIssue?: number | null;
   status?: number | null;
+  isSelect?: boolean | null;
 }
 
 export class Voucher implements IVoucher {
   constructor(
     public id?: number,
     public voucherCode?: string | null,
+    public description?: string | null,
     public productID?: number | null,
     public promotionRate?: number | null,
-    public dateIssue?: dayjs.Dayjs | null,
-    public status?: number | null
+    public dateIssue?: number | null,
+    public status?: number | null,
+    public isSelect?: boolean | null
   ) {}
 }
 
