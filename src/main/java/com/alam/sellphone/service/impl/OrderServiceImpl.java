@@ -6,6 +6,8 @@ import com.alam.sellphone.repository.OrderRepository;
 import com.alam.sellphone.service.OrderService;
 import com.alam.sellphone.service.UserService;
 import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +39,18 @@ public class OrderServiceImpl implements OrderService {
         log.debug("Request to save Order : {}", order);
         Optional<User> user = userService.getUserWithAuthorities();
         if (user.isPresent()) {
-            order.setUserID(user.get().getId());
-            return orderRepository.save(order);
+            if (order.getId() == null) {
+                order.setUserID(user.get().getId());
+            }
+            if (order.getStatus()) {
+                Order orderNew = new Order();
+                orderNew.setUserID(user.get().getId());
+                orderNew.setStatus(false);
+                orderRepository.save(orderNew);
+                return orderRepository.save(order);
+            } else {
+                return orderRepository.save(order);
+            }
         }
         throw new BadRequestAlertException("", "", "");
     }

@@ -140,9 +140,13 @@ public class ProductForClientResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/products-for-client")
-    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable, @RequestParam String varSearch) {
+    public ResponseEntity<List<Product>> getAllProducts(
+        Pageable pageable,
+        @RequestParam String varSearch,
+        @RequestParam Integer typeSearch
+    ) {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productService.findAll(pageable, varSearch);
+        Page<Product> page = productService.findAll(pageable, varSearch, typeSearch);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

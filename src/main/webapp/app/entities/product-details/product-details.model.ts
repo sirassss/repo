@@ -1,3 +1,5 @@
+import { IManufactured } from '../manufactured/manufactured.model';
+
 export interface IProductDetails {
   id?: number;
   productID?: number | null;
@@ -10,6 +12,7 @@ export interface IProductDetails {
   imageUrl?: string | null;
   color?: string | null;
   description?: string | null;
+  manufacturer?: IManufactured | null;
 }
 
 export class ProductDetails implements IProductDetails {
@@ -24,7 +27,8 @@ export class ProductDetails implements IProductDetails {
     public pIN?: string | null,
     public imageUrl?: string | null,
     public color?: string | null,
-    public description?: string | null
+    public description?: string | null,
+    public manufacturer?: IManufactured | null
   ) {}
 }
 

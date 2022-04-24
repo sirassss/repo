@@ -7,18 +7,20 @@
         <nav class="d-none d-lg-block">
           <ul class="header-bottom-list d-flex">
             <li class="category-nav text-nowrap">
-              <a routerLink="/">Điện thoại</a>
+              <a routerLink="/product-client" (click)="changeSearch(1)">Điện thoại</a>
             </li>
             <li class="category-nav text-nowrap">
-              <a href="shop.html">Laptop<i class="fa fa-angle-down"></i></a>
+              <a routerLink="/product-client" (click)="changeSearch(2)">Laptop<i class="fa fa-angle-down"></i></a>
             </li>
             <li class="category-nav text-nowrap">
-              <a href="blog.html">Tablet</a>
+              <a routerLink="/product-client" (click)="changeSearch(3)">Tablet</a>
             </li>
             <li class="category-nav text-nowrap">
-              <a href="#">Phụ kiện</a>
+              <a routerLink="/product-client" (click)="changeSearch(4)">Phụ kiện</a>
             </li>
-            <li class="category-nav text-nowrap"><a href="about.html">Đồng hồ thông minh</a></li>
+            <li class="category-nav text-nowrap">
+              <a routerLink="/product-client" (click)="changeSearch(5)">Đồng hồ thông minh</a>
+            </li>
           </ul>
         </nav>
       </div>

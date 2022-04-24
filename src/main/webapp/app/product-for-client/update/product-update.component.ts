@@ -7,41 +7,34 @@ import { finalize } from 'rxjs/operators';
 
 import { IProduct, Product } from '../product.model';
 import { ProductService } from '../service/product.service';
+import { IProductDetails } from '../../entities/product-details/product-details.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ManufacturedService } from '../../entities/manufactured/service/manufactured.service';
 
 @Component({
   selector: 'jhi-product-update',
   templateUrl: './product-update.component.html',
+  styleUrls: ['./product-update.component.scss'],
 })
 export class ProductUpdateComponent implements OnInit {
   isSaving = false;
   product!: IProduct;
+  productDetail!: IProductDetails;
 
-  editForm = this.fb.group({
-    id: [],
-    code: [],
-    name: [],
-    quantity: [],
-    unitPrice: [],
-    installment: [],
-    accompanyingProducts: [],
-    warranty: [],
-    createdDate: [],
-    modifiedDate: [],
-    createdUser: [],
-    modifiedUser: [],
-    status: [],
-  });
-
-  constructor(protected productService: ProductService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected productService: ProductService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    private activeModal: NgbActiveModal,
+    private manufacturedService: ManufacturedService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ product }) => {
-      this.updateForm(product);
+    this.manufacturedService.find(this.productDetail.productID!).subscribe(res => {
+      if (res && res.body) {
+        this.productDetail.manufacturer = res.body;
+      }
     });
-  }
-
-  previousState(): void {
-    window.history.back();
   }
 
   save(): void {
@@ -61,9 +54,7 @@ export class ProductUpdateComponent implements OnInit {
     );
   }
 
-  protected onSaveSuccess(): void {
-    this.previousState();
-  }
+  protected onSaveSuccess(): void {}
 
   protected onSaveError(): void {
     // Api for inheritance.
@@ -73,21 +64,7 @@ export class ProductUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(product: IProduct): void {
-    this.editForm.patchValue({
-      id: product.id,
-      code: product.code,
-      name: product.name,
-      quantity: product.quantity,
-      unitPrice: product.unitPrice,
-      installment: product.installment,
-      accompanyingProducts: product.accompanyingProducts,
-      warranty: product.warranty,
-      createdDate: product.createdDate,
-      modifiedDate: product.modifiedDate,
-      createdUser: product.createdUser,
-      modifiedUser: product.modifiedUser,
-      rate: product.rate,
-    });
+  closePopup() {
+    this.activeModal.close(false);
   }
 }

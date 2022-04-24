@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long>, OrderRepositoryCustom {
     @Query(value = " select * from Cart where UserID = ?1 and Status = 0 ", nativeQuery = true)
     Optional<Order> getOrderUnpaid(Long userID);
+
+    @Query(value = "select count(*) from Cart where UserID = ?1 and Status = 0 ", nativeQuery = true)
+    Integer findCartUnpaid(Long userID);
 }

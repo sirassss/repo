@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -47,6 +49,16 @@ public class Order implements Serializable {
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "orderid")
     private List<OrderDetails> orderDetails = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "payment",
+        joinColumns = { @JoinColumn(name = "orderid", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "bankid", referencedColumnName = "id") }
+    )
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    //    @BatchSize(size = 20)
+    private Set<Bank> banks = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -181,5 +193,13 @@ public class Order implements Serializable {
 
     public void setVoucherID(Long voucherID) {
         this.voucherID = voucherID;
+    }
+
+    public Set<Bank> getBanks() {
+        return banks;
+    }
+
+    public void setBanks(Set<Bank> banks) {
+        this.banks = banks;
     }
 }

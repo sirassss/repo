@@ -30,9 +30,10 @@ public interface ProductService {
      * Get all the products.
      *
      * @param pageable the pagination information.
+     * @param typeSearch
      * @return the list of entities.
      */
-    Page<Product> findAll(Pageable pageable, String varSearch);
+    Page<Product> findAll(Pageable pageable, String varSearch, Integer typeSearch);
 
     /**
      * Get the "id" product.
@@ -50,4 +51,6 @@ public interface ProductService {
     void delete(Long id);
 
     List<Product> getAllProductsByID(List<Long> productID);
+
+    Page<Product> findAllForAdmin(Pageable pageable);
 }

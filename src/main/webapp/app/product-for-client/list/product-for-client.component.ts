@@ -15,6 +15,8 @@ import { AccountService } from '../../core/auth/account.service';
 import { UserRouteAccessService } from '../../core/auth/user-route-access.service';
 import { map } from 'rxjs/operators';
 import { ModaCartComponent } from '../../shared/modal/modalCart/moda-cart';
+import { SessionStorageService } from 'ngx-webstorage';
+import { ProductUpdateComponent } from '../update/product-update.component';
 
 @Component({
   selector: 'jhi-product-for-client',
@@ -35,6 +37,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   modalRef!: NgbModalRef;
 
   varSearch: any;
+  typeSearch: any;
   productInCart!: IProduct;
 
   constructor(
@@ -44,7 +47,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
     protected modalService: NgbModal,
     private eventManager: EventManager,
     private principal: AccountService,
-    private login: UserRouteAccessService
+    private sessionStorageService: SessionStorageService
   ) {
     super();
   }
@@ -59,6 +62,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
         size: this.itemsPerPage,
         sort: this.sort(),
         varSearch: this.varSearch ? this.varSearch.data : '',
+        typeSearch: this.typeSearch ? this.typeSearch : 999,
       })
       .subscribe(
         (res: HttpResponse<IProduct[]>) => {
@@ -73,8 +77,8 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.products = [];
-    // this.products
+    this.typeSearch = this.sessionStorageService.retrieve('searchByType');
+    this.sessionStorageService.clear('searchByType');
     this.handleNavigation();
     this.registerVarSearch();
   }
@@ -94,6 +98,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
         this.modalRef = this.modalService.open(ModaCartComponent, { backdrop: 'static', windowClass: 'width-60' });
         product.quantity = 1;
         this.modalRef.componentInstance.productInCart = product;
+        this.modalRef.componentInstance.productDetail = product.productDetails![0];
       } else {
         this.router.navigate(['/login']);
       }
@@ -163,5 +168,11 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
 
   star(rate: any) {
     return new Array(rate);
+  }
+
+  viewDetail(product: IProduct) {
+    this.modalRef = this.modalService.open(ProductUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.modalRef.componentInstance.product = product;
+    this.modalRef.componentInstance.productDetail = product.productDetails![0];
   }
 }

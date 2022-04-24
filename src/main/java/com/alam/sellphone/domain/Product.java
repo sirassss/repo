@@ -61,9 +61,12 @@ public class Product implements Serializable {
     @Column(name = "rate")
     private Integer rate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "productid")
-    private ProductDetails productDetails;
+    @Column(name = "type")
+    private Integer type;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "productid")
+    private Set<ProductDetails> productDetails = new HashSet<>();
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "productid")
@@ -116,6 +119,14 @@ public class Product implements Serializable {
     public Product quantity(Integer quantity) {
         this.quantity = quantity;
         return this;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public void setQuantity(Integer quantity) {
@@ -226,11 +237,11 @@ public class Product implements Serializable {
         this.modifiedUser = modifiedUser;
     }
 
-    public ProductDetails getProductDetails() {
+    public Set<ProductDetails> getProductDetails() {
         return productDetails;
     }
 
-    public void setProductDetails(ProductDetails productDetails) {
+    public void setProductDetails(Set<ProductDetails> productDetails) {
         this.productDetails = productDetails;
     }
 

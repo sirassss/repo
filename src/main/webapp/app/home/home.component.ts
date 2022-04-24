@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { EventManager } from '../core/util/event-manager.service';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'jhi-home',
@@ -16,7 +18,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private eventManager: EventManager,
+    private sessionStorageService: SessionStorageService
+  ) {}
 
   ngOnInit(): void {
     this.accountService
@@ -32,5 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  changeSearch(type: any): void {
+    this.sessionStorageService.store('searchByType', type);
   }
 }

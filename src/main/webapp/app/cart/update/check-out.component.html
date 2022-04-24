@@ -52,19 +52,53 @@
           <div class="row">
             <div class="col-md-12">
               <div class="checkout-form-list mb-10 d-flex">
-                <input type="radio" name="paymentMethod" id="paymentNormal" [(ngModel)]="paymentMethod" [value]="0" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="paymentNormal"
+                  [(ngModel)]="paymentMethod"
+                  [value]="0"
+                  (click)="changePaymentMethod()"
+                />
                 <label for="paymentNormal" class="label-radio">Thanh toán tiền mặt <span class="required">*</span></label>
               </div>
             </div>
             <div class="col-md-12">
               <div class="checkout-form-list mb-10 d-flex">
-                <input type="radio" name="paymentMethod" id="paymentByBank" [(ngModel)]="paymentMethod" [value]="1" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="paymentByBank"
+                  [(ngModel)]="paymentMethod"
+                  [value]="1"
+                  (click)="changePaymentMethod()"
+                />
                 <label for="paymentByBank" class="label-radio">Thanh toán bằng tài khoản ngân hàng <span class="required">*</span></label>
               </div>
             </div>
+            <ng-container *ngIf="paymentMethod === 1">
+              <div class="col-md-12">
+                <div class="checkout-form-list mb-10">
+                  <label for="bankName">Tên ngân hàng<span class="required">*</span></label>
+                  <input type="text" name="bankName" id="bankName" [(ngModel)]="bank.bankName" />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="checkout-form-list mb-10">
+                  <label for="accountNumber">Số tài khoản <span class="required">*</span></label>
+                  <input type="text" name="accountNumber" id="accountNumber" [(ngModel)]="bank.accountNumber" />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="checkout-form-list mb-10">
+                  <label for="accountName">Tên tài khoản <span class="required">*</span></label>
+                  <input type="text" name="accountName" id="accountName" [(ngModel)]="bank.accountName" />
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
-        <button class="btn btn-outline-dark float-right" type="button" (click)="selectVoucher()">Thanh toán</button>
+        <button class="btn btn-outline-dark float-right" type="button" (click)="checkOut()">Thanh toán</button>
       </div>
       <div class="col-lg-6 col-md-6">
         <div class="your-order">

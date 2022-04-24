@@ -15,14 +15,14 @@ const productRoute: Routes = [
     },
   },
   {
-    path: 'new',
+    path: 'detail',
     component: ProductUpdateComponent,
     resolve: {
       product: ProductRoutingResolveService,
     },
   },
   {
-    path: ':id/edit',
+    path: ':id/detail',
     component: ProductUpdateComponent,
     resolve: {
       product: ProductRoutingResolveService,

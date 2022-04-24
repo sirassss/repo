@@ -17,7 +17,7 @@ export interface IProduct {
   createdUser?: string | null;
   modifiedUser?: string | null;
   rate?: number | null;
-  productDetails?: IProductDetails | null;
+  productDetails?: IProductDetails[] | null;
   vouchers?: IVoucher[] | null;
   isPromotion?: boolean | null;
 }

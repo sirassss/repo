@@ -1,5 +1,6 @@
 import * as dayjs from 'dayjs';
 import { IOrderDetails } from '../../cart/order-details.model';
+import { IBank } from '../bank/bank.model';
 
 export interface IOrder {
   id?: number;
@@ -11,6 +12,7 @@ export interface IOrder {
   voucherID?: number | null;
   orderDetails?: IOrderDetails[] | null;
   totalAmount?: number | null;
+  banks?: IBank[] | null;
 }
 
 export class Order implements IOrder {
@@ -23,7 +25,8 @@ export class Order implements IOrder {
     public status?: boolean | null,
     public voucherID?: number | null,
     public orderDetails?: IOrderDetails[] | null,
-    public totalAmount?: number | null
+    public totalAmount?: number | null,
+    public banks?: IBank[] | null
   ) {
     this.status = this.status ?? false;
   }

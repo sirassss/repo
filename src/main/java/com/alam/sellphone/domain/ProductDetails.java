@@ -1,8 +1,5 @@
 package com.alam.sellphone.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -51,6 +48,9 @@ public class ProductDetails implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    //    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    //    public Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {

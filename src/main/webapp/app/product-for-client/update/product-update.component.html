@@ -1,259 +1,54 @@
-<div class="breadcrumb-area">
-  <div class="container">
-    <div class="breadcrumb">
-      <ul class="d-flex align-items-center">
-        <li><a href="index.html">Điện thoại</a></li>
-        <li><a href="shop.html">Iphone</a></li>
-      </ul>
-    </div>
-  </div>
-  <!-- Container End -->
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
 </div>
-
-<div class="main-product-thumbnail ptb-100 ptb-sm-60">
+<div class="main-product-thumbnail ptb-50 ptb-sm-60">
   <div class="container">
-    <div class="thumb-bg">
-      <div class="row">
-        <!-- Main Thumbnail Image Start -->
-        <div class="col-lg-5 mb-all-40">
-          <!-- Thumbnail Large Image start -->
-          <div class="tab-content">
-            <div id="thumb1" class="tab-pane fade show active">
-              <a data-fancybox="images" href="./content/img/products/35.jpg"
-                ><img src="./content/img/products/35.jpg" alt="product-view"
-              /></a>
-            </div>
-            <div id="thumb2" class="tab-pane fade">
-              <a data-fancybox="images" href="./content/img/products/13.jpg"
-                ><img src="./content/img/products/13.jpg" alt="product-view"
-              /></a>
-            </div>
-            <div id="thumb3" class="tab-pane fade">
-              <a data-fancybox="images" href="./content/img/products/15.jpg"
-                ><img src="./content/img/products/15.jpg" alt="product-view"
-              /></a>
-            </div>
-            <div id="thumb4" class="tab-pane fade">
-              <a data-fancybox="images" href="./content/img/products/4.jpg"
-                ><img src="./content/img/products/4.jpg" alt="product-view"
-              /></a>
-            </div>
-            <div id="thumb5" class="tab-pane fade">
-              <a data-fancybox="images" href="./content/img/products/5.jpg"
-                ><img src="./content/img/products/5.jpg" alt="product-view"
-              /></a>
-            </div>
+    <div class="row">
+      <!-- Main Thumbnail Image Start -->
+      <div class="col-lg-5 mb-all-40">
+        <!-- Thumbnail Large Image start -->
+        <div class="tab-content">
+          <div id="thumb1" class="tab-pane fade show active">
+            <a data-fancybox="images" href="../../../../content/img/products/35.jpg"
+              ><img src="../../../../content/img/products/35.jpg" alt="product-view"
+            /></a>
           </div>
-          <!-- Thumbnail image end -->
         </div>
-        <!-- Main Thumbnail Image End -->
-        <!-- Thumbnail Description Start -->
-        <div class="col-lg-7">
-          <div class="thubnail-desc fix">
-            <h3 class="product-header">Faded Short Sleeves T-shirt</h3>
-            <div class="rating-summary fix mtb-10">
-              <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-              </div>
-              <div class="rating-feedback">
-                <a href="#">(1 review)</a>
-                <a href="#">add to your review</a>
-              </div>
+        <!-- Thumbnail image end -->
+      </div>
+      <!-- Main Thumbnail Image End -->
+      <!-- Thumbnail Description Start -->
+      <div class="col-lg-7">
+        <div class="thubnail-desc fix">
+          <h3 class="product-header">{{ product.name }}</h3>
+          <div class="fix">
+            <div class="rating-feedback">
+              <a class="mt-0" id="manufacturerName">{{ 'Tên hãng:   ' + productDetail.manufacturer!.name }}</a>
             </div>
-            <div class="pro-price mtb-30">
-              <p class="d-flex align-items-center">
-                <span class="prev-price">16.51</span><span class="price">$15.19</span><span class="saving-price">save 8%</span>
-              </p>
+            <div class="rating-feedback">
+              <a class="mt-10" id="capacity">{{ 'Dung lượng:   ' + productDetail.capacity }}</a>
             </div>
-            <p class="mb-20 pro-desc-details">
-              Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat
-              and you're ready for summer!
-            </p>
-            <div class="product-size mb-20 clearfix">
-              <label>Size</label>
-              <select class="">
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-              </select>
+            <div class="rating-feedback">
+              <a class="mt-10" id="screen">{{ 'Màn hình:   ' + productDetail.screen }}</a>
             </div>
-            <div class="box-quantity d-flex hot-product2">
-              <form action="#">
-                <input class="quantity mr-15" type="number" min="1" value="1" />
-              </form>
-              <div class="pro-actions">
-                <div class="actions-primary">
-                  <a href="cart.html" title="" data-original-title="Add to Cart"> + Add To Cart</a>
-                </div>
-                <div class="actions-secondary">
-                  <a href="wishlist.html" title="" data-original-title="WishList"
-                    ><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a
-                  >
-                </div>
-              </div>
+            <div class="rating-feedback">
+              <a class="mt-10" id="camera">{{ 'Tên hãng:   ' + productDetail.camera }}</a>
             </div>
-            <div class="pro-ref mt-20">
-              <p>
-                <span class="in-stock"><i class="ion-checkmark-round"></i> IN STOCK</span>
-              </p>
+            <div class="rating-feedback">
+              <a class="mt-10" id="oSAndCPU">{{ 'Hệ điều hành:   ' + productDetail.oSAndCPU }}</a>
             </div>
-            <div class="socila-sharing mt-25">
-              <ul class="d-flex">
-                <li>share</li>
-                <li>
-                  <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                </li>
-              </ul>
+            <div class="rating-feedback">
+              <a class="mt-10" id="pIN">{{ 'Dung lượng pin:   ' + productDetail.pIN }}</a>
             </div>
+            <div class="rating-feedback">
+              <a class="mt-10" id="color">{{ 'Màu:   ' + productDetail.color }}</a>
+            </div>
+            <p class="mt-20 mb-20 pro-desc-details">{{ productDetail.description }}</p>
           </div>
         </div>
         <!-- Thumbnail Description End -->
       </div>
-      <!-- Row End -->
     </div>
+    <!-- Container End -->
   </div>
-  <!-- Container End -->
-</div>
-
-<div class="thumnail-desc pb-100 pb-sm-60">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <ul class="main-thumb-desc nav tabs-area" role="tablist">
-          <li><a class="active" data-toggle="tab" href="#dtail">Product Details</a></li>
-          <li><a data-toggle="tab" href="#review">Reviews 1</a></li>
-        </ul>
-        <!-- Product Thumbnail Tab Content Start -->
-        <div class="tab-content thumb-content border-default">
-          <div id="dtail" class="tab-pane fade show active">
-            <p>
-              Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates
-              and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a
-              woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the
-              beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories
-              including shoes, hats, belts and more!
-            </p>
-          </div>
-          <div id="review" class="tab-pane fade">
-            <!-- Reviews Start -->
-            <div class="review border-default universal-padding">
-              <div class="group-title">
-                <h2>customer review</h2>
-              </div>
-              <h4 class="review-mini-title">Truemart</h4>
-              <ul class="review-list">
-                <!-- Single Review List Start -->
-                <li>
-                  <span>Quality</span>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <label>Truemart</label>
-                </li>
-                <!-- Single Review List End -->
-                <!-- Single Review List Start -->
-                <li>
-                  <span>price</span>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <label>Review by <a href="https://themeforest.net/user/hastech">Truemart</a></label>
-                </li>
-                <!-- Single Review List End -->
-                <!-- Single Review List Start -->
-                <li>
-                  <span>value</span>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <label>Posted on 7/20/18</label>
-                </li>
-                <!-- Single Review List End -->
-              </ul>
-            </div>
-            <!-- Reviews End -->
-            <!-- Reviews Start -->
-            <div class="review border-default universal-padding mt-30">
-              <h2 class="review-title mb-30">You're reviewing: <br /><span>Faded Short Sleeves T-shirt</span></h2>
-              <p class="review-mini-title">your rating</p>
-              <ul class="review-list">
-                <!-- Single Review List Start -->
-                <li>
-                  <span>Quality</span>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                </li>
-                <!-- Single Review List End -->
-                <!-- Single Review List Start -->
-                <li>
-                  <span>price</span>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                </li>
-                <!-- Single Review List End -->
-                <!-- Single Review List Start -->
-                <li>
-                  <span>value</span>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                </li>
-                <!-- Single Review List End -->
-              </ul>
-              <!-- Reviews Field Start -->
-              <div class="riview-field mt-40">
-                <form autocomplete="off" action="#">
-                  <div class="form-group">
-                    <label class="req" for="sure-name">Nickname</label>
-                    <input type="text" class="form-control" id="sure-name" required="required" />
-                  </div>
-                  <div class="form-group">
-                    <label class="req" for="subject">Summary</label>
-                    <input type="text" class="form-control" id="subject" required="required" />
-                  </div>
-                  <div class="form-group">
-                    <label class="req" for="comments">Review</label>
-                    <textarea class="form-control" rows="5" id="comments" required="required"></textarea>
-                  </div>
-                  <button type="submit" class="customer-btn">Submit Review</button>
-                </form>
-              </div>
-              <!-- Reviews Field Start -->
-            </div>
-            <!-- Reviews End -->
-          </div>
-        </div>
-        <!-- Product Thumbnail Tab Content End -->
-      </div>
-    </div>
-    <!-- Row End -->
-  </div>
-  <!-- Container End -->
 </div>

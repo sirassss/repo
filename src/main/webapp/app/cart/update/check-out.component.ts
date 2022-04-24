@@ -14,8 +14,15 @@ import { IProduct } from '../../product-for-client/product.model';
 import { VoucherComponent } from '../../entities/voucher/list/voucher.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from '../../shared/base-component/base.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { EventManager } from '../../core/util/event-manager.service';
+import { IPayment } from '../../entities/payment/payment.model';
+import { finalize } from 'rxjs/operators';
+import { PaymentService } from '../../entities/payment/service/payment.service';
+import { IBank } from '../../entities/bank/bank.model';
+import * as dayjs from 'dayjs';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-order-details-update',
@@ -31,6 +38,8 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
   modalRef!: NgbModalRef;
   eventSubscriber: Subscription | any;
   paymentMethod!: any;
+  payment!: IPayment;
+  bank!: IBank | any;
 
   city = '';
   address = '';
@@ -43,7 +52,10 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
     private orderService: OrderService,
     private productService: ProductService,
     protected modalService: NgbModal,
-    private eventManager: EventManager
+    private eventManager: EventManager,
+    protected paymentService: PaymentService,
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {
     super();
   }
@@ -52,6 +64,7 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
     this.user = { activated: true, authorities: [], email: '', firstName: '', lastName: '', login: '', imageUrl: '', langKey: '' };
     this.cart = { orderPhone: '', orderAddress: '' };
     this.orderDetails = [];
+    this.bank = {};
   }
 
   ngOnInit(): void {
@@ -104,5 +117,56 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
       });
     });
     this.eventSubscribers.push(this.eventSubscriber);
+  }
+
+  checkOut() {
+    this.cart.status = true;
+    if (this.bank) {
+      this.cart.banks = [];
+      this.cart.banks?.push(this.bank);
+      this.save(this.cart);
+    } else {
+      this.save(this.cart);
+    }
+  }
+
+  save(order: IOrder): void {
+    this.isSaving = true;
+    if (order.id !== undefined) {
+      this.subscribeToSaveResponse(this.orderService.update(order));
+    } else {
+      order.createdDate = dayjs(new Date());
+      this.subscribeToSaveResponse(this.orderService.create(order));
+    }
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IOrder>>): void {
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    this.toastr.error(this.translate.instant('sellphonealamApp.order.saveOnSuccess'));
+    this.eventManager.broadcast({
+      name: 'addCartSuccess',
+      content: { data: true },
+    });
+  }
+
+  protected onSaveError(): void {
+    this.toastr.error(this.translate.instant('error.internalServerError'));
+  }
+
+  protected onSaveFinalize(): void {
+    this.isSaving = false;
+  }
+
+  changePaymentMethod() {
+    if (this.paymentMethod === 0) {
+      this.bank = null;
+      this.cart.banks?.splice(0, 1);
+    }
   }
 }

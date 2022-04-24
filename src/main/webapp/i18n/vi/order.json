@@ -22,7 +22,8 @@
       "createdDate": "Created Date",
       "orderAddress": "Order Address",
       "orderPhone": "Order Phone",
-      "status": "Status"
+      "status": "Status",
+      "saveOnSuccess": "Status"
     }
   }
 }

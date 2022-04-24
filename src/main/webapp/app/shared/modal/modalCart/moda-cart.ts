@@ -14,6 +14,7 @@ import { OrderService } from '../../../entities/order/service/order.service';
 import * as dayjs from 'dayjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { IProductDetails } from '../../../entities/product-details/product-details.model';
 
 @Component({
   selector: 'jhi-product-for-client',
@@ -26,6 +27,7 @@ export class ModaCartComponent implements OnInit {
 
   varSearch: any;
   productInCart!: IProduct;
+  productDetail!: IProductDetails;
   cart!: IOrder;
   productCart!: IOrderDetails;
   private isSaving = false;

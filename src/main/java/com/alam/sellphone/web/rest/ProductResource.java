@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -141,9 +140,9 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable, @RequestParam String varSearch) {
+    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable) {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productService.findAll(pageable, varSearch);
+        Page<Product> page = productService.findAllForAdmin(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
