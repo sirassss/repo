@@ -1,0 +1,24 @@
+{
+  "fields": [
+    {
+      "fieldName": "orderDetailID",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "bankID",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "service": "serviceImpl",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Payment",
+  "changelogDate": "20220424112325"
+}

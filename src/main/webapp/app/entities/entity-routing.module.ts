@@ -44,6 +44,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'sellphonealamApp.bank.home.title' },
         loadChildren: () => import('./bank/bank.module').then(m => m.BankModule),
       },
+      {
+        path: 'payment',
+        data: { pageTitle: 'sellphonealamApp.payment.home.title' },
+        loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
