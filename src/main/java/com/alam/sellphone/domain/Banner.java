@@ -6,12 +6,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A Payment.
+ * A Banner.
  */
 @Entity
-@Table(name = "payment")
+@Table(name = "banner")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Payment implements Serializable {
+public class Banner implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,11 +20,8 @@ public class Payment implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "orderdetailid")
-    private Long orderDetailID;
-
-    @Column(name = "bankid")
-    private Long bankID;
+    @Column(name = "typeid")
+    private Long typeID;
 
     @Column(name = "status")
     private Integer status;
@@ -38,42 +35,29 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public Payment id(Long id) {
+    public Banner id(Long id) {
         this.id = id;
         return this;
     }
 
-    public Long getOrderDetailID() {
-        return this.orderDetailID;
+    public Long getTypeID() {
+        return this.typeID;
     }
 
-    public Payment orderDetailID(Long orderDetailID) {
-        this.orderDetailID = orderDetailID;
+    public Banner typeID(Long typeID) {
+        this.typeID = typeID;
         return this;
     }
 
-    public void setOrderDetailID(Long orderDetailID) {
-        this.orderDetailID = orderDetailID;
-    }
-
-    public Long getBankID() {
-        return this.bankID;
-    }
-
-    public Payment bankID(Long bankID) {
-        this.bankID = bankID;
-        return this;
-    }
-
-    public void setBankID(Long bankID) {
-        this.bankID = bankID;
+    public void setTypeID(Long typeID) {
+        this.typeID = typeID;
     }
 
     public Integer getStatus() {
         return this.status;
     }
 
-    public Payment status(Integer status) {
+    public Banner status(Integer status) {
         this.status = status;
         return this;
     }
@@ -89,10 +73,10 @@ public class Payment implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Payment)) {
+        if (!(o instanceof Banner)) {
             return false;
         }
-        return id != null && id.equals(((Payment) o).id);
+        return id != null && id.equals(((Banner) o).id);
     }
 
     @Override
@@ -104,10 +88,9 @@ public class Payment implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Payment{" +
+        return "Banner{" +
             "id=" + getId() +
-            ", orderDetailID=" + getOrderDetailID() +
-            ", bankID=" + getBankID() +
+            ", typeID=" + getTypeID() +
             ", status=" + getStatus() +
             "}";
     }
