@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductRepositoryCustom {
-    Page<Product> findAllByKeySearch(Pageable pageable, String varSearch, Integer typeSearch);
+    Page<Product> findAllByKeySearch(Pageable pageable, String varSearch, Long typeSearch);
 }

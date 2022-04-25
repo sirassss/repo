@@ -33,7 +33,7 @@ public interface ProductService {
      * @param typeSearch
      * @return the list of entities.
      */
-    Page<Product> findAll(Pageable pageable, String varSearch, Integer typeSearch);
+    Page<Product> findAll(Pageable pageable, String varSearch, Long typeSearch);
 
     /**
      * Get the "id" product.

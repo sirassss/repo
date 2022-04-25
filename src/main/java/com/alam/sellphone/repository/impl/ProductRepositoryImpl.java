@@ -23,22 +23,22 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public Page<Product> findAllByKeySearch(Pageable pageable, String varSearch, Integer typeSearch) {
+    public Page<Product> findAllByKeySearch(Pageable pageable, String varSearch, Long typeSearch) {
         StringBuilder sql = new StringBuilder();
         List<Product> products = new ArrayList<>();
         Map<String, Object> params = new HashMap<>();
         sql.append("FROM Product WHERE 1 = 1 ");
-
         if (!Strings.isNullOrEmpty(varSearch)) {
-            sql.append(" AND Name like :varSearch ");
+            sql.append(" and Name like :varSearch ");
             params.put("varSearch", "%" + varSearch + "%");
         } else {
-            sql.append(" AND Name like '' ");
+            sql.append(" and Name like '' ");
         }
         if (typeSearch != 999) {
-            sql.append(" OR Type = :typeSearch ");
+            sql.append(" or TypeID = :typeSearch ");
             params.put("typeSearch", typeSearch);
         }
+
         Query countQuery = entityManager.createNativeQuery("SELECT Count(1) " + sql);
         Common.setParams(countQuery, params);
         Number total = (Number) countQuery.getSingleResult();

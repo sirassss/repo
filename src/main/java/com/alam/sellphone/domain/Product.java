@@ -61,8 +61,11 @@ public class Product implements Serializable {
     @Column(name = "rate")
     private Integer rate;
 
-    @Column(name = "type")
-    private Integer type;
+    @Column(name = "typeid")
+    private Long typeID;
+
+    @Column(name = "bannerid")
+    private Long bannerID;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "productid")
@@ -121,12 +124,20 @@ public class Product implements Serializable {
         return this;
     }
 
-    public Integer getType() {
-        return type;
+    public Long getTypeID() {
+        return typeID;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setTypeID(Long typeID) {
+        this.typeID = typeID;
+    }
+
+    public Long getBannerID() {
+        return bannerID;
+    }
+
+    public void setBannerID(Long bannerID) {
+        this.bannerID = bannerID;
     }
 
     public void setQuantity(Integer quantity) {
