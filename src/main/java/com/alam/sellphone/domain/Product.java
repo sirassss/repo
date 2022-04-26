@@ -67,6 +67,9 @@ public class Product implements Serializable {
     @Column(name = "bannerid")
     private Long bannerID;
 
+    @Column(name = "isnew")
+    private Boolean isNew;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "productid")
     private Set<ProductDetails> productDetails = new HashSet<>();
@@ -74,6 +77,10 @@ public class Product implements Serializable {
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "productid")
     private Set<Voucher> vouchers = new HashSet<>();
+
+    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "productid")
+    private Set<ProductBanner> productBanners = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -262,6 +269,22 @@ public class Product implements Serializable {
 
     public void setVouchers(Set<Voucher> vouchers) {
         this.vouchers = vouchers;
+    }
+
+    public Boolean getNew() {
+        return isNew;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
+    }
+
+    public Set<ProductBanner> getProductBanners() {
+        return productBanners;
+    }
+
+    public void setProductBanners(Set<ProductBanner> productBanners) {
+        this.productBanners = productBanners;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

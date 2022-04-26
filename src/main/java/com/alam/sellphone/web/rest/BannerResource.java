@@ -3,6 +3,7 @@ package com.alam.sellphone.web.rest;
 import com.alam.sellphone.domain.Banner;
 import com.alam.sellphone.repository.BannerRepository;
 import com.alam.sellphone.service.BannerService;
+import com.alam.sellphone.web.rest.dto.ListBanner;
 import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -175,5 +176,12 @@ public class BannerResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/banners/get-list-banner")
+    public ResponseEntity<ListBanner> getListBanner() {
+        log.debug("REST request to get a page of Banners");
+        ListBanner doubleBanner = bannerService.getListBanner();
+        return ResponseEntity.ok().body(doubleBanner);
     }
 }

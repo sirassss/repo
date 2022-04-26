@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IBanner, getBannerIdentifier } from '../banner.model';
+import { IViewBanner } from '../../../shared/model/IViewBanner';
 
 export type EntityResponseType = HttpResponse<IBanner>;
 export type EntityArrayResponseType = HttpResponse<IBanner[]>;
@@ -41,20 +42,7 @@ export class BannerService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addBannerToCollectionIfMissing(bannerCollection: IBanner[], ...bannersToCheck: (IBanner | null | undefined)[]): IBanner[] {
-    const banners: IBanner[] = bannersToCheck.filter(isPresent);
-    if (banners.length > 0) {
-      const bannerCollectionIdentifiers = bannerCollection.map(bannerItem => getBannerIdentifier(bannerItem)!);
-      const bannersToAdd = banners.filter(bannerItem => {
-        const bannerIdentifier = getBannerIdentifier(bannerItem);
-        if (bannerIdentifier == null || bannerCollectionIdentifiers.includes(bannerIdentifier)) {
-          return false;
-        }
-        bannerCollectionIdentifiers.push(bannerIdentifier);
-        return true;
-      });
-      return [...bannersToAdd, ...bannerCollection];
-    }
-    return bannerCollection;
+  getListBanner(req?: any): Observable<HttpResponse<IViewBanner>> {
+    return this.http.get<IViewBanner>(this.resourceUrl + '/get-list-banner', { observe: 'response' });
   }
 }

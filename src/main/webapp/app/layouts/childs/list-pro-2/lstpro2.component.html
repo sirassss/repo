@@ -122,111 +122,109 @@
             </div>
           </div>
         </div>
-        <!-- #kids End Here -->
-        <div id="electronics" class="tab-pane fade">
-          <div class="row">
-            <div class="col-lg-4 order-2 order-lg-1">
-              <div class="mt-10">
-                <div class="col-img">
-                  <a href="#"><img src="./content/img/banner/electorince.jpg" alt="" /></a>
-                </div>
-                <!-- Single Product Start -->
-                <div class="single-product mt-10">
-                  <!-- Product Image Start -->
-                  <div class="pro-img">
-                    <a (click)="viewDetail(productBanner2)">
-                      <img class="primary-img" src="./content/img/products/36.jpg" alt="single-product" />
-                      <img class="secondary-img" src="./content/img/products/37.jpg" alt="single-product" />
-                    </a>
-                  </div>
-                  <!-- Product Image End -->
-                  <!-- Product Content Start -->
-                  <div class="pro-content">
-                    <div class="pro-info">
-                      <h4>
-                        <a href="#">{{ productBanner2.name }}</a>
-                      </h4>
-                      <p>
-                        <span class="price" *ngIf="!productBanner2.isPromotion; else notpromotion">{{
-                          productBanner2.unitPrice | currency: 'VND':true
-                        }}</span>
-                        <ng-template #notpromotion>
-                          <span class="price" *ngIf="productBanner2.isPromotion">{{
-                            productBanner2.promotionPrice | currency: 'VND':true
-                          }}</span>
-                          <del class="prev-price" *ngIf="productBanner2.isPromotion">{{
-                            productBanner2.unitPrice | currency: 'VND':true
-                          }}</del>
-                        </ng-template>
-                      </p>
-                      <div class="label-product l_sale" *ngIf="productBanner2.isPromotion">
-                        {{ productBanner2.vouchers![0].promotionRate }}<span class="symbol-percent">%</span>
-                      </div>
-                    </div>
-                    <div class="pro-actions">
-                      <div class="actions-primary">
-                        <a title="Thêm vào giỏ hàng" (click)="addToCart(productBanner2)"> + Thêm vào giỏ hàng</a>
-                      </div>
-                      <div class="actions-secondary">
-                        <a href="#" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-              </div>
-            </div>
-            <div class="col-lg-8 order-1 order-lg-2">
-              <!-- Arrivals Product Activation Start Here -->
-              <div class="flex-products">
-                <div class="double-product" *ngFor="let productDouble of productDoubles2">
-                  <div class="single-product-2" *ngFor="let product of productDouble">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                      <a (click)="viewDetail(product)">
-                        <img class="primary-img" src="./content/img/products/36.jpg" alt="single-product" />
-                        <img class="secondary-img" src="./content/img/products/37.jpg" alt="single-product" />
-                      </a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                      <div class="pro-info">
-                        <h4>
-                          <a href="#">{{ product.name }}</a>
-                        </h4>
-                        <p>
-                          <span class="price" *ngIf="!product.isPromotion; else notpromotion">{{
-                            product.unitPrice | currency: 'VND':true
-                          }}</span>
-                          <ng-template #notpromotion>
-                            <span class="price" *ngIf="product.isPromotion">{{ product.promotionPrice | currency: 'VND':true }}</span>
-                            <del class="prev-price" *ngIf="product.isPromotion">{{ product.unitPrice | currency: 'VND':true }}</del>
-                          </ng-template>
-                        </p>
-                        <div class="label-product l_sale" *ngIf="product.isPromotion">
-                          {{ product.vouchers![0].promotionRate }}<span class="symbol-percent">%</span>
-                        </div>
-                      </div>
-                      <div class="pro-actions">
-                        <div class="actions-primary">
-                          <a title="Thêm vào giỏ hàng" (click)="addToCart(product)"> + Thêm vào giỏ hàng</a>
-                        </div>
-                        <div class="actions-secondary">
-                          <a href="#" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Product Content End -->
-                  </div>
-                </div>
-              </div>
-              <!-- Arrivals Product Activation End Here -->
-            </div>
-          </div>
-        </div>
-        <!-- #electronics End Here -->
+        <!--        <div id="electronics" class="tab-pane fade">-->
+        <!--          <div class="row">-->
+        <!--            <div class="col-lg-4 order-2 order-lg-1">-->
+        <!--              <div class="mt-10">-->
+        <!--                <div class="col-img">-->
+        <!--                  <a href="#"><img src="./content/img/banner/electorince.jpg" alt="" /></a>-->
+        <!--                </div>-->
+        <!--                &lt;!&ndash; Single Product Start &ndash;&gt;-->
+        <!--                <div class="single-product mt-10">-->
+        <!--                  &lt;!&ndash; Product Image Start &ndash;&gt;-->
+        <!--                  <div class="pro-img">-->
+        <!--                    <a (click)="viewDetail(productBanner2)">-->
+        <!--                      <img class="primary-img" src="./content/img/products/36.jpg" alt="single-product" />-->
+        <!--                      <img class="secondary-img" src="./content/img/products/37.jpg" alt="single-product" />-->
+        <!--                    </a>-->
+        <!--                  </div>-->
+        <!--                  &lt;!&ndash; Product Image End &ndash;&gt;-->
+        <!--                  &lt;!&ndash; Product Content Start &ndash;&gt;-->
+        <!--                  <div class="pro-content">-->
+        <!--                    <div class="pro-info">-->
+        <!--                      <h4>-->
+        <!--                        <a href="#">{{ productBanner2.name }}</a>-->
+        <!--                      </h4>-->
+        <!--                      <p>-->
+        <!--                        <span class="price" *ngIf="!productBanner2.isPromotion; else notpromotion">{{-->
+        <!--                          productBanner2.unitPrice | currency: 'VND':true-->
+        <!--                        }}</span>-->
+        <!--                        <ng-template #notpromotion>-->
+        <!--                          <span class="price" *ngIf="productBanner2.isPromotion">{{-->
+        <!--                            productBanner2.promotionPrice | currency: 'VND':true-->
+        <!--                          }}</span>-->
+        <!--                          <del class="prev-price" *ngIf="productBanner2.isPromotion">{{-->
+        <!--                            productBanner2.unitPrice | currency: 'VND':true-->
+        <!--                          }}</del>-->
+        <!--                        </ng-template>-->
+        <!--                      </p>-->
+        <!--                      <div class="label-product l_sale" *ngIf="productBanner2.isPromotion">-->
+        <!--                        {{ productBanner2.vouchers![0].promotionRate }}<span class="symbol-percent">%</span>-->
+        <!--                      </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="pro-actions">-->
+        <!--                      <div class="actions-primary">-->
+        <!--                        <a title="Thêm vào giỏ hàng" (click)="addToCart(productBanner2)"> + Thêm vào giỏ hàng</a>-->
+        <!--                      </div>-->
+        <!--                      <div class="actions-secondary">-->
+        <!--                        <a href="#" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>-->
+        <!--                      </div>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                  &lt;!&ndash; Product Content End &ndash;&gt;-->
+        <!--                </div>-->
+        <!--                &lt;!&ndash; Single Product End &ndash;&gt;-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="col-lg-8 order-1 order-lg-2">-->
+        <!--              &lt;!&ndash; Arrivals Product Activation Start Here &ndash;&gt;-->
+        <!--              <div class="flex-products">-->
+        <!--                <div class="double-product" *ngFor="let productDouble of productDoubles2">-->
+        <!--                  <div class="single-product-2" *ngFor="let product of productDouble">-->
+        <!--                    &lt;!&ndash; Product Image Start &ndash;&gt;-->
+        <!--                    <div class="pro-img">-->
+        <!--                      <a (click)="viewDetail(product)">-->
+        <!--                        <img class="primary-img" src="./content/img/products/36.jpg" alt="single-product" />-->
+        <!--                        <img class="secondary-img" src="./content/img/products/37.jpg" alt="single-product" />-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Product Image End &ndash;&gt;-->
+        <!--                    &lt;!&ndash; Product Content Start &ndash;&gt;-->
+        <!--                    <div class="pro-content">-->
+        <!--                      <div class="pro-info">-->
+        <!--                        <h4>-->
+        <!--                          <a href="#">{{ product.name }}</a>-->
+        <!--                        </h4>-->
+        <!--                        <p>-->
+        <!--                          <span class="price" *ngIf="!product.isPromotion; else notpromotion">{{-->
+        <!--                            product.unitPrice | currency: 'VND':true-->
+        <!--                          }}</span>-->
+        <!--                          <ng-template #notpromotion>-->
+        <!--                            <span class="price" *ngIf="product.isPromotion">{{ product.promotionPrice | currency: 'VND':true }}</span>-->
+        <!--                            <del class="prev-price" *ngIf="product.isPromotion">{{ product.unitPrice | currency: 'VND':true }}</del>-->
+        <!--                          </ng-template>-->
+        <!--                        </p>-->
+        <!--                        <div class="label-product l_sale" *ngIf="product.isPromotion">-->
+        <!--                          {{ product.vouchers![0].promotionRate }}<span class="symbol-percent">%</span>-->
+        <!--                        </div>-->
+        <!--                      </div>-->
+        <!--                      <div class="pro-actions">-->
+        <!--                        <div class="actions-primary">-->
+        <!--                          <a title="Thêm vào giỏ hàng" (click)="addToCart(product)"> + Thêm vào giỏ hàng</a>-->
+        <!--                        </div>-->
+        <!--                        <div class="actions-secondary">-->
+        <!--                          <a href="#" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>-->
+        <!--                        </div>-->
+        <!--                      </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Product Content End &ndash;&gt;-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--              &lt;!&ndash; Arrivals Product Activation End Here &ndash;&gt;-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
       </div>
       <!-- Tab Content End -->
     </div>

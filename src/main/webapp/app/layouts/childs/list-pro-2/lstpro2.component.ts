@@ -9,6 +9,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager } from '../../../core/util/event-manager.service';
 import { AccountService } from '../../../core/auth/account.service';
 import { BaseComponent } from '../../../shared/base-component/base.component';
+import { BannerService } from '../../../entities/banner/service/banner.service';
+import { IViewBanner } from '../../../shared/model/IViewBanner';
 
 @Component({
   selector: 'jhi-lstpro-2',
@@ -21,6 +23,7 @@ export class ListPro2Component extends BaseComponent implements OnInit {
   productDoubles2!: IProduct[][];
   productBanner!: IProduct;
   productBanner2!: IProduct;
+  listProduct!: IViewBanner;
 
   eventSubscriber: Subscription | any;
   modalRef!: NgbModalRef;
@@ -30,13 +33,20 @@ export class ListPro2Component extends BaseComponent implements OnInit {
     protected router: Router,
     protected modalService: NgbModal,
     private eventManager: EventManager,
-    private principal: AccountService
+    private principal: AccountService,
+    private bannerService: BannerService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.abc = 0;
+    this.bannerService.getListBanner().subscribe(res => {
+      if (res && res.body) {
+        this.listProduct = res.body;
+        this.productBanner = this.listProduct.productBottom!;
+        this.productDoubles = this.listProduct.listProduct!;
+      }
+    });
   }
 
   addToCart(product: IProduct): void {
