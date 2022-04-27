@@ -44,26 +44,4 @@ export class OrderDetailsService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-
-  addOrderDetailsToCollectionIfMissing(
-    orderDetailsCollection: IOrderDetails[],
-    ...orderDetailsToCheck: (IOrderDetails | null | undefined)[]
-  ): IOrderDetails[] {
-    const orderDetails: IOrderDetails[] = orderDetailsToCheck.filter(isPresent);
-    if (orderDetails.length > 0) {
-      const orderDetailsCollectionIdentifiers = orderDetailsCollection.map(
-        orderDetailsItem => getOrderDetailsIdentifier(orderDetailsItem)!
-      );
-      const orderDetailsToAdd = orderDetails.filter(orderDetailsItem => {
-        const orderDetailsIdentifier = getOrderDetailsIdentifier(orderDetailsItem);
-        if (orderDetailsIdentifier == null || orderDetailsCollectionIdentifiers.includes(orderDetailsIdentifier)) {
-          return false;
-        }
-        orderDetailsCollectionIdentifiers.push(orderDetailsIdentifier);
-        return true;
-      });
-      return [...orderDetailsToAdd, ...orderDetailsCollection];
-    }
-    return orderDetailsCollection;
-  }
 }

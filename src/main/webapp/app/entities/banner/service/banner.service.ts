@@ -7,6 +7,8 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IBanner, getBannerIdentifier } from '../banner.model';
 import { IViewBanner } from '../../../shared/model/IViewBanner';
+import { IProduct } from '../../../product-for-client/product.model';
+import { BannerManufacturerComponent } from '../../../layouts/childs/banner-manufacturer/banner-manufacturer.component';
 
 export type EntityResponseType = HttpResponse<IBanner>;
 export type EntityArrayResponseType = HttpResponse<IBanner[]>;
@@ -50,5 +52,25 @@ export class BannerService {
   getListProduct(req?: any): Observable<HttpResponse<IViewBanner>> {
     const options = createRequestOption(req);
     return this.http.get<IViewBanner>(this.resourceUrl + '/get-list-pro', { params: options, observe: 'response' });
+  }
+
+  getThreeBanner(req?: any): Observable<HttpResponse<IViewBanner>> {
+    const options = createRequestOption(req);
+    return this.http.get<IViewBanner>(this.resourceUrl + '/get-three-banner', { params: options, observe: 'response' });
+  }
+
+  getBannerManufacturer(req?: any): Observable<HttpResponse<IViewBanner>> {
+    const options = createRequestOption(req);
+    return this.http.get<IViewBanner>(this.resourceUrl + '/get-banner-manufacturer', { params: options, observe: 'response' });
+  }
+
+  getLstBanner(req?: any): Observable<HttpResponse<IViewBanner[]>> {
+    const options = createRequestOption(req);
+    return this.http.get<IViewBanner[]>(this.resourceUrl + '/get-banner-list', { params: options, observe: 'response' });
+  }
+
+  getDoubleBanner(req?: any): Observable<HttpResponse<IViewBanner>> {
+    const options = createRequestOption(req);
+    return this.http.get<IViewBanner>(this.resourceUrl + '/get-double-banner', { params: options, observe: 'response' });
   }
 }

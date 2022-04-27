@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { IViewBanner } from '../../../shared/model/IViewBanner';
+import { TypeID } from '../../../app.constants';
+import { BannerService } from '../../../entities/banner/service/banner.service';
 
 @Component({
   selector: 'jhi-lst-banner',
@@ -8,10 +11,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./lstbanner.component.scss'],
 })
 export class ListBannerComponent implements OnInit {
-  abc: any;
-  constructor(private translateService: TranslateService, private route: ActivatedRoute) {}
+  listProduct!: IViewBanner[];
+  constructor(private translateService: TranslateService, private route: ActivatedRoute, private bannerService: BannerService) {}
 
   ngOnInit(): void {
-    this.abc = 0;
+    this.bannerService.getLstBanner({ TypeID: TypeID.BANNER_LIST_BANNER }).subscribe(res => {
+      if (res && res.body) {
+        this.listProduct = res.body;
+      }
+    });
   }
 }

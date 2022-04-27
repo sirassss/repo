@@ -2,6 +2,7 @@ package com.alam.sellphone.service;
 
 import com.alam.sellphone.domain.Banner;
 import com.alam.sellphone.web.rest.dto.ListBanner;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,4 +53,12 @@ public interface BannerService {
     ListBanner getListPro2(Integer typeID);
 
     ListBanner getListPro(Integer typeID);
+
+    ListBanner getThreeBanner(Integer typeID);
+
+    ListBanner getBannerManufacturer(Integer typeID);
+
+    List<ListBanner> getBannerList(Integer typeID);
+
+    ListBanner getDoubleBanner(Integer typeID);
 }

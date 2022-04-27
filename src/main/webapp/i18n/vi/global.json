@@ -6,11 +6,17 @@
       "home": "Trang chủ",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
-        "main": "Thực thể",
+        "main": "Admin",
         "order": "Order",
+        "orderDetails": "OrderDetails",
         "voucher": "Voucher",
         "productDetails": "Product Details",
         "product": "Product",
+        "feedback": "Feedback",
+        "manufactured": "Manufactured",
+        "bank": "Bank",
+        "payment": "Payment",
+        "banner": "Banner",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -23,7 +29,7 @@
         "register": "Đăng ký"
       },
       "admin": {
-        "main": "Quản trị",
+        "main": "Cấu hình",
         "userManagement": "Quản lý tài khoản",
         "tracker": "Theo dõi người dùng",
         "metrics": "Số liệu",

@@ -91,7 +91,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Set<Authority> authorities = new HashSet<>();
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "productid")
+    @JoinColumn(name = "userid")
     private List<Order> orderList = new ArrayList<>();
 
     public Long getId() {

@@ -191,4 +191,32 @@ public class BannerResource {
         ListBanner doubleBanner = bannerService.getListPro2(TypeID);
         return ResponseEntity.ok().body(doubleBanner);
     }
+
+    @GetMapping("/banners/get-three-banner")
+    public ResponseEntity<ListBanner> getThreeBanner(@RequestParam Integer TypeID) {
+        log.debug("REST request to get a page of Banners");
+        ListBanner doubleBanner = bannerService.getThreeBanner(TypeID);
+        return ResponseEntity.ok().body(doubleBanner);
+    }
+
+    @GetMapping("/banners/get-banner-manufacturer")
+    public ResponseEntity<ListBanner> getBannerManufacturer(@RequestParam Integer TypeID) {
+        log.debug("REST request to get a page of Banners");
+        ListBanner doubleBanner = bannerService.getBannerManufacturer(TypeID);
+        return ResponseEntity.ok().body(doubleBanner);
+    }
+
+    @GetMapping("/banners/get-banner-list")
+    public ResponseEntity<List<ListBanner>> getBannerList(@RequestParam Integer TypeID) {
+        log.debug("REST request to get a page of Banners");
+        List<ListBanner> doubleBanner = bannerService.getBannerList(TypeID);
+        return ResponseEntity.ok().body(doubleBanner);
+    }
+
+    @GetMapping("/banners/get-double-banner")
+    public ResponseEntity<ListBanner> getDoubleBanner(@RequestParam Integer TypeID) {
+        log.debug("REST request to get a page of Banners");
+        ListBanner doubleBanner = bannerService.getDoubleBanner(TypeID);
+        return ResponseEntity.ok().body(doubleBanner);
+    }
 }

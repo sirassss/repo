@@ -30,6 +30,11 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
       },
       {
+        path: 'order-admin',
+        data: { pageTitle: 'sellphonealamApp.order.home.title' },
+        loadChildren: () => import('./order-details/order-details.module').then(m => m.OrderDetailsModule),
+      },
+      {
         path: 'cart',
         data: { pageTitle: 'sellphonealamApp.orderDetails.home.title' },
         loadChildren: () => import('../cart/order-details.module').then(m => m.OrderDetailsModule),
@@ -53,6 +58,16 @@ import { RouterModule } from '@angular/router';
         path: 'banner',
         data: { pageTitle: 'sellphonealamApp.banner.home.title' },
         loadChildren: () => import('./banner/banner.module').then(m => m.BannerModule),
+      },
+      {
+        path: 'voucher-client',
+        data: { pageTitle: 'sellphonealamApp.voucher.home.title' },
+        loadChildren: () => import('../shared/modal/voucher/voucher.module').then(m => m.VoucherModule),
+      },
+      {
+        path: 'feedback',
+        data: { pageTitle: 'sellphonealamApp.feedback.home.title' },
+        loadChildren: () => import('./feedback/feedback.module').then(m => m.FeedbackModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

@@ -57,6 +57,7 @@ public class CacheConfiguration {
             createCache(cm, com.alam.sellphone.domain.Bank.class.getName());
             createCache(cm, com.alam.sellphone.domain.Banner.class.getName());
             createCache(cm, com.alam.sellphone.domain.Payment.class.getName());
+            createCache(cm, com.alam.sellphone.domain.Feedback.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -99,7 +99,7 @@ export class OrderDetailsComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/order-details'], {
+      this.router.navigate(['/order-admin'], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

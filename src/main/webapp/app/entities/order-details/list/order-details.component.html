@@ -12,7 +12,7 @@
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-order-details"
-        [routerLink]="['/order-details/new']"
+        [routerLink]="['/order-admin/new']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="sellphonealamApp.orderDetails.home.createLabel"> Create a new Order Details </span>
@@ -54,7 +54,7 @@
       <tbody>
         <tr *ngFor="let orderDetails of orderDetails; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/order-details', orderDetails.id, 'view']">{{ orderDetails.id }}</a>
+            <a [routerLink]="['/order-admin', orderDetails.id, 'view']">{{ orderDetails.id }}</a>
           </td>
           <td>{{ orderDetails.productID }}</td>
           <td>{{ orderDetails.orderID }}</td>
@@ -75,7 +75,7 @@
 
               <button
                 type="submit"
-                [routerLink]="['/order-details', orderDetails.id, 'edit']"
+                [routerLink]="['/order-admin', orderDetails.id, 'edit']"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >

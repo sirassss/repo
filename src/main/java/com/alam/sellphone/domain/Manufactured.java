@@ -1,5 +1,6 @@
 package com.alam.sellphone.domain;
 
+import com.alam.sellphone.service.dto.ManufacturedDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,25 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "manufactured")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SqlResultSetMappings(
+    {
+        @SqlResultSetMapping(
+            name = "ManufacturedDTO",
+            classes = {
+                @ConstructorResult(
+                    targetClass = ManufacturedDTO.class,
+                    columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "image", type = String.class),
+                        @ColumnResult(name = "description", type = String.class),
+                        @ColumnResult(name = "bannerID", type = Integer.class),
+                    }
+                ),
+            }
+        ),
+    }
+)
 public class Manufactured implements Serializable {
 
     private static final long serialVersionUID = 1L;

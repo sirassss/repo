@@ -70,7 +70,7 @@ export class VoucherUpdateComponent implements OnInit {
       id: voucher.id,
       voucherCode: voucher.voucherCode,
       productID: voucher.productID,
-      promotionPrice: voucher.promotionRate,
+      promotionPrice: voucher.promotionPrice,
       dateIssue: voucher.dateIssue,
       status: voucher.status,
     });
@@ -82,7 +82,7 @@ export class VoucherUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       voucherCode: this.editForm.get(['voucherCode'])!.value,
       productID: this.editForm.get(['productID'])!.value,
-      promotionRate: this.editForm.get(['promotionRate'])!.value,
+      promotionPrice: this.editForm.get(['promotionPrice'])!.value,
       dateIssue: this.editForm.get(['dateIssue'])!.value,
       status: this.editForm.get(['status'])!.value,
     };

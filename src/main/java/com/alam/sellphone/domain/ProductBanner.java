@@ -26,6 +26,9 @@ public class ProductBanner implements Serializable {
     @Column(name = "isbottom")
     private Boolean isBottom;
 
+    @Column(name = "istb")
+    private Boolean isTB;
+
     @Column(name = "islistdouble")
     private Boolean isListDouble;
 
@@ -67,5 +70,13 @@ public class ProductBanner implements Serializable {
 
     public void setListDouble(Boolean listDouble) {
         isListDouble = listDouble;
+    }
+
+    public Boolean getTB() {
+        return isTB;
+    }
+
+    public void setTB(Boolean TB) {
+        isTB = TB;
     }
 }

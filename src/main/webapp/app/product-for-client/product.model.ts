@@ -1,6 +1,6 @@
 import * as dayjs from 'dayjs';
 import { IProductDetails } from '../entities/product-details/product-details.model';
-import { IVoucher } from '../entities/voucher/voucher.model';
+import { IVoucher } from '../shared/modal/voucher/voucher.model';
 
 export interface IProduct {
   id?: number;

@@ -1,0 +1,25 @@
+<div class="bossWrapp">
+  <div class="cardTitle">
+    MÃ GIẢM GIÁ
+    <button type="button" class="close" style="padding-left: 740px" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">
+      &times;
+    </button>
+  </div>
+  <div class="single" *ngFor="let voucher of vouchers; let i = index">
+    <div class="icon" *ngIf="voucher.isSelect"><fa-icon [icon]="'check'"></fa-icon></div>
+    <div class="text">
+      <div class="header">
+        <h3>{{ voucher.voucherCode }}</h3>
+        <div class="desc">
+          <h5>{{ voucher.description }}</h5>
+        </div>
+      </div>
+
+      <div class="functions">
+        <span class="soon">{{ 'Hiệu lực trong ' + voucher.dateIssue + ' ngày' }}</span>
+        <span (click)="applyVoucher(voucher)" *ngIf="!voucher.isSelect">Chọn mã giảm</span>
+      </div>
+    </div>
+  </div>
+  <div class="devider">Expired</div>
+</div>

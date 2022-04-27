@@ -1,6 +1,8 @@
 package com.alam.sellphone.web.rest.dto;
 
+import com.alam.sellphone.domain.Manufactured;
 import com.alam.sellphone.domain.Product;
+import com.alam.sellphone.service.dto.ManufacturedDTO;
 import java.util.List;
 
 public class ListBanner {
@@ -9,9 +11,13 @@ public class ListBanner {
 
     private Product productBottom;
 
+    private Product productTB;
+
     private List<Product> listProduct;
 
     private List<List<Product>> listProduct2;
+
+    private List<ManufacturedDTO> listManufacturer;
 
     public ListBanner() {}
 
@@ -51,5 +57,21 @@ public class ListBanner {
 
     public void setListProduct2(List<List<Product>> listProduct2) {
         this.listProduct2 = listProduct2;
+    }
+
+    public List<ManufacturedDTO> getListManufacturer() {
+        return listManufacturer;
+    }
+
+    public void setListManufacturer(List<ManufacturedDTO> listManufacturer) {
+        this.listManufacturer = listManufacturer;
+    }
+
+    public Product getProductTB() {
+        return productTB;
+    }
+
+    public void setProductTB(Product productTB) {
+        this.productTB = productTB;
     }
 }
