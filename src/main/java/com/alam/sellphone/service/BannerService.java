@@ -49,5 +49,7 @@ public interface BannerService {
      */
     void delete(Long id);
 
-    ListBanner getListBanner();
+    ListBanner getListPro2(Integer typeID);
+
+    ListBanner getListPro(Integer typeID);
 }

@@ -7,6 +7,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { EventManager } from '../core/util/event-manager.service';
 import { SessionStorageService } from 'ngx-webstorage';
+import { TypeID } from '../app.constants';
 
 @Component({
   selector: 'jhi-home',
@@ -15,6 +16,8 @@ import { SessionStorageService } from 'ngx-webstorage';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
+
+  TypeID = TypeID;
 
   private readonly destroy$ = new Subject<void>();
 

@@ -11,6 +11,7 @@ import { AccountService } from '../../../core/auth/account.service';
 import { BaseComponent } from '../../../shared/base-component/base.component';
 import { BannerService } from '../../../entities/banner/service/banner.service';
 import { IViewBanner } from '../../../shared/model/IViewBanner';
+import { Constant, TypeID } from '../../../app.constants';
 
 @Component({
   selector: 'jhi-lstpro-2',
@@ -19,7 +20,7 @@ import { IViewBanner } from '../../../shared/model/IViewBanner';
 })
 export class ListPro2Component extends BaseComponent implements OnInit {
   abc: any;
-  productDoubles!: IProduct[][];
+  productDoubles!: IProduct[];
   productDoubles2!: IProduct[][];
   productBanner!: IProduct;
   productBanner2!: IProduct;
@@ -40,7 +41,9 @@ export class ListPro2Component extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bannerService.getListBanner().subscribe(res => {
+    this.productBanner = {};
+    this.productDoubles = [];
+    this.bannerService.getListBanner({ TypeID: TypeID.BANNER_LIST_PRO_2 }).subscribe(res => {
       if (res && res.body) {
         this.listProduct = res.body;
         this.productBanner = this.listProduct.productBottom!;

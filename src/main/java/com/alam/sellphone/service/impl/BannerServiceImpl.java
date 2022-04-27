@@ -6,14 +6,13 @@ import com.alam.sellphone.domain.ProductBanner;
 import com.alam.sellphone.repository.BannerRepository;
 import com.alam.sellphone.repository.ProductRepository;
 import com.alam.sellphone.service.BannerService;
+import com.alam.sellphone.service.util.Constants;
 import com.alam.sellphone.web.rest.dto.ListBanner;
 import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import com.tngtech.archunit.thirdparty.com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -87,10 +86,10 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public ListBanner getListBanner() {
-        List<Product> productList = productRepository.getListBanner();
+    public ListBanner getListPro(Integer typeID) {
         ListBanner listBanner = new ListBanner();
         List<Product> lstDouble = new ArrayList<>();
+        List<Product> productList = productRepository.getListPro(typeID);
         productList.forEach(
             n -> {
                 List<ProductBanner> setVt = new ArrayList<>(n.getProductBanners());
@@ -105,7 +104,31 @@ public class BannerServiceImpl implements BannerService {
                 }
             }
         );
-        listBanner.setListProduct(Lists.partition(lstDouble, 2));
+        if (lstDouble.size() <= 6) {
+            listBanner.setListProduct(lstDouble);
+        }
+        return listBanner;
+    }
+
+    @Override
+    public ListBanner getListPro2(Integer typeID) {
+        ListBanner listBanner = new ListBanner();
+        List<Product> lstDouble = new ArrayList<>();
+        List<Product> productList = productRepository.getListPro2(typeID);
+        productList.forEach(
+            n -> {
+                List<ProductBanner> setVt = new ArrayList<>(n.getProductBanners());
+                if (setVt.size() > 0) {
+                    if (setVt.get(0).getListDouble()) {
+                        lstDouble.add(n);
+                    }
+                }
+            }
+        );
+        listBanner.setListProduct2(Lists.partition(lstDouble, 2));
+        if (listBanner.getListProduct2().size() <= 4) {
+            listBanner.setListProduct(lstDouble);
+        }
         return listBanner;
     }
 }

@@ -9,11 +9,13 @@ public class ListBanner {
 
     private Product productBottom;
 
-    private List<List<Product>> listProduct;
+    private List<Product> listProduct;
+
+    private List<List<Product>> listProduct2;
 
     public ListBanner() {}
 
-    public ListBanner(Product productTop, Product productBottom, List<List<Product>> listProduct) {
+    public ListBanner(Product productTop, Product productBottom, List<Product> listProduct) {
         this.productTop = productTop;
         this.productBottom = productBottom;
         this.listProduct = listProduct;
@@ -35,11 +37,19 @@ public class ListBanner {
         this.productBottom = productBottom;
     }
 
-    public List<List<Product>> getListProduct() {
+    public List<Product> getListProduct() {
         return listProduct;
     }
 
-    public void setListProduct(List<List<Product>> listProduct) {
+    public void setListProduct(List<Product> listProduct) {
         this.listProduct = listProduct;
+    }
+
+    public List<List<Product>> getListProduct2() {
+        return listProduct2;
+    }
+
+    public void setListProduct2(List<List<Product>> listProduct2) {
+        this.listProduct2 = listProduct2;
     }
 }

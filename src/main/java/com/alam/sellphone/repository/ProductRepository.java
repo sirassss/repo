@@ -16,6 +16,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
     @Query(value = " select * from Product where ID in ?1", nativeQuery = true)
     List<Product> getAllProductsByID(List<Long> productID);
 
-    @Query(value = " select * from Product sp left join Banner bn on sp.BannerID = bn.ID and bn.TypeID = 205 ", nativeQuery = true)
-    List<Product> getListBanner();
+    @Query(value = " select * from Product sp left join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ", nativeQuery = true)
+    List<Product> getListPro(Integer typeID);
+
+    @Query(value = " select * from Product sp left join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ", nativeQuery = true)
+    List<Product> getListPro2(Integer typeID);
 }

@@ -30,7 +30,7 @@ export class ProductUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.manufacturedService.find(this.productDetail.productID!).subscribe(res => {
+    this.manufacturedService.find(this.productDetail.manufacturerID!).subscribe(res => {
       if (res && res.body) {
         this.productDetail.manufacturer = res.body;
       }

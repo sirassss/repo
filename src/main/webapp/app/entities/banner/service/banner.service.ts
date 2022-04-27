@@ -43,6 +43,12 @@ export class BannerService {
   }
 
   getListBanner(req?: any): Observable<HttpResponse<IViewBanner>> {
-    return this.http.get<IViewBanner>(this.resourceUrl + '/get-list-banner', { observe: 'response' });
+    const options = createRequestOption(req);
+    return this.http.get<IViewBanner>(this.resourceUrl + '/get-list-banner', { params: options, observe: 'response' });
+  }
+
+  getListProduct(req?: any): Observable<HttpResponse<IViewBanner>> {
+    const options = createRequestOption(req);
+    return this.http.get<IViewBanner>(this.resourceUrl + '/get-list-pro', { params: options, observe: 'response' });
   }
 }
