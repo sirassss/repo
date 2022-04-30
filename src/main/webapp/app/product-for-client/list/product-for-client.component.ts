@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { ModaCartComponent } from '../../shared/modal/modalCart/moda-cart';
 import { SessionStorageService } from 'ngx-webstorage';
 import { ProductUpdateComponent } from '../update/product-update.component';
+import { TypeID } from '../../app.constants';
 
 @Component({
   selector: 'jhi-product-for-client',
@@ -62,7 +63,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
         size: this.itemsPerPage,
         sort: this.sort(),
         varSearch: this.varSearch ? this.varSearch.data : '',
-        typeSearch: this.typeSearch ? this.typeSearch : 999,
+        typeSearch: this.typeSearch ? this.typeSearch.data : 999,
       })
       .subscribe(
         (res: HttpResponse<IProduct[]>) => {
@@ -77,8 +78,8 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typeSearch = this.sessionStorageService.retrieve('searchByType');
-    this.sessionStorageService.clear('searchByType');
+    // this.typeSearch = this.sessionStorageService.retrieve('searchByType');
+    // this.sessionStorageService.clear('searchByType');
     this.handleNavigation();
     this.registerVarSearch();
   }
@@ -110,13 +111,19 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   registerVarSearch(): void {
     this.eventSubscriber = this.eventManager.subscribe('varSearch', res => {
       if (res) {
-        if (typeof res !== 'string') {
-          this.varSearch = res.content;
-          this.loadPage();
-        }
+        this.changeSearch(res);
       }
     });
     this.eventSubscribers.push(this.eventSubscriber);
+  }
+
+  changeSearch(res: any) {
+    if (res.content.name === 'type') {
+      this.typeSearch = res.content;
+    } else {
+      this.varSearch = res.content;
+    }
+    this.loadPage();
   }
 
   protected sort(): string[] {
@@ -159,6 +166,8 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
       n.isPromotion = n.vouchers!.length > 0;
       n.promotionPrice = n.unitPrice! - (n.unitPrice! * (n.vouchers![0] ? n.vouchers![0].promotionRate! : 0)) / 100;
     });
+    this.varSearch = undefined;
+    this.typeSearch = undefined;
     this.ngbPaginationPage = this.page;
   }
 

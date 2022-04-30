@@ -1,4 +1,4 @@
-<nav data-cy="navbar" class="navbar navbar-light navbar-expand-md">
+<nav data-cy="navbar" class="navbar navbar-light navbar-expand-md fixed-top">
   <a
     class="navbar-toggler d-lg-none"
     href="javascript:void(0);"
@@ -12,6 +12,23 @@
     <fa-icon icon="bars"></fa-icon>
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
+    <div class="col-md-2">
+      <div style="margin-left: 60px">
+        <a class="navbar-brand" routerLink="/" (click)="collapseNavbar()">
+          <span class="logo-img"></span>
+          <!--    <span class="navbar-version">{{ version }}</span>-->
+        </a>
+        <!--          <a href="index.html"><img src="img\logo\logo.png" alt="logo-image"></a>-->
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">
+      <div class="categorie-search-box">
+        <form action="#">
+          <input type="text" name="search" placeholder="Tìm kiếm ..." [(ngModel)]="varSearch" />
+          <button routerLink="/product-client" (click)="changeSearch()"><i class="lnr lnr-magnifier"></i></button>
+        </form>
+      </div>
+    </div>
     <ul class="navbar-nav ml-auto">
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
@@ -213,182 +230,155 @@
           </li>
         </ul>
       </li>
-      <!--      <li-->
-      <!--        ngbDropdown-->
-      <!--        class="nav-item dropdown pointer"-->
-      <!--        display="dynamic"-->
-      <!--        routerLinkActive="active"-->
-      <!--        [routerLinkActiveOptions]="{ exact: true }"-->
-      <!--      >-->
-      <!--        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">-->
-      <!--          <span *ngIf="!account?.imageUrl">-->
-      <!--            <fa-icon icon="user"></fa-icon>-->
-      <!--            <span jhiTranslate="global.menu.account.main">Account</span>-->
-      <!--          </span>-->
-      <!--          <span *ngIf="account?.imageUrl">-->
-      <!--            <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />-->
-      <!--          </span>-->
-      <!--        </a>-->
-      <!--        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">-->
-      <!--          <li *ngSwitchCase="true">-->
-      <!--            <a class="dropdown-item" routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()" data-cy="settings">-->
-      <!--              <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>-->
-      <!--              <span jhiTranslate="global.menu.account.settings">Settings</span>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--          <li *ngSwitchCase="true">-->
-      <!--            <a-->
-      <!--              class="dropdown-item"-->
-      <!--              routerLink="account/password"-->
-      <!--              routerLinkActive="active"-->
-      <!--              (click)="collapseNavbar()"-->
-      <!--              data-cy="passwordItem"-->
-      <!--            >-->
-      <!--              <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>-->
-      <!--              <span jhiTranslate="global.menu.account.password">Password</span>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--          <li *ngSwitchCase="true">-->
-      <!--            <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">-->
-      <!--              <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>-->
-      <!--              <span jhiTranslate="global.menu.account.logout">Sign out</span>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--          <li *ngSwitchCase="false">-->
-      <!--            <a class="dropdown-item" (click)="login()" id="login" data-cy="login">-->
-      <!--              <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>-->
-      <!--              <span jhiTranslate="global.menu.account.login">Sign in</span>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--          <li *ngSwitchCase="false">-->
-      <!--            <a class="dropdown-item" routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()" data-cy="register">-->
-      <!--              <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>-->
-      <!--              <span jhiTranslate="global.menu.account.register">Register</span>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--        </ul>-->
-      <!--      </li>-->
+      <li>
+        <a routerLink="/cart" class="nav-link"
+          ><i class="lnr lnr-cart"></i
+          ><span class="my-cart"
+            ><span class="total-pro">{{ cart.orderDetails!.length }}</span></span
+          ></a
+        >
+      </li>
+      <li>
+        <a routerLink="/" class="nav-link">
+          <i class="lnr lnr-heart"></i>
+          <span>Yêu Thích</span>
+        </a>
+      </li>
+      <li
+        ngbDropdown
+        class="nav-item dropdown pointer"
+        display="dynamic"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
+          <span *ngIf="!account?.imageUrl">
+            <fa-icon icon="user"></fa-icon>
+            <span jhiTranslate="global.menu.account.main">Account</span>
+          </span>
+          <span *ngIf="account?.imageUrl">
+            <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
+          </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
+          <li *ngSwitchCase="true">
+            <a class="dropdown-item" routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()" data-cy="settings">
+              <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.settings">Settings</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="true">
+            <a
+              class="dropdown-item"
+              routerLink="account/password"
+              routerLinkActive="active"
+              (click)="collapseNavbar()"
+              data-cy="passwordItem"
+            >
+              <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.password">Password</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="true">
+            <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
+              <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.logout">Sign out</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="false">
+            <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
+              <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.login">Sign in</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="false">
+            <a class="dropdown-item" routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()" data-cy="register">
+              <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.register">Register</span>
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>
 
-<div class="header-middle ptb-15 nav-search">
+<div class="header-bottom header-sticky mt-70" style="background-color: #333030">
   <div class="container">
-    <div class="row align-items-center no-gutters">
-      <div class="col-lg-3 col-md-12">
-        <div style="margin-left: 60px">
-          <a class="navbar-brand" routerLink="/" (click)="collapseNavbar()">
-            <span class="logo-img"></span>
-            <!--    <span class="navbar-version">{{ version }}</span>-->
-          </a>
-          <!--          <a href="index.html"><img src="img\logo\logo.png" alt="logo-image"></a>-->
-        </div>
-      </div>
-      <!-- Categorie Search Box Start Here -->
-      <div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">
-        <div class="categorie-search-box">
-          <form action="#">
-            <input type="text" name="search" placeholder="Tìm kiếm ..." [(ngModel)]="varSearch" />
-            <button routerLink="/product-client" (click)="changeSearch()"><i class="lnr lnr-magnifier"></i></button>
-          </form>
-        </div>
-      </div>
-      <!-- Categorie Search Box End Here -->
-      <!-- Cart Box Start Here -->
-      <div class="col-lg-4 col-md-12">
-        <div class="cart-box mt-all-30" [ngSwitch]="account !== null">
-          <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">
-            <li>
-              <a routerLink="/cart"
-                ><i class="lnr lnr-cart"></i
-                ><span class="my-cart"
-                  ><span class="total-pro">{{ cart.orderDetails!.length }}</span></span
-                ></a
-              >
+    <div class="row align-items-center">
+      <!--      <jhi-sidebar-in-nav></jhi-sidebar-in-nav>-->
+      <div class="col-xl-9 col-lg-8 col-md-12 div-category">
+        <nav class="d-none d-lg-block">
+          <ul class="header-bottom-list d-flex">
+            <li class="category-nav text-nowrap">
+              <a routerLink="/product-client" (click)="changeSearch(TypeID.PRODUCT_SMART_PHONE)">Điện thoại</a>
             </li>
-            <li class="">
-              <a href="#"
-                ><i class="lnr lnr-heart"></i><span class="my-cart"><span>Yêu</span><span>Thích (0)</span></span></a
-              >
+            <li class="category-nav text-nowrap">
+              <a routerLink="/product-client" (click)="changeSearch(TypeID.PRODUCT_LAPTOP)">Laptop<i class="fa fa-angle-down"></i></a>
             </li>
-            <!--            <li>-->
-            <!--              <a href="#">-->
-            <!--                <i class="lnr lnr-user">-->
-            <!--                </i><span class="my-cart"><span> <strong>Sign in</strong> Or</span><span> Join My Site</span></span></a>-->
-            <!--            </li>-->
-            <li
-              ngbDropdown
-              class="nav-item dropdown pointer"
-              display="dynamic"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
-                <span *ngIf="!account?.imageUrl">
-                  <i class="lnr lnr-user"></i>
-                  <span jhiTranslate="global.menu.account.main">Account</span>
-                </span>
-                <span *ngIf="account?.imageUrl">
-                  <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
-                </span>
-              </a>
-              <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
-                <li *ngSwitchCase="true">
-                  <a
-                    class="dropdown-item"
-                    routerLink="account/settings"
-                    routerLinkActive="active"
-                    (click)="collapseNavbar()"
-                    data-cy="settings"
-                  >
-                    <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.settings">Settings</span>
-                  </a>
-                </li>
-                <li *ngSwitchCase="true">
-                  <a
-                    class="dropdown-item"
-                    routerLink="account/password"
-                    routerLinkActive="active"
-                    (click)="collapseNavbar()"
-                    data-cy="passwordItem"
-                  >
-                    <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.password">Password</span>
-                  </a>
-                </li>
-                <li *ngSwitchCase="true">
-                  <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
-                    <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.logout">Sign out</span>
-                  </a>
-                </li>
-                <li *ngSwitchCase="false">
-                  <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
-                    <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.login">Sign in</span>
-                  </a>
-                </li>
-                <li *ngSwitchCase="false">
-                  <a
-                    class="dropdown-item"
-                    routerLink="account/register"
-                    routerLinkActive="active"
-                    (click)="collapseNavbar()"
-                    data-cy="register"
-                  >
-                    <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-                    <span jhiTranslate="global.menu.account.register">Register</span>
-                  </a>
-                </li>
-              </ul>
+            <li class="category-nav text-nowrap">
+              <a routerLink="/product-client" (click)="changeSearch(TypeID.PRODUCT_TAPBLET)">Tablet</a>
+            </li>
+            <li class="category-nav text-nowrap">
+              <a routerLink="/product-client" (click)="changeSearch(TypeID.PRODUCT_SMART_WATCH)">Phụ kiện</a>
+            </li>
+            <li class="category-nav text-nowrap">
+              <a routerLink="/product-client" (click)="changeSearch(TypeID.PRODUCT_ACCESSORY)">Đồng hồ thông minh</a>
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
-      <!-- Cart Box End Here -->
     </div>
     <!-- Row End -->
   </div>
   <!-- Container End -->
 </div>
+
+<!--<div class="header-middle ptb-15 nav-search">-->
+<!--  <div class="container">-->
+<!--    <div class="row align-items-center no-gutters">-->
+<!--      <div class="col-lg-3 col-md-12">-->
+<!--        <div style="margin-left: 60px">-->
+<!--          <a class="navbar-brand" routerLink="/" (click)="collapseNavbar()">-->
+<!--            <span class="logo-img"></span>-->
+<!--            &lt;!&ndash;    <span class="navbar-version">{{ version }}</span>&ndash;&gt;-->
+<!--          </a>-->
+<!--          &lt;!&ndash;          <a href="index.html"><img src="img\logo\logo.png" alt="logo-image"></a>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--       Categorie Search Box Start Here -->
+<!--      <div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">-->
+<!--        <div class="categorie-search-box">-->
+<!--          <form action="#">-->
+<!--            <input type="text" name="search" placeholder="Tìm kiếm ..." [(ngModel)]="varSearch" />-->
+<!--            <button routerLink="/product-client" (click)="changeSearch()"><i class="lnr lnr-magnifier"></i></button>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--       Categorie Search Box End Here -->
+<!--       Cart Box Start Here -->
+<!--      <div class="col-lg-4 col-md-12">-->
+<!--        <div class="cart-box mt-all-30">-->
+<!--          <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">-->
+<!--            <li>-->
+<!--              <a routerLink="/cart"-->
+<!--                ><i class="lnr lnr-cart"></i-->
+<!--                ><span class="my-cart"-->
+<!--                  ><span class="total-pro">{{ cart.orderDetails!.length }}</span></span-->
+<!--                ></a-->
+<!--              >-->
+<!--            </li>-->
+<!--            <li class="">-->
+<!--              <a href="#"-->
+<!--                ><i class="lnr lnr-heart"></i><span class="my-cart"><span>Yêu</span><span>Thích (0)</span></span></a-->
+<!--              >-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; Cart Box End Here &ndash;&gt;-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Row End &ndash;&gt;-->
+<!--  </div>-->
+<!--  &lt;!&ndash; Container End &ndash;&gt;-->
+<!--</div>-->

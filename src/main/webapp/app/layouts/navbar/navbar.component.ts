@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
-import { VERSION } from 'app/app.constants';
+import { VERSION, TypeID } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
@@ -27,6 +27,8 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   openAPIEnabled?: boolean;
   version = '';
   account: Account | null = null;
+
+  TypeID = TypeID;
 
   varSearch: any;
   cart!: IOrder;
@@ -86,10 +88,10 @@ export class NavbarComponent extends BaseComponent implements OnInit {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
 
-  changeSearch(): void {
+  changeSearch(type?: any): void {
     this.eventManager.broadcast({
       name: 'varSearch',
-      content: { data: this.varSearch },
+      content: { name: type ? 'type' : 'vars', data: type ? type : this.varSearch },
     });
   }
 
@@ -102,5 +104,9 @@ export class NavbarComponent extends BaseComponent implements OnInit {
       });
     });
     this.eventSubscribers.push(this.eventSubscriber);
+  }
+
+  changeSearchItem(type: any): void {
+    this.sessionStorageService.store('searchByType', type);
   }
 }

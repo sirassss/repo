@@ -395,7 +395,7 @@ ul {
   width: 100%;
 }
 .categorie-search-box button {
-  background: #e62e04 none repeat scroll 0 0;
+  background: #000000 none repeat scroll 0 0;
   border: medium none;
   border-radius: 0 3px 3px 0;
   color: white;
@@ -417,7 +417,7 @@ ul {
 }
 
 .categorie-search-box button:hover {
-  background: rgba(230, 46, 4, 0.8) none repeat scroll 0 0;
+  background: rgba(70, 58, 58, 0.8) none repeat scroll 0 0;
   cursor: pointer;
 }
 .categorie-search-box .form-group {
@@ -667,7 +667,7 @@ span.total-pro {
 /* header bottom dropdown menu css start */
 .header-bottom-list > li > a,
 .header-bottom-list > li > ul.ht-dropdown li a {
-  color: #333333;
+  color: #ffffff;
   display: block;
   font-size: 15px;
   font-weight: 700;
@@ -687,6 +687,7 @@ span.total-pro {
 
 .header-bottom-list > li > ul.ht-dropdown li:hover a {
   color: #e62e04;
+  background-color: #f6f3f3;
 }
 
 .header-bottom-list > li > ul.ht-dropdown {

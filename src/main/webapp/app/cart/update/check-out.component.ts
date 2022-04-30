@@ -11,7 +11,6 @@ import { Account } from '../../core/auth/account.model';
 import { OrderService } from '../../entities/order/service/order.service';
 import { ProductService } from '../../entities/product/service/product.service';
 import { IProduct } from '../../product-for-client/product.model';
-import { VoucherComponent } from '../../entities/voucher/list/voucher.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from '../../shared/base-component/base.component';
 import { Observable, Subscription } from 'rxjs';
@@ -23,6 +22,7 @@ import { IBank } from '../../entities/bank/bank.model';
 import * as dayjs from 'dayjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { VoucherComponent } from '../../shared/modal/voucher/list/voucher.component';
 
 @Component({
   selector: 'jhi-order-details-update',
@@ -100,6 +100,9 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
     this.orderDetails.forEach(n => {
       total += n.total ? n.total! : 0;
     });
+    if (!this.cart.totalAmount || this.cart.totalAmount === 0) {
+      this.cart.totalAmount = total;
+    }
     return total;
   }
 
