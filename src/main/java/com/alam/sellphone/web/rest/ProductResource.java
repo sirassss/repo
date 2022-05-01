@@ -3,6 +3,7 @@ package com.alam.sellphone.web.rest;
 import com.alam.sellphone.domain.Product;
 import com.alam.sellphone.repository.ProductRepository;
 import com.alam.sellphone.service.ProductService;
+import com.alam.sellphone.service.dto.ProductDTO;
 import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -140,9 +141,9 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable) {
+    public ResponseEntity<List<ProductDTO>> getAllProducts(Pageable pageable) {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productService.findAllForAdmin(pageable);
+        Page<ProductDTO> page = productService.findAllForAdmin(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

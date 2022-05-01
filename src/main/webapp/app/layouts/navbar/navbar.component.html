@@ -54,22 +54,22 @@
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
             >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.voucher">Voucher</span>
+              <fa-icon [icon]="'file-lines'" [fixedWidth]="true"></fa-icon>
+              <span>Mã Giảm Giá</span>
             </a>
           </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="product-details"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.productDetails">Product Details</span>
-            </a>
-          </li>
+          <!--          <li>-->
+          <!--            <a-->
+          <!--              class="dropdown-item"-->
+          <!--              routerLink="product-details"-->
+          <!--              routerLinkActive="active"-->
+          <!--              [routerLinkActiveOptions]="{ exact: true }"-->
+          <!--              (click)="collapseNavbar()"-->
+          <!--            >-->
+          <!--              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>-->
+          <!--              <span jhiTranslate="global.menu.entities.productDetails">Product Details</span>-->
+          <!--            </a>-->
+          <!--          </li>-->
           <li>
             <a
               class="dropdown-item"
@@ -78,34 +78,34 @@
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
             >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.product">Product</span>
+              <fa-icon [icon]="'mobile-screen-button'" [fixedWidth]="true"></fa-icon>
+              <span>Sản Phẩm</span>
             </a>
           </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="order"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.order">Order</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="order-admin"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.orderDetails">Order Details</span>
-            </a>
-          </li>
+          <!--          <li>-->
+          <!--            <a-->
+          <!--              class="dropdown-item"-->
+          <!--              routerLink="order"-->
+          <!--              routerLinkActive="active"-->
+          <!--              [routerLinkActiveOptions]="{ exact: true }"-->
+          <!--              (click)="collapseNavbar()"-->
+          <!--            >-->
+          <!--              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>-->
+          <!--              <span>Đơn Hàng</span>-->
+          <!--            </a>-->
+          <!--          </li>-->
+          <!--          <li>-->
+          <!--            <a-->
+          <!--              class="dropdown-item"-->
+          <!--              routerLink="order-admin"-->
+          <!--              routerLinkActive="active"-->
+          <!--              [routerLinkActiveOptions]="{ exact: true }"-->
+          <!--              (click)="collapseNavbar()"-->
+          <!--            >-->
+          <!--              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>-->
+          <!--              <span jhiTranslate="global.menu.entities.orderDetails">Order Details</span>-->
+          <!--            </a>-->
+          <!--          </li>-->
           <li>
             <a
               class="dropdown-item"
@@ -114,8 +114,8 @@
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
             >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.manufactured">Manufactured</span>
+              <fa-icon [icon]="'industry'" [fixedWidth]="true"></fa-icon>
+              <span>Các nhà sản xuất</span>
             </a>
           </li>
           <li>
@@ -126,8 +126,8 @@
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
             >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.bank">Bank</span>
+              <fa-icon [icon]="'credit-card'" [fixedWidth]="true"></fa-icon>
+              <span>Tài khoản ngân hàng</span>
             </a>
           </li>
           <li>
@@ -138,8 +138,8 @@
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
             >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.payment">Payment</span>
+              <fa-icon [icon]="'money-check'" [fixedWidth]="true"></fa-icon>
+              <span>Hóa đơn</span>
             </a>
           </li>
           <li>
@@ -150,7 +150,7 @@
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
             >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <fa-icon [icon]="'images'" [fixedWidth]="true"></fa-icon>
               <span jhiTranslate="global.menu.entities.banner">Banner</span>
             </a>
           </li>
@@ -333,52 +333,3 @@
   </div>
   <!-- Container End -->
 </div>
-
-<!--<div class="header-middle ptb-15 nav-search">-->
-<!--  <div class="container">-->
-<!--    <div class="row align-items-center no-gutters">-->
-<!--      <div class="col-lg-3 col-md-12">-->
-<!--        <div style="margin-left: 60px">-->
-<!--          <a class="navbar-brand" routerLink="/" (click)="collapseNavbar()">-->
-<!--            <span class="logo-img"></span>-->
-<!--            &lt;!&ndash;    <span class="navbar-version">{{ version }}</span>&ndash;&gt;-->
-<!--          </a>-->
-<!--          &lt;!&ndash;          <a href="index.html"><img src="img\logo\logo.png" alt="logo-image"></a>&ndash;&gt;-->
-<!--        </div>-->
-<!--      </div>-->
-<!--       Categorie Search Box Start Here -->
-<!--      <div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">-->
-<!--        <div class="categorie-search-box">-->
-<!--          <form action="#">-->
-<!--            <input type="text" name="search" placeholder="Tìm kiếm ..." [(ngModel)]="varSearch" />-->
-<!--            <button routerLink="/product-client" (click)="changeSearch()"><i class="lnr lnr-magnifier"></i></button>-->
-<!--          </form>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--       Categorie Search Box End Here -->
-<!--       Cart Box Start Here -->
-<!--      <div class="col-lg-4 col-md-12">-->
-<!--        <div class="cart-box mt-all-30">-->
-<!--          <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">-->
-<!--            <li>-->
-<!--              <a routerLink="/cart"-->
-<!--                ><i class="lnr lnr-cart"></i-->
-<!--                ><span class="my-cart"-->
-<!--                  ><span class="total-pro">{{ cart.orderDetails!.length }}</span></span-->
-<!--                ></a-->
-<!--              >-->
-<!--            </li>-->
-<!--            <li class="">-->
-<!--              <a href="#"-->
-<!--                ><i class="lnr lnr-heart"></i><span class="my-cart"><span>Yêu</span><span>Thích (0)</span></span></a-->
-<!--              >-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      &lt;!&ndash; Cart Box End Here &ndash;&gt;-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Row End &ndash;&gt;-->
-<!--  </div>-->
-<!--  &lt;!&ndash; Container End &ndash;&gt;-->
-<!--</div>-->

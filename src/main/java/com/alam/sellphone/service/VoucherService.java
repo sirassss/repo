@@ -47,4 +47,6 @@ public interface VoucherService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Page<Voucher> findAllForAdmin(Pageable pageable);
 }

@@ -66,7 +66,7 @@ export class PaymentUpdateComponent implements OnInit {
   protected updateForm(payment: IPayment): void {
     this.editForm.patchValue({
       id: payment.id,
-      orderDetailID: payment.orderDetailID,
+      orderDetailID: payment.orderID,
       bankID: payment.bankID,
       status: payment.status,
     });
@@ -76,7 +76,7 @@ export class PaymentUpdateComponent implements OnInit {
     return {
       ...new Payment(),
       id: this.editForm.get(['id'])!.value,
-      orderDetailID: this.editForm.get(['orderDetailID'])!.value,
+      orderID: this.editForm.get(['orderID'])!.value,
       bankID: this.editForm.get(['bankID'])!.value,
       status: this.editForm.get(['status'])!.value,
     };

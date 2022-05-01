@@ -40,6 +40,16 @@ import {
   faCheckCircle,
   faCheckDouble,
   faCheckSquare,
+  faMoneyCheck,
+  faFileLines,
+  faMobileScreenButton,
+  faTag,
+  faTags,
+  faIndustry,
+  faCreditCard,
+  faImages,
+  faTrash,
+  faCalendar,
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -85,5 +95,16 @@ export const fontAwesomeIcons = [
   faCheckCircle,
   faCheckDouble,
   faCheckSquare,
+  faMoneyCheck,
+  faFileLines,
+  faMobileScreenButton,
+  faTags,
+  faIndustry,
+  faCreditCard,
+  faImages,
+  faEye,
+  faTrash,
+  faCalendar,
+  faCalendarAlt,
   // jhipster-needle-add-icon-import
 ];

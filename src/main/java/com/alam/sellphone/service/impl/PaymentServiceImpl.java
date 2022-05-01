@@ -40,8 +40,8 @@ public class PaymentServiceImpl implements PaymentService {
             .findById(payment.getId())
             .map(
                 existingPayment -> {
-                    if (payment.getOrderDetailID() != null) {
-                        existingPayment.setOrderDetailID(payment.getOrderDetailID());
+                    if (payment.getOrderID() != null) {
+                        existingPayment.setOrderID(payment.getOrderID());
                     }
                     if (payment.getBankID() != null) {
                         existingPayment.setBankID(payment.getBankID());

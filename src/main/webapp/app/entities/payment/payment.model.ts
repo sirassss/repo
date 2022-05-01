@@ -1,6 +1,6 @@
 export interface IPayment {
   id?: number;
-  orderDetailID?: number | null;
+  orderID?: number | null;
   bankID?: number | null;
   status?: number | null;
 }

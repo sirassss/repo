@@ -1,6 +1,7 @@
 package com.alam.sellphone.service;
 
 import com.alam.sellphone.domain.Product;
+import com.alam.sellphone.service.dto.ProductDTO;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -52,5 +53,5 @@ public interface ProductService {
 
     List<Product> getAllProductsByID(List<Long> productID);
 
-    Page<Product> findAllForAdmin(Pageable pageable);
+    Page<ProductDTO> findAllForAdmin(Pageable pageable);
 }

@@ -5,15 +5,25 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { IVoucher, Voucher } from '../voucher.model';
 import { VoucherService } from '../service/voucher.service';
+import { IVoucher } from '../../../shared/modal/voucher/voucher.model';
+import { DATE_FORMAT_SLASH } from 'app/config/input.constants';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { EventManager } from '../../../core/util/event-manager.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-voucher-update',
   templateUrl: './voucher-update.component.html',
 })
 export class VoucherUpdateComponent implements OnInit {
+  voucher!: IVoucher;
+  voucherID!: number;
   isSaving = false;
+
+  DATE_FORMAT_SLASH = DATE_FORMAT_SLASH;
+  bsValue = new Date();
 
   editForm = this.fb.group({
     id: [],
@@ -24,25 +34,34 @@ export class VoucherUpdateComponent implements OnInit {
     status: [],
   });
 
-  constructor(protected voucherService: VoucherService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected voucherService: VoucherService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    private activeModal: NgbActiveModal,
+    private toastr: ToastrService,
+    private eventManager: EventManager,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ voucher }) => {
-      this.updateForm(voucher);
-    });
-  }
-
-  previousState(): void {
-    window.history.back();
+    this.voucher = {};
+    if (this.voucherID) {
+      this.voucherService.find(this.voucherID).subscribe(res => {
+        if (res && res.body) {
+          this.voucher = res.body;
+          this.updateForm(this.voucher);
+        }
+      });
+    }
   }
 
   save(): void {
     this.isSaving = true;
-    const voucher = this.createFromForm();
-    if (voucher.id !== undefined) {
-      this.subscribeToSaveResponse(this.voucherService.update(voucher));
+    if (this.voucher.id !== undefined) {
+      this.subscribeToSaveResponse(this.voucherService.update(this.voucher));
     } else {
-      this.subscribeToSaveResponse(this.voucherService.create(voucher));
+      this.subscribeToSaveResponse(this.voucherService.create(this.voucher));
     }
   }
 
@@ -54,37 +73,29 @@ export class VoucherUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    if (this.voucher.id) {
+      this.toastr.success('Sửa mã giảm thành công');
+    } else {
+      this.toastr.success('Thêm mã giảm phẩm thành công');
+    }
+    this.eventManager.broadcast({
+      name: 'newvou',
+      content: { data: true },
+    });
   }
 
   protected onSaveError(): void {
-    // Api for inheritance.
+    this.toastr.error(this.translate.instant('error.internalServerError'));
   }
 
   protected onSaveFinalize(): void {
     this.isSaving = false;
+    this.closePopup();
   }
 
-  protected updateForm(voucher: IVoucher): void {
-    this.editForm.patchValue({
-      id: voucher.id,
-      voucherCode: voucher.voucherCode,
-      productID: voucher.productID,
-      promotionPrice: voucher.promotionPrice,
-      dateIssue: voucher.dateIssue,
-      status: voucher.status,
-    });
-  }
+  protected updateForm(voucher: IVoucher): void {}
 
-  protected createFromForm(): IVoucher {
-    return {
-      ...new Voucher(),
-      id: this.editForm.get(['id'])!.value,
-      voucherCode: this.editForm.get(['voucherCode'])!.value,
-      productID: this.editForm.get(['productID'])!.value,
-      promotionPrice: this.editForm.get(['promotionPrice'])!.value,
-      dateIssue: this.editForm.get(['dateIssue'])!.value,
-      status: this.editForm.get(['status'])!.value,
-    };
+  closePopup() {
+    this.activeModal.close(false);
   }
 }

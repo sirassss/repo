@@ -81,6 +81,13 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<Voucher> findAllForAdmin(Pageable pageable) {
+        log.debug("Request to get all Vouchers");
+        return voucherRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<Voucher> findOne(Long id) {
         log.debug("Request to get Voucher : {}", id);
         return voucherRepository.findById(id);

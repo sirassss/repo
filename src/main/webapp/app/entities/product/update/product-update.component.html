@@ -1,160 +1,177 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading" jhiTranslate="sellphonealamApp.product.home.createOrEditLabel">
-        Create or edit a Product
-      </h2>
-
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.code" for="field_code">Code</label>
-          <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.name" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.quantity" for="field_quantity">Quantity</label>
-          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.unitPrice" for="field_unitPrice">Unit Price</label>
-          <input type="number" class="form-control" name="unitPrice" id="field_unitPrice" data-cy="unitPrice" formControlName="unitPrice" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.installment" for="field_installment">Installment</label>
-          <input
-            type="checkbox"
-            class="form-check"
-            name="installment"
-            id="field_installment"
-            data-cy="installment"
-            formControlName="installment"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.accompanyingProducts" for="field_accompanyingProducts"
-            >Accompanying Products</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="accompanyingProducts"
-            id="field_accompanyingProducts"
-            data-cy="accompanyingProducts"
-            formControlName="accompanyingProducts"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.warranty" for="field_warranty">Warranty</label>
-          <input type="number" class="form-control" name="warranty" id="field_warranty" data-cy="warranty" formControlName="warranty" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.createdDate" for="field_createdDate">Created Date</label>
-          <div class="input-group">
-            <input
-              id="field_createdDate"
-              data-cy="createdDate"
-              type="text"
-              class="form-control"
-              name="createdDate"
-              ngbDatepicker
-              #createdDateDp="ngbDatepicker"
-              formControlName="createdDate"
-            />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.modifiedDate" for="field_modifiedDate"
-            >Modified Date</label
-          >
-          <div class="input-group">
-            <input
-              id="field_modifiedDate"
-              data-cy="modifiedDate"
-              type="text"
-              class="form-control"
-              name="modifiedDate"
-              ngbDatepicker
-              #modifiedDateDp="ngbDatepicker"
-              formControlName="modifiedDate"
-            />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="modifiedDateDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.createdUser" for="field_createdUser">Created User</label>
-          <input
-            type="text"
-            class="form-control"
-            name="createdUser"
-            id="field_createdUser"
-            data-cy="createdUser"
-            formControlName="createdUser"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.modifiedUser" for="field_modifiedUser"
-            >Modified User</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="modifiedUser"
-            id="field_modifiedUser"
-            data-cy="modifiedUser"
-            formControlName="modifiedUser"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.product.status" for="field_status">Status</label>
-          <input type="checkbox" class="form-check" name="status" id="field_status" data-cy="status" formControlName="status" />
-        </div>
-      </div>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
-      </div>
-    </form>
+<div class="modal-header">
+  <h2 class="modal-title m-0">{{ product.id ? 'Sửa sản phẩm' : 'Thêm sản phẩm' }}</h2>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
+</div>
+<div class="modal-body">
+  <input type="hidden" />
+  <!-- <input type="hidden" formControlName="rate"> -->
+  <div class="row input-pro">
+    <div class="form-group col-md-6">
+      <label for="name">Tên sản phẩm:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        [ngClass]="{ 'is-invalid': !product.name }"
+        [(ngModel)]="product.name"
+        class="form-control"
+        placeholder="Tên sản phẩm"
+      />
+      <small *ngIf="!product.name" class="text-danger">Tên sản phẩm không hợp lệ</small>
+    </div>
+    <div class="col-md-3">
+      <label for="typeID">Loại:</label>
+      <select class="custom-select" name="typeID" id="typeID" [(ngModel)]="product.typeID">
+        <option [ngValue]="TypeID.PRODUCT_LAPTOP">Laptop</option>
+        <option [ngValue]="TypeID.PRODUCT_SMART_PHONE">Điện thoại</option>
+        <option [ngValue]="TypeID.PRODUCT_SMART_WATCH">Đồng hồ thông minh</option>
+        <option [ngValue]="TypeID.PRODUCT_TAPBLET">Tablet</option>
+        <option [ngValue]="TypeID.PRODUCT_ACCESSORY">Phụ kiện</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="manufacturerID">Nhãn hàng:</label>
+      <select class="custom-select" name="category" id="manufacturerID" [(ngModel)]="productDetail.manufacturerID">
+        <option *ngFor="let item of manufactured" [ngValue]="item.id">{{ item.name }}</option>
+      </select>
+    </div>
   </div>
+  <div class="row input-pro">
+    <div class="form-group col-md-2">
+      <label for="quantity">Số lượng:</label>
+      <input
+        type="number"
+        name="quantity"
+        id="quantity"
+        [ngClass]="{ 'is-invalid': !product.quantity }"
+        [(ngModel)]="product.quantity"
+        class="form-control"
+        placeholder="99"
+      />
+      <small *ngIf="!product.quantity" class="text-danger">Số lượng không hợp lệ</small>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="price">Giá:</label>
+      <div class="input-group">
+        <input
+          name="price"
+          id="price"
+          [ngClass]="{ 'is-invalid': !product.unitPrice }"
+          [(ngModel)]="product.unitPrice"
+          currencyMask
+          [options]="optionsDirective3"
+          class="form-control"
+          placeholder="100.000.000"
+        />
+      </div>
+      <small *ngIf="!product.unitPrice" class="text-danger">Giá sản phẩm không hợp lệ</small>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="warranty">Bảo hành:</label>
+      <div class="input-group">
+        <input
+          type="number"
+          name="price"
+          id="warranty"
+          [ngClass]="{ 'is-invalid': !product.warranty }"
+          [(ngModel)]="product.warranty"
+          class="form-control"
+          placeholder="vd:12..."
+        />
+      </div>
+      <small *ngIf="!product.warranty" class="text-danger">Nhập thời gian bảo hành!</small>
+    </div>
+    <div class="col-md-3">
+      <label for="accompanyingProducts">Sản phẩm tặng kèm:</label>
+      <input
+        type="text"
+        name="accompanyingProducts"
+        id="accompanyingProducts"
+        [(ngModel)]="product.accompanyingProducts"
+        class="form-control"
+        placeholder="Tên sản phẩm"
+      />
+    </div>
+    <div class="col-md-3">
+      <label for="capacity">Dung lượng:</label>
+      <input type="text" name="capacity" id="capacity" [(ngModel)]="productDetail.capacity" class="form-control" placeholder="Dung lượng" />
+    </div>
+  </div>
+  <div class="row input-pro">
+    <div class="col-md-3">
+      <label for="screen">Màn hình:</label>
+      <input type="text" name="screen" id="screen" [(ngModel)]="productDetail.screen" class="form-control" placeholder="Màn hình" />
+    </div>
+    <div class="col-md-3">
+      <label for="camera">Camera:</label>
+      <input type="text" name="camera" id="camera" [(ngModel)]="productDetail.camera" class="form-control" placeholder="Camera" />
+    </div>
+    <div class="col-md-3">
+      <label for="oSAndCPU">Hệ điều hành:</label>
+      <input
+        type="text"
+        name="oSAndCPU"
+        id="oSAndCPU"
+        [(ngModel)]="productDetail.oSAndCPU"
+        class="form-control"
+        placeholder="Hệ điều hành"
+      />
+    </div>
+    <div class="col-md-3">
+      <label for="pIN">PIN:</label>
+      <input type="text" name="pIN" id="pIN" [(ngModel)]="productDetail.pIN" class="form-control" placeholder="PIN" />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-6 p-0">
+      <div class="d-flex">
+        <div class="form-group col-md-6 mr-0">
+          <label for="discount">Trả góp:</label>
+          <div class="input-group">
+            <input
+              type="number"
+              name="discount"
+              id="discount"
+              [ngClass]="{ 'is-invalid': !product.installment }"
+              [(ngModel)]="product.installment"
+              class="form-control"
+              placeholder="10"
+              min="0"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+          <small *ngIf="!product.installment" class="text-danger">Không hợp lệ</small>
+        </div>
+        <div class="form-group col-md-6 mt-4">
+          <label for="isNew">Sản phẩm mới:</label>
+          <div class="checkbox-form" style="float: right; margin-right: 60px">
+            <input type="checkbox" name="isNew" id="isNew" [(ngModel)]="product.isNew" class="" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4">
+        <label for="description">Mô tả:</label>
+        <textarea
+          [ngClass]="{ 'is-invalid': !productDetail.description }"
+          [(ngModel)]="productDetail.description"
+          class="form-control"
+          name="description"
+          id="description"
+          placeholder="abc"
+          style="height: 120px"
+        ></textarea>
+      </div>
+    </div>
+    <div class="col-6 text-center">
+      <h3>Ảnh sản phẩm</h3>
+      <img [src]="url" width="200px" id="blah" class="img-fluid" />
+      <div class="input-group col-10 offset-1 mt-10">
+        <label for="inputGroupFile01" class="ml-120 btn btn-dark">Chọn ảnh</label>
+        <input type="file" accept="image/*" (change)="readUrl($event)" class="form-control d-none" id="inputGroupFile01" />
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" class="col-2 m-3" [disabled]="!product" (click)="save()">
+    {{ product.id ? 'Sửa' : 'Thêm' }}
+  </button>
 </div>

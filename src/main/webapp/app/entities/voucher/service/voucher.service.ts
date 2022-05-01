@@ -8,7 +8,7 @@ import { isPresent } from 'app/core/util/operators';
 import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IVoucher, getVoucherIdentifier } from '../voucher.model';
+import { getVoucherIdentifier, IVoucher } from '../../../shared/modal/voucher/voucher.model';
 
 export type EntityResponseType = HttpResponse<IVoucher>;
 export type EntityArrayResponseType = HttpResponse<IVoucher[]>;
@@ -37,7 +37,7 @@ export class VoucherService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IVoucher[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IVoucher[]>(this.resourceUrl + '/admin', { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

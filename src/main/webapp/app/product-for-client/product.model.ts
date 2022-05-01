@@ -9,7 +9,7 @@ export interface IProduct {
   quantity?: number | null;
   unitPrice?: number | null;
   promotionPrice?: number | null;
-  installment?: boolean | null;
+  installment?: number | null;
   accompanyingProducts?: string | null;
   warranty?: number | null;
   createdDate?: dayjs.Dayjs | null;
@@ -17,9 +17,14 @@ export interface IProduct {
   createdUser?: string | null;
   modifiedUser?: string | null;
   rate?: number | null;
+  typeID?: number | null;
   productDetails?: IProductDetails[] | null;
   vouchers?: IVoucher[] | null;
   isPromotion?: boolean | null;
+  isNew?: boolean | null;
+
+  image?: string | null;
+  nameManufacturer?: string | null;
 }
 
 export class Product implements IProduct {
@@ -29,7 +34,7 @@ export class Product implements IProduct {
     public name?: string | null,
     public quantity?: number | null,
     public unitPrice?: number | null,
-    public installment?: boolean | null,
+    public installment?: number | null,
     public accompanyingProducts?: string | null,
     public warranty?: number | null,
     public createdDate?: dayjs.Dayjs | null,
@@ -37,9 +42,7 @@ export class Product implements IProduct {
     public createdUser?: string | null,
     public modifiedUser?: string | null,
     public rate?: number | null
-  ) {
-    this.installment = this.installment ?? false;
-  }
+  ) {}
 }
 
 export function getProductIdentifier(product: IProduct): number | undefined {

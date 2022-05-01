@@ -7,7 +7,7 @@ export interface IVoucher {
   productID?: number | null;
   promotionRate?: number | null;
   dateIssue?: number | null;
-  status?: number | null;
+  status?: boolean | null;
   isSelect?: boolean | null;
 }
 
@@ -19,7 +19,7 @@ export class Voucher implements IVoucher {
     public productID?: number | null,
     public promotionRate?: number | null,
     public dateIssue?: number | null,
-    public status?: number | null,
+    public status?: boolean | null,
     public isSelect?: boolean | null
   ) {}
 }

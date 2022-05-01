@@ -4,7 +4,7 @@ export interface IVoucher {
   id?: number;
   voucherCode?: string | null;
   productID?: number | null;
-  promotionPrice?: number | null;
+  promotionRate?: number | null;
   dateIssue?: dayjs.Dayjs | null;
   status?: number | null;
 }

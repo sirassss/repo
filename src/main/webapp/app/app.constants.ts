@@ -12,6 +12,16 @@ export const DEBUG_INFO_ENABLED = __DEBUG_INFO_ENABLED__;
 export const SERVER_API_URL = __SERVER_API_URL__;
 export const TIMESTAMP = __TIMESTAMP__;
 
+export const DDSo_DonGia = 'DDSo_DonGia'; // Đơn giá - 1
+export const DDSo_SoLuong = 'DDSo_SoLuong'; // Số lượng - 2
+export const DDSo_TyLe = 'DDSo_TyLe'; // Hệ số, tỷ lệ - 3
+export const DDSo_TienVND = 'DDSo_Tien'; // Tiền Việt Nam Đồng - 4
+export const SO_NGUYEN = 9; // Chỉ nhập số nguyên - 5
+export const DDSo_SoAm = 'DDSo_SoAm'; // Hiển thị số âm
+export const DDSo_DocTienLe = 'DDSo_DocTienLe'; // Cách đọc số tiền lẻ
+export const DDSo_NCachHangNghin = 'DDSo_NCachHangNghin'; // Ngăn cách hàng nghìn
+export const DDSo_NCachHangDVi = 'DDSo_NCachHangDVi'; // Ngăn cách hàng đơn vị
+
 export const enum Constant {
   SALES = 'Venta',
   IMAGES = 'Imagenes',
@@ -36,3 +46,7 @@ export const TypeID = {
   BANNER_LIST_BANNER: 204,
   BANNER_DOUBLE_BANNER: 205,
 };
+
+export const DECIMAL = ',';
+export const THOUSANDS = '.';
+export const SUFFIX = '';

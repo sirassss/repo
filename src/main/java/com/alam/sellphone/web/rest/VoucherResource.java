@@ -176,4 +176,12 @@ public class VoucherResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/vouchers/admin")
+    public ResponseEntity<List<Voucher>> getAllVouchersForAdmin(Pageable pageable) {
+        log.debug("REST request to get a page of Vouchers");
+        Page<Voucher> page = voucherService.findAllForAdmin(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

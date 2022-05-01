@@ -19,8 +19,8 @@ public class Payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "orderdetailid")
-    private Long orderDetailID;
+    @Column(name = "orderid")
+    private Long orderID;
 
     @Column(name = "bankid")
     private Long bankID;
@@ -42,17 +42,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public Long getOrderDetailID() {
-        return this.orderDetailID;
+    public Long getOrderID() {
+        return orderID;
     }
 
-    public Payment orderDetailID(Long orderDetailID) {
-        this.orderDetailID = orderDetailID;
-        return this;
-    }
-
-    public void setOrderDetailID(Long orderDetailID) {
-        this.orderDetailID = orderDetailID;
+    public void setOrderID(Long orderID) {
+        this.orderID = orderID;
     }
 
     public Long getBankID() {
@@ -105,7 +100,7 @@ public class Payment implements Serializable {
     public String toString() {
         return "Payment{" +
             "id=" + getId() +
-            ", orderDetailID=" + getOrderDetailID() +
+            ", orderDetailID=" + getOrderID() +
             ", bankID=" + getBankID() +
             ", status=" + getStatus() +
             "}";

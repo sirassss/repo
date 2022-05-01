@@ -3,6 +3,7 @@ package com.alam.sellphone.service.impl;
 import com.alam.sellphone.domain.Product;
 import com.alam.sellphone.repository.ProductRepository;
 import com.alam.sellphone.service.ProductService;
+import com.alam.sellphone.service.dto.ProductDTO;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -93,9 +94,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Product> findAllForAdmin(Pageable pageable) {
+    public Page<ProductDTO> findAllForAdmin(Pageable pageable) {
         log.debug("LẤY TẤT CẢ SẢN PHẨM");
-        return productRepository.findAll(pageable);
+        return productRepository.findAllForAdmin(pageable);
     }
 
     @Override

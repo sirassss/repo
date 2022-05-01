@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IVoucher, Voucher } from '../voucher.model';
 import { VoucherService } from '../service/voucher.service';
+import { IVoucher, Voucher } from '../../../shared/modal/voucher/voucher.model';
 
 @Injectable({ providedIn: 'root' })
 export class VoucherRoutingResolveService implements Resolve<IVoucher> {

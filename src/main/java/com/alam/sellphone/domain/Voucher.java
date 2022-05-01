@@ -34,7 +34,7 @@ public class Voucher implements Serializable {
     private Integer dateIssue;
 
     @Column(name = "status")
-    private Integer status;
+    private Boolean status;
 
     @Column(name = "userid")
     private Long userID;
@@ -95,16 +95,11 @@ public class Voucher implements Serializable {
         this.dateIssue = dateIssue;
     }
 
-    public Integer getStatus() {
-        return this.status;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public Voucher status(Integer status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

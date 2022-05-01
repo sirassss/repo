@@ -6,7 +6,7 @@ export interface IViewBanner {
   productBottom?: IProduct | null;
   productTB?: IProduct | null;
   listProduct?: IProduct[] | null;
-  listProduct2?: IProduct[] | null;
+  listProduct2?: IProduct[][] | null;
   listManufactured?: IManufactured[] | null;
 }
 

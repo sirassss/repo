@@ -1,91 +1,60 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-voucher-heading" data-cy="VoucherCreateUpdateHeading" jhiTranslate="sellphonealamApp.voucher.home.createOrEditLabel">
-        Create or edit a Voucher
-      </h2>
-
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.voucher.voucherCode" for="field_voucherCode">Voucher Code</label>
-          <input
-            type="text"
-            class="form-control"
-            name="voucherCode"
-            id="field_voucherCode"
-            data-cy="voucherCode"
-            formControlName="voucherCode"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.voucher.productID" for="field_productID">Product ID</label>
-          <input type="number" class="form-control" name="productID" id="field_productID" data-cy="productID" formControlName="productID" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.voucher.promotionPrice" for="field_promotionPrice"
-            >Promotion Price</label
-          >
-          <input
-            type="number"
-            class="form-control"
-            name="promotionPrice"
-            id="field_promotionPrice"
-            data-cy="promotionPrice"
-            formControlName="promotionPrice"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.voucher.dateIssue" for="field_dateIssue">Date Issue</label>
-          <div class="input-group">
-            <input
-              id="field_dateIssue"
-              data-cy="dateIssue"
-              type="text"
-              class="form-control"
-              name="dateIssue"
-              ngbDatepicker
-              #dateIssueDp="ngbDatepicker"
-              formControlName="dateIssue"
-            />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="dateIssueDp.toggle()">
-                <fa-icon icon="calendar-alt"></fa-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.voucher.status" for="field_status">Status</label>
-          <input type="number" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
-        </div>
-      </div>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
-      </div>
-    </form>
+<div class="modal-header">
+  <h2 class="modal-title m-0">{{ voucher.id ? 'Sửa mã giảm' : 'Thêm mã giảm' }}</h2>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
+</div>
+<div class="modal-body">
+  <input type="hidden" />
+  <!-- <input type="hidden" formControlName="rate"> -->
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="voucherCode">Mã giảm:</label>
+      <input
+        type="text"
+        name="voucherCode"
+        id="voucherCode"
+        [ngClass]="{ 'is-invalid': !voucher.voucherCode }"
+        [(ngModel)]="voucher.voucherCode"
+        class="form-control"
+        placeholder="Mã giảm"
+      />
+      <small *ngIf="!voucher.voucherCode" class="text-danger">Mã giảm không hợp lệ</small>
+    </div>
+    <div class="col-md-6">
+      <label for="promotionRate">Phần trăm giảm:</label>
+      <input
+        type="text"
+        name="promotionRate"
+        id="promotionRate"
+        [ngClass]="{ 'is-invalid': !voucher.promotionRate }"
+        [(ngModel)]="voucher.promotionRate"
+        class="form-control"
+        placeholder="Phần trăm giảm"
+      />
+      <small *ngIf="!voucher.promotionRate" class="text-danger">Phần trăm giảm không hợp lệ</small>
+    </div>
   </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="dateIssue">Ngày hiệu lực:</label>
+      <input
+        type="text"
+        name="dateIssue"
+        id="dateIssue"
+        [ngClass]="{ 'is-invalid': !voucher.dateIssue }"
+        [(ngModel)]="voucher.dateIssue"
+        class="form-control"
+        placeholder="Số hiệu lực"
+      />
+      <small *ngIf="!voucher.dateIssue" class="text-danger">Ngày hiệu không hợp lệ</small>
+    </div>
+    <div class="form-group col-md-6 mt-4">
+      <label for="isNew">Hoạt động:</label>
+      <div class="checkbox-form" style="margin-left: 30px">
+        <input type="checkbox" name="isNew" id="isNew" [(ngModel)]="voucher.status" class="" />
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" class="col-2 m-3" [disabled]="!voucher" (click)="save()">
+    {{ voucher.id ? 'Sửa' : 'Thêm' }}
+  </button>
 </div>

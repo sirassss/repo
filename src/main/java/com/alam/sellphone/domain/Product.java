@@ -1,5 +1,6 @@
 package com.alam.sellphone.domain;
 
+import com.alam.sellphone.service.dto.ProductDTO;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +18,29 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SqlResultSetMappings(
+    {
+        @SqlResultSetMapping(
+            name = "ProductDTO",
+            classes = {
+                @ConstructorResult(
+                    targetClass = ProductDTO.class,
+                    columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "image", type = String.class),
+                        @ColumnResult(name = "code", type = String.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "quantity", type = Integer.class),
+                        @ColumnResult(name = "unitPrice", type = BigDecimal.class),
+                        @ColumnResult(name = "installment", type = Integer.class),
+                        @ColumnResult(name = "nameManufacturer", type = String.class),
+                        @ColumnResult(name = "createdDate", type = LocalDate.class),
+                    }
+                ),
+            }
+        ),
+    }
+)
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,7 +62,7 @@ public class Product implements Serializable {
     private BigDecimal unitPrice;
 
     @Column(name = "installment")
-    private Boolean installment;
+    private Integer installment;
 
     @Column(name = "accompanyingproducts")
     private String accompanyingProducts;
@@ -164,16 +188,11 @@ public class Product implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public Boolean getInstallment() {
-        return this.installment;
+    public Integer getInstallment() {
+        return installment;
     }
 
-    public Product installment(Boolean installment) {
-        this.installment = installment;
-        return this;
-    }
-
-    public void setInstallment(Boolean installment) {
+    public void setInstallment(Integer installment) {
         this.installment = installment;
     }
 

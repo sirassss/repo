@@ -14,9 +14,11 @@ import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
 import {
   AccordionModule,
+  BsDatepickerConfig,
   BsDatepickerModule,
   BsDropdownConfig,
   BsDropdownModule,
+  BsLocaleService,
   ModalModule,
   PaginationModule,
   TabsModule,
@@ -33,6 +35,13 @@ import { ModaCartComponent } from './modal/modalCart/moda-cart';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalVoucherComponent } from './modal/modalVoucher/modal-voucher';
 import { ConfirmLeaveComponent } from './can-deactive-guard/confirm-leave.component';
+import { CurrencyMaskDirective } from './directive/currency-input/currency.directive';
+import { EbCurrencyPipe } from './directive/currency-input/currency.pipe';
+import { CurrencyMaskModule } from './directive/ng2-currency-mask/currency-mask.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BsDatepickerActions } from 'ngx-bootstrap/datepicker/reducer/bs-datepicker.actions';
 
 @NgModule({
   imports: [
@@ -50,6 +59,11 @@ import { ConfirmLeaveComponent } from './can-deactive-guard/confirm-leave.compon
     MatIconModule,
     FlexModule,
     MatButtonModule,
+    CurrencyMaskModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    BsDatepickerModule,
   ],
   declarations: [
     FindLanguageFromKeyPipe,
@@ -66,6 +80,8 @@ import { ConfirmLeaveComponent } from './can-deactive-guard/confirm-leave.compon
     ModaCartComponent,
     ModalVoucherComponent,
     ConfirmLeaveComponent,
+    CurrencyMaskDirective,
+    EbCurrencyPipe,
   ],
   exports: [
     SharedLibsModule,
@@ -89,7 +105,14 @@ import { ConfirmLeaveComponent } from './can-deactive-guard/confirm-leave.compon
     ModaCartComponent,
     ToastrModule,
     ModalVoucherComponent,
+    CurrencyMaskDirective,
+    EbCurrencyPipe,
+    CurrencyMaskModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    BsDatepickerModule,
   ],
-  providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig],
+  providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig, EbCurrencyPipe, BsDatepickerConfig, BsLocaleService],
 })
 export class SharedModule {}

@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { IVoucher } from '../voucher.model';
+import { combineLatest, Subscription } from 'rxjs';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { VoucherService } from '../service/voucher.service';
 import { VoucherDeleteDialogComponent } from '../delete/voucher-delete-dialog.component';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { IProduct } from '../../../product-for-client/product.model';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { IVoucher } from '../../../shared/modal/voucher/voucher.model';
+import { VoucherUpdateComponent } from '../update/voucher-update.component';
+import { EventManager } from '../../../core/util/event-manager.service';
+import { BaseComponent } from '../../../shared/base-component/base.component';
 
 @Component({
   selector: 'jhi-voucher',
   templateUrl: './voucher.component.html',
 })
-export class VoucherComponent implements OnInit {
+export class VoucherComponent extends BaseComponent implements OnInit {
   vouchers?: IVoucher[];
+  listData!: MatTableDataSource<IProduct>;
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -24,12 +33,25 @@ export class VoucherComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  modalRef!: NgbModalRef;
+  eventSubscriber: Subscription | any;
+
+  @ViewChild(MatSort) sortd!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  productsLength!: number;
+  columns: string[] = ['voucherCode', 'promotionRate', 'dateIssue', 'status', 'edit', 'delete'];
+
   constructor(
     protected voucherService: VoucherService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    private toastr: ToastrService,
+    private eventManager: EventManager
+  ) {
+    super();
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -55,29 +77,15 @@ export class VoucherComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.registerAddNewVou();
   }
 
   trackId(index: number, item: IVoucher): number {
     return item.id!;
   }
 
-  delete(voucher: IVoucher): void {
-    const modalRef = this.modalService.open(VoucherDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.voucher = voucher;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
-    });
-  }
-
   protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
+    return ['id,DESC'];
   }
 
   protected handleNavigation(): void {
@@ -103,15 +111,56 @@ export class VoucherComponent implements OnInit {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,
-          sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
+          sort: this.sort(),
         },
       });
     }
     this.vouchers = data ?? [];
+    this.listData = new MatTableDataSource(this.vouchers);
+    this.listData.sort = this.sortd;
+    this.listData.paginator = this.paginator;
     this.ngbPaginationPage = this.page;
   }
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  addNew() {
+    this.modalRef = this.modalService.open(VoucherUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+  }
+
+  edit(voucher: IVoucher) {
+    this.modalRef = this.modalService.open(VoucherUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.modalRef.componentInstance.voucherID = voucher.id;
+  }
+
+  delete(id: number, name: string) {
+    Swal.fire({
+      title: 'Bạn muốn xoá ' + name + ' ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xoá',
+      cancelButtonText: 'Không',
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.voucherService.delete(id).subscribe(
+          data => {
+            this.ngOnInit();
+            this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
+          },
+          error => {
+            this.toastr.error('Thông báo xoá thất bại, đã xảy ra lỗi!', 'Hệ thống');
+          }
+        );
+      }
+    });
+  }
+
+  private registerAddNewVou() {
+    this.eventSubscriber = this.eventManager.subscribe('newvou', () => {
+      this.loadPage();
+    });
+    this.eventSubscribers.push(this.eventSubscriber);
   }
 }
