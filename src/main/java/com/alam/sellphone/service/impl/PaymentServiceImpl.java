@@ -3,6 +3,7 @@ package com.alam.sellphone.service.impl;
 import com.alam.sellphone.domain.Payment;
 import com.alam.sellphone.repository.PaymentRepository;
 import com.alam.sellphone.service.PaymentService;
+import com.alam.sellphone.service.dto.PaymentDTO;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +59,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Payment> findAll(Pageable pageable) {
+    public Page<PaymentDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Payments");
-        return paymentRepository.findAll(pageable);
+        return paymentRepository.findAllAdmin(pageable);
     }
 
     @Override

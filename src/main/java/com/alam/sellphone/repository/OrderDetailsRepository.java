@@ -1,6 +1,8 @@
 package com.alam.sellphone.repository;
 
 import com.alam.sellphone.domain.OrderDetails;
+import com.alam.sellphone.service.dto.OrderDetailsDTO;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +11,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long> {}
+public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long>, OrderDetailsRepositoryCustom {}

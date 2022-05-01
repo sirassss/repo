@@ -1,7 +1,10 @@
 package com.alam.sellphone.domain;
 
+import com.alam.sellphone.service.dto.OrderDetailsDTO;
+import com.alam.sellphone.service.dto.ProductDTO;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -15,6 +18,28 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "orderdetail")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SqlResultSetMappings(
+    {
+        @SqlResultSetMapping(
+            name = "OrderDetailsDTO",
+            classes = {
+                @ConstructorResult(
+                    targetClass = OrderDetailsDTO.class,
+                    columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "productID", type = Long.class),
+                        @ColumnResult(name = "orderID", type = Long.class),
+                        @ColumnResult(name = "quantity", type = Integer.class),
+                        @ColumnResult(name = "unitPrice", type = BigDecimal.class),
+                        @ColumnResult(name = "total", type = Integer.class),
+                        @ColumnResult(name = "image", type = String.class),
+                        @ColumnResult(name = "name", type = String.class),
+                    }
+                ),
+            }
+        ),
+    }
+)
 public class OrderDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;

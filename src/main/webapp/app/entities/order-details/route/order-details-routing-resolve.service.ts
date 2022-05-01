@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IOrderDetails, OrderDetails } from '../order-details.model';
 import { OrderDetailsService } from '../service/order-details.service';
+import { IOrderDetails, OrderDetails } from '../../../cart/order-details.model';
 
 @Injectable({ providedIn: 'root' })
 export class OrderDetailsRoutingResolveService implements Resolve<IOrderDetails> {

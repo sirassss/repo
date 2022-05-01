@@ -116,7 +116,11 @@ export class CartComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   checkOut() {
-    this.router.navigate(['./cart/checkout']);
+    if (this.orderDetails && this.orderDetails.length > 0) {
+      this.router.navigate(['./cart/checkout']);
+    } else {
+      this.toastr.error('Bạn chưa có hàng trong giỏ!');
+    }
   }
 
   deleteInCart(index: number) {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { IOrderDetails } from '../order-details.model';
+import { IOrderDetails } from '../../../cart/order-details.model';
 
 @Component({
   selector: 'jhi-order-details-detail',

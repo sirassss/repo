@@ -3,6 +3,7 @@ package com.alam.sellphone.web.rest;
 import com.alam.sellphone.domain.Payment;
 import com.alam.sellphone.repository.PaymentRepository;
 import com.alam.sellphone.service.PaymentService;
+import com.alam.sellphone.service.dto.PaymentDTO;
 import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -141,9 +142,9 @@ public class PaymentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of payments in body.
      */
     @GetMapping("/payments")
-    public ResponseEntity<List<Payment>> getAllPayments(Pageable pageable) {
+    public ResponseEntity<List<PaymentDTO>> getAllPayments(Pageable pageable) {
         log.debug("REST request to get a page of Payments");
-        Page<Payment> page = paymentService.findAll(pageable);
+        Page<PaymentDTO> page = paymentService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

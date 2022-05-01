@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IOrderDetails, getOrderDetailsIdentifier } from '../order-details.model';
+import { getOrderDetailsIdentifier, IOrderDetails } from '../../../cart/order-details.model';
 
 export type EntityResponseType = HttpResponse<IOrderDetails>;
 export type EntityArrayResponseType = HttpResponse<IOrderDetails[]>;
@@ -43,5 +43,10 @@ export class OrderDetailsService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getByOderID(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IOrderDetails[]>(this.resourceUrl + '/get-by-oderid', { params: options, observe: 'response' });
   }
 }

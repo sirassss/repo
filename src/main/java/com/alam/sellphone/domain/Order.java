@@ -50,7 +50,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "orderid")
     private List<OrderDetails> orderDetails = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
         name = "payment",
         joinColumns = { @JoinColumn(name = "orderid", referencedColumnName = "id") },

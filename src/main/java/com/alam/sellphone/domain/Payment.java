@@ -1,6 +1,10 @@
 package com.alam.sellphone.domain;
 
+import com.alam.sellphone.service.dto.PaymentDTO;
+import com.alam.sellphone.service.dto.ProductDTO;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -11,6 +15,30 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "payment")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SqlResultSetMappings(
+    {
+        @SqlResultSetMapping(
+            name = "PaymentDTO",
+            classes = {
+                @ConstructorResult(
+                    targetClass = PaymentDTO.class,
+                    columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "userFirstName", type = String.class),
+                        @ColumnResult(name = "userLastName", type = String.class),
+                        @ColumnResult(name = "orderAddress", type = String.class),
+                        @ColumnResult(name = "orderPhone", type = String.class),
+                        @ColumnResult(name = "totalAmount", type = BigDecimal.class),
+                        @ColumnResult(name = "createdDate", type = LocalDate.class),
+                        @ColumnResult(name = "status", type = Integer.class),
+                        @ColumnResult(name = "orderID", type = Long.class),
+                        @ColumnResult(name = "bankID", type = Long.class),
+                    }
+                ),
+            }
+        ),
+    }
+)
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,12 +92,7 @@ public class Payment implements Serializable {
     }
 
     public Integer getStatus() {
-        return this.status;
-    }
-
-    public Payment status(Integer status) {
-        this.status = status;
-        return this;
+        return status;
     }
 
     public void setStatus(Integer status) {

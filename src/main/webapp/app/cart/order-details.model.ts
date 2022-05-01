@@ -8,6 +8,8 @@ export interface IOrderDetails {
   unitPrice?: number | null;
   total?: number | null;
   product?: IProduct | null;
+  image?: string | null;
+  name?: string | null;
 }
 
 export class OrderDetails implements IOrderDetails {

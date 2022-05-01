@@ -3,6 +3,8 @@ package com.alam.sellphone.service.impl;
 import com.alam.sellphone.domain.OrderDetails;
 import com.alam.sellphone.repository.OrderDetailsRepository;
 import com.alam.sellphone.service.OrderDetailsService;
+import com.alam.sellphone.service.dto.OrderDetailsDTO;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +82,10 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     public void delete(Long id) {
         log.debug("Request to delete OrderDetails : {}", id);
         orderDetailsRepository.deleteById(id);
+    }
+
+    @Override
+    public List<OrderDetailsDTO> getByOderID(Long orderID) {
+        return orderDetailsRepository.getByOderID(orderID);
     }
 }

@@ -23,7 +23,7 @@
       "orderAddress": "Order Address",
       "orderPhone": "Order Phone",
       "status": "Status",
-      "saveOnSuccess": "Status"
+      "saveOnSuccess": "Đặt hàng thành công"
     }
   }
 }

@@ -1,21 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, Subscription } from 'rxjs';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { IPayment } from '../payment.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { PaymentService } from '../service/payment.service';
-import { PaymentDeleteDialogComponent } from '../delete/payment-delete-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { IProduct } from '../../../product-for-client/product.model';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { ProductUpdateComponent } from '../../product/update/product-update.component';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { ManufacturedService } from '../../manufactured/service/manufactured.service';
+import { EventManager } from '../../../core/util/event-manager.service';
+import { BaseComponent } from '../../../shared/base-component/base.component';
+import { PaymentUpdateComponent } from '../update/payment-update.component';
+import { OrderService } from '../../order/service/order.service';
 
 @Component({
   selector: 'jhi-payment',
   templateUrl: './payment.component.html',
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent extends BaseComponent implements OnInit {
   payments?: IPayment[];
+  listData!: MatTableDataSource<IPayment>;
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -24,12 +36,27 @@ export class PaymentComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  modalRef!: NgbModalRef;
+  eventSubscriber: Subscription | any;
+
+  @ViewChild(MatSort) sortd!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  productsLength!: number;
+  columns: string[] = ['userName', 'orderAddress', 'orderPhone', 'totalAmount', 'status', 'view', 'delete'];
+
   constructor(
     protected paymentService: PaymentService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    private toastr: ToastrService,
+    private manufacturedService: ManufacturedService,
+    private orderService: OrderService,
+    private eventManager: EventManager
+  ) {
+    super();
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -55,21 +82,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
-  }
-
-  trackId(index: number, item: IPayment): number {
-    return item.id!;
-  }
-
-  delete(payment: IPayment): void {
-    const modalRef = this.modalService.open(PaymentDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.payment = payment;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
-    });
+    this.registerAddNew();
   }
 
   protected sort(): string[] {
@@ -108,10 +121,76 @@ export class PaymentComponent implements OnInit {
       });
     }
     this.payments = data ?? [];
+    this.updateData(this.payments);
     this.ngbPaginationPage = this.page;
+  }
+
+  updateData(payment: IPayment[]) {
+    if (payment.length > 0) {
+      payment.forEach(n => {
+        n.userName = (n.userLastName ? n.userLastName : '') + (n.userFirstName ? n.userFirstName : '');
+      });
+    }
+    this.listData = new MatTableDataSource(payment);
+    this.listData.sort = this.sortd;
+    this.listData.paginator = this.paginator;
   }
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  edit(payment: IPayment) {
+    this.modalRef = this.modalService.open(PaymentUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.modalRef.componentInstance.payment = payment;
+  }
+
+  delete(payment: IPayment, name: string) {
+    if (payment.status === 2 || payment.status === 3) {
+      Swal.fire({
+        title: 'Bạn muốn xoá ' + name + ' ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Xoá',
+        cancelButtonText: 'Không',
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.paymentService.delete(payment.id!).subscribe(
+            data => {
+              this.ngOnInit();
+              this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
+            },
+            error => {
+              this.toastr.error('Thông báo xoá thất bại, đã xảy ra lỗi!', 'Hệ thống');
+            }
+          );
+        }
+      });
+    } else {
+      this.toastr.error('Không được xóa đơn chưa thanh toán!');
+    }
+  }
+
+  registerAddNew(): void {
+    this.eventSubscriber = this.eventManager.subscribe('newpay', () => {
+      this.loadPage();
+    });
+    this.eventSubscribers.push(this.eventSubscriber);
+  }
+
+  getStatus(status: any) {
+    if (status) {
+      if (status === 0) {
+        return 'Chờ xác nhận';
+      } else if (status === 1) {
+        return 'Đang giao';
+      } else if (status === 2) {
+        return 'Đã giao/thanh toán';
+      } else {
+        return 'Đã hủy';
+      }
+    } else {
+      return 'Chờ xác nhận';
+    }
   }
 }

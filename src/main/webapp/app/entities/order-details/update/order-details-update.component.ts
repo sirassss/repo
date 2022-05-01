@@ -5,8 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { IOrderDetails, OrderDetails } from '../order-details.model';
 import { OrderDetailsService } from '../service/order-details.service';
+import { IOrderDetails, OrderDetails } from '../../../cart/order-details.model';
 
 @Component({
   selector: 'jhi-order-details-update',

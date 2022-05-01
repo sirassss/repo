@@ -40,4 +40,8 @@ export class PaymentService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  findByID(id: number): Observable<EntityResponseType> {
+    return this.http.get<IPayment>(`${this.resourceUrl + '/admin'}/${id}`, { observe: 'response' });
+  }
 }

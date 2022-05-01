@@ -3,6 +3,7 @@ package com.alam.sellphone.web.rest;
 import com.alam.sellphone.domain.OrderDetails;
 import com.alam.sellphone.repository.OrderDetailsRepository;
 import com.alam.sellphone.service.OrderDetailsService;
+import com.alam.sellphone.service.dto.OrderDetailsDTO;
 import com.alam.sellphone.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -177,5 +178,12 @@ public class OrderDetailsResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/order-details/get-by-oderid")
+    public ResponseEntity<List<OrderDetailsDTO>> getByOderID(@RequestParam Long orderID) {
+        log.debug("REST request to get a page of OrderDetails");
+        List<OrderDetailsDTO> orderDetails = orderDetailsService.getByOderID(orderID);
+        return ResponseEntity.ok().body(orderDetails);
     }
 }

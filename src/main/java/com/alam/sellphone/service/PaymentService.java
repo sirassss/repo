@@ -1,6 +1,7 @@
 package com.alam.sellphone.service;
 
 import com.alam.sellphone.domain.Payment;
+import com.alam.sellphone.service.dto.PaymentDTO;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public interface PaymentService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Payment> findAll(Pageable pageable);
+    Page<PaymentDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" payment.

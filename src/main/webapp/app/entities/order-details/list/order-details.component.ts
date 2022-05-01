@@ -4,11 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IOrderDetails } from '../order-details.model';
-
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { OrderDetailsService } from '../service/order-details.service';
 import { OrderDetailsDeleteDialogComponent } from '../delete/order-details-delete-dialog.component';
+import { IOrderDetails } from '../../../cart/order-details.model';
 
 @Component({
   selector: 'jhi-order-details',

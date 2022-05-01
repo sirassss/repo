@@ -50,6 +50,7 @@ import {
   faImages,
   faTrash,
   faCalendar,
+  faFileInvoiceDollar,
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -106,5 +107,6 @@ export const fontAwesomeIcons = [
   faTrash,
   faCalendar,
   faCalendarAlt,
+  faFileInvoiceDollar,
   // jhipster-needle-add-icon-import
 ];

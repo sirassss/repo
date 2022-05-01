@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { IOrderDetails, OrderDetails } from '../order-details.model';
 import { CartService } from '../service/cart.service';
@@ -55,7 +55,8 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
     private eventManager: EventManager,
     protected paymentService: PaymentService,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    protected router: Router
   ) {
     super();
   }
@@ -129,6 +130,7 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
       this.cart.banks?.push(this.bank);
       this.save(this.cart);
     } else {
+      this.cart.banks = [];
       this.save(this.cart);
     }
   }
@@ -151,11 +153,12 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.toastr.error(this.translate.instant('sellphonealamApp.order.saveOnSuccess'));
+    this.toastr.success(this.translate.instant('sellphonealamApp.order.saveOnSuccess'));
     this.eventManager.broadcast({
       name: 'addCartSuccess',
       content: { data: true },
     });
+    this.router.navigate(['/']);
   }
 
   protected onSaveError(): void {

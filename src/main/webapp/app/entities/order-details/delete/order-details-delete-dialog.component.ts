@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IOrderDetails } from '../order-details.model';
 import { OrderDetailsService } from '../service/order-details.service';
+import { IOrderDetails } from '../../../cart/order-details.model';
 
 @Component({
   templateUrl: './order-details-delete-dialog.component.html',
