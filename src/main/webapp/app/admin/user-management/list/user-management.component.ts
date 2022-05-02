@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, Subscription } from 'rxjs';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { AccountService } from 'app/core/auth/account.service';
@@ -10,14 +10,27 @@ import { Account } from 'app/core/auth/account.model';
 import { UserManagementService } from '../service/user-management.service';
 import { User } from '../user-management.model';
 import { UserManagementDeleteDialogComponent } from '../delete/user-management-delete-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { IProduct } from '../../../product-for-client/product.model';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { ToastrService } from 'ngx-toastr';
+import { ManufacturedService } from '../../../entities/manufactured/service/manufactured.service';
+import { EventManager } from '../../../core/util/event-manager.service';
+import { ProductUpdateComponent } from '../../../entities/product/update/product-update.component';
+import Swal from 'sweetalert2';
+import { BaseComponent } from '../../../shared/base-component/base.component';
+import { UserManagementUpdateComponent } from '../update/user-management-update.component';
+import { Authority } from '../../../config/authority.constants';
 
 @Component({
   selector: 'jhi-user-mgmt',
   templateUrl: './user-management.component.html',
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent extends BaseComponent implements OnInit {
   currentAccount: Account | null = null;
   users: User[] | null = null;
+  listData!: MatTableDataSource<User>;
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -25,13 +38,26 @@ export class UserManagementComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
 
+  modalRef!: NgbModalRef;
+  eventSubscriber: Subscription | any;
+
+  @ViewChild(MatSort) sortd!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  productsLength!: number;
+  columns: string[] = ['image', 'login', 'email', 'authorities', 'createdDate', 'lastModifiedBy', 'lastModifiedDate', 'view', 'delete'];
+
   constructor(
     private userService: UserManagementService,
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    private eventManager: EventManager
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => (this.currentAccount = account));
@@ -46,17 +72,6 @@ export class UserManagementComponent implements OnInit {
     return item.id!;
   }
 
-  deleteUser(user: User): void {
-    const modalRef = this.modalService.open(UserManagementDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.user = user;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadAll();
-      }
-    });
-  }
-
   loadAll(): void {
     this.isLoading = true;
     this.userService
@@ -68,20 +83,12 @@ export class UserManagementComponent implements OnInit {
       .subscribe(
         (res: HttpResponse<User[]>) => {
           this.isLoading = false;
-          this.onSuccess(res.body, res.headers);
+          if (res && res.body) {
+            this.onSuccess(res.body, res.headers);
+          }
         },
         () => (this.isLoading = false)
       );
-  }
-
-  transition(): void {
-    this.router.navigate(['./'], {
-      relativeTo: this.activatedRoute.parent,
-      queryParams: {
-        page: this.page,
-        sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
-      },
-    });
   }
 
   private handleNavigation(): void {
@@ -103,8 +110,61 @@ export class UserManagementComponent implements OnInit {
     return result;
   }
 
-  private onSuccess(users: User[] | null, headers: HttpHeaders): void {
+  private onSuccess(users: User[], headers: HttpHeaders): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.users = users;
+    this.listData = new MatTableDataSource(this.users);
+    this.listData.sort = this.sortd;
+    this.listData.paginator = this.paginator;
+  }
+
+  addNew() {
+    this.modalRef = this.modalService.open(UserManagementUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.afterModalClose();
+  }
+
+  edit(user: User) {
+    this.modalRef = this.modalService.open(UserManagementUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.modalRef.componentInstance.userID = user.id;
+    this.modalRef.componentInstance.userLogin = user.login;
+    this.afterModalClose();
+  }
+
+  afterModalClose() {
+    this.modalRef.closed.subscribe(res => {
+      if (res === true) {
+        this.loadAll();
+      }
+    });
+  }
+
+  delete(login: string, name: string) {
+    Swal.fire({
+      title: 'Bạn muốn xoá ' + name + ' ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xoá',
+      cancelButtonText: 'Không',
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.userService.delete(login).subscribe(
+          data => {
+            this.ngOnInit();
+            this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
+          },
+          error => {
+            this.toastr.error('Thông báo xoá thất bại, đã xảy ra lỗi!', 'Hệ thống');
+          }
+        );
+      }
+    });
+  }
+
+  getRole(role: any) {
+    if (role === Authority.ADMIN) {
+      return 'Admin';
+    } else {
+      return 'User';
+    }
   }
 }

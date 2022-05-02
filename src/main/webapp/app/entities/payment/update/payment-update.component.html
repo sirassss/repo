@@ -32,10 +32,22 @@
   </table>
 </div>
 <div class="d-flex m-2">
-  <button mat-raised-button color="primary" *ngIf="payment.status === 0 || !payment.status" (click)="confirm()" class="col-2 ml-2">
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="payment.status === 0 || payment.status === 4 || !payment.status"
+    (click)="confirm()"
+    class="col-2 ml-2"
+  >
     Xác nhận đơn
   </button>
-  <button mat-raised-button color="warn" *ngIf="payment.status === 0 || !payment.status" (click)="cancel()" class="col-2 ml-2">
+  <button
+    mat-raised-button
+    color="warn"
+    *ngIf="payment.status === 0 || payment.status === 4 || !payment.status"
+    (click)="cancel()"
+    class="col-2 ml-2"
+  >
     Huỷ đơn
   </button>
   <button mat-raised-button color="accent" *ngIf="payment.status === 1" (click)="paid()" class="col-2 ml-2">Đã Thanh Toán</button>

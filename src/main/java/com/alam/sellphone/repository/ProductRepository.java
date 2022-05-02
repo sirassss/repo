@@ -18,37 +18,37 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
     List<Product> getAllProductsByID(List<Long> productID);
 
     @Query(
-        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, VoucherID, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
+        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
         nativeQuery = true
     )
     List<Product> getListPro(Integer typeID);
 
     @Query(
-        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, VoucherID, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
+        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
         nativeQuery = true
     )
     List<Product> getListPro2(Integer typeID);
 
     @Query(
-        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, VoucherID, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
+        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
         nativeQuery = true
     )
     List<Product> getDoubleBanner(Integer typeID);
 
     @Query(
-        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, VoucherID, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
+        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
         nativeQuery = true
     )
     List<Product> getBannerList(Integer typeID);
 
     @Query(
-        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, VoucherID, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
+        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
         nativeQuery = true
     )
     List<Product> getThreeBanner(Integer typeID);
 
     @Query(
-        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, VoucherID, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
+        value = " select sp.ID, Code, Name, Quantity, UnitPrice, Installment, AccompanyingProducts, Warranty, CreatedDate, CreatedUser, ModifiedDate, ModifiedUser, Rate, BannerID, sp.TypeID, IsNew from Product sp inner join Banner bn on sp.BannerID = bn.ID and bn.TypeID = ?1 ",
         nativeQuery = true
     )
     List<Product> getListProManufacturer(Integer typeID);

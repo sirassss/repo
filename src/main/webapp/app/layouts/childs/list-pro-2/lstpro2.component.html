@@ -23,11 +23,16 @@
           <div class="row">
             <div class="col-lg-4 order-2 order-lg-1">
               <div class="mt-10">
-                <div class="col-img" style="padding-bottom: 95px">
-                  <a href="#"><img src="./content/img/banner/electorince.jpg" alt="" /></a>
+                <div class="col-img pb-10">
+                  <a><img class="banner-set" src="./content/img/banner/new-product.png" alt="" /></a>
                 </div>
                 <div class="col-img">
-                  <a href="#"><img src="./content/img/banner/electorince.jpg" alt="" /></a>
+                  <a
+                    ><img
+                      class="banner-set"
+                      src="./content/img/banner/super-sale-smartphone-banner-mobile-phone-clearance-sale-discount-poster-web-banner-big-promotion-super-sale-smartphone-banner-117599265.jpg"
+                      alt=""
+                  /></a>
                 </div>
               </div>
             </div>
@@ -37,8 +42,7 @@
                   <!-- Product Image Start -->
                   <div class="pro-img">
                     <a (click)="viewDetail(product)">
-                      <img class="primary-img" src="./content/img/products/36.jpg" alt="single-product" />
-                      <img class="secondary-img" src="./content/img/products/37.jpg" alt="single-product" />
+                      <img class="primary-img" [src]="product.image" alt="single-product" height="268px" />
                     </a>
                   </div>
                   <!-- Product Image End -->

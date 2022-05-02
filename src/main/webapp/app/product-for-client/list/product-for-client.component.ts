@@ -78,18 +78,19 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.typeSearch = this.sessionStorageService.retrieve('searchByType');
-    // this.sessionStorageService.clear('searchByType');
+    const content = this.sessionStorageService.retrieve('varSearch');
+    if (content.name === 'type') {
+      this.typeSearch = content;
+    } else if (content.name === 'vars') {
+      this.varSearch = content;
+    }
+    this.sessionStorageService.clear('varSearch');
     this.handleNavigation();
     this.registerVarSearch();
   }
 
   trackId(index: number, item: IProduct): number {
     return item.id!;
-  }
-
-  delete(product: IProduct): void {
-    this.loadPage();
   }
 
   addToCart(product: IProduct): void {
@@ -105,8 +106,6 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
       }
     });
   }
-
-  fillToCart(): void {}
 
   registerVarSearch(): void {
     this.eventSubscriber = this.eventManager.subscribe('varSearch', res => {
@@ -165,6 +164,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
     this.products.forEach(n => {
       n.isPromotion = n.vouchers!.length > 0;
       n.promotionPrice = n.unitPrice! - (n.unitPrice! * (n.vouchers![0] ? n.vouchers![0].promotionRate! : 0)) / 100;
+      n.image = n.productDetails![0].imageUrl;
     });
     this.varSearch = undefined;
     this.typeSearch = undefined;
@@ -183,5 +183,31 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
     this.modalRef = this.modalService.open(ProductUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
     this.modalRef.componentInstance.product = product;
     this.modalRef.componentInstance.productDetail = product.productDetails![0];
+  }
+
+  getTitel(): any {
+    if (!this.varSearch || this.varSearch === '') {
+      if (this.typeSearch) {
+        if (this.typeSearch.data === TypeID.PRODUCT_SMART_PHONE) {
+          return 'Điện thoại';
+        }
+        if (this.typeSearch.data === TypeID.PRODUCT_LAPTOP) {
+          return 'Laptop';
+        }
+        if (this.typeSearch.data === TypeID.PRODUCT_TAPBLET) {
+          return 'Tablet';
+        }
+        if (this.typeSearch.data === TypeID.PRODUCT_SMART_WATCH) {
+          return 'Đồng hồ thông minh';
+        }
+        if (this.typeSearch.data === TypeID.PRODUCT_ACCESSORY) {
+          return 'Phụ kiện';
+        }
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
   }
 }

@@ -44,4 +44,9 @@ export class PaymentService {
   findByID(id: number): Observable<EntityResponseType> {
     return this.http.get<IPayment>(`${this.resourceUrl + '/admin'}/${id}`, { observe: 'response' });
   }
+
+  getPaymentForUser(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IPayment[]>(this.resourceUrl + '/get-for-user', { params: options, observe: 'response' });
+  }
 }

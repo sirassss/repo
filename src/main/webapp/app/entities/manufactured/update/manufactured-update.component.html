@@ -1,62 +1,50 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2
-        id="jhi-manufactured-heading"
-        data-cy="ManufacturedCreateUpdateHeading"
-        jhiTranslate="sellphonealamApp.manufactured.home.createOrEditLabel"
-      >
-        Create or edit a Manufactured
-      </h2>
-
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.manufactured.name" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.manufactured.image" for="field_image">Image</label>
-          <input type="text" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="sellphonealamApp.manufactured.description" for="field_description"
-            >Description</label
-          >
-          <input
-            type="text"
+<div class="modal-header">
+  <h2 class="modal-title m-0">{{ manufactured.id ? 'Sửa mã giảm' : 'Thêm mã giảm' }}</h2>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
+</div>
+<div class="modal-body">
+  <input type="hidden" />
+  <!-- <input type="hidden" formControlName="rate"> -->
+  <div class="row">
+    <div>
+      <div class="form-group col-md-12">
+        <label for="voucherCode">Tên hãng:</label>
+        <input
+          type="text"
+          name="voucherCode"
+          id="voucherCode"
+          [ngClass]="{ 'is-invalid': !manufactured.name }"
+          [(ngModel)]="manufactured.name"
+          class="form-control"
+          placeholder="Mã giảm"
+        />
+        <small *ngIf="!manufactured.name" class="text-danger">Tên hãng không hợp lệ</small>
+      </div>
+      <div class="col-md-12 p-0">
+        <div class="col-12 mt-4">
+          <label for="description">Mô tả:</label>
+          <textarea
+            [ngClass]="{ 'is-invalid': !manufactured.description }"
+            [(ngModel)]="manufactured.description"
             class="form-control"
             name="description"
-            id="field_description"
-            data-cy="description"
-            formControlName="description"
-          />
+            id="description"
+            placeholder="abc"
+            style="height: 120px"
+          ></textarea>
         </div>
       </div>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
+    </div>
+    <div class="col-md-6 text-center float-right">
+      <h3>Logo hãng</h3>
+      <img [src]="url" width="200px" id="blah" class="img-fluid" />
+      <div class="input-group col-10 offset-1 mt-10">
+        <label for="inputGroupFile01" class="ml-60 btn btn-dark">Chọn logo</label>
+        <input type="file" accept="image/*" (change)="readUrl($event)" class="form-control d-none" id="inputGroupFile01" />
       </div>
-    </form>
+    </div>
   </div>
+  <button mat-raised-button color="primary" class="col-2 m-3" [disabled]="!manufactured" (click)="save()">
+    {{ manufactured.id ? 'Sửa' : 'Thêm' }}
+  </button>
 </div>

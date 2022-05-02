@@ -395,7 +395,7 @@ ul {
   width: 100%;
 }
 .categorie-search-box button {
-  background: #000000 none repeat scroll 0 0;
+  background: #333030 none repeat scroll 0 0;
   border: medium none;
   border-radius: 0 3px 3px 0;
   color: white;
@@ -1123,7 +1123,7 @@ li.megamenu-img a {
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   display: block;
-  padding: 12.4px 10px;
+  /*padding: 12.4px 10px;*/
   text-align: center;
 }
 .brand-banner a:last-child,
@@ -1372,9 +1372,9 @@ li.megamenu-img a {
 .actions-primary a:hover,
 .product-description .compare-cart:hover,
 .cart-main-area.wish-list .product-add-to-cart a:hover {
-  background: #e62e04;
+  background: #86706c;
   color: #fff;
-  border-color: #e62e04;
+  border-color: #86706c;
 }
 .actions-secondary a {
   background: transparent none repeat scroll 0 0;

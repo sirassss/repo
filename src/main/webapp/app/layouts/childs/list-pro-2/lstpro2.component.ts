@@ -48,6 +48,11 @@ export class ListPro2Component extends BaseComponent implements OnInit {
         this.listProduct = res.body;
         this.productBanner = this.listProduct.productBottom!;
         this.productDoubles = this.listProduct.listProduct!;
+        this.productDoubles.forEach(n => {
+          n.isPromotion = n.vouchers!.length > 0;
+          n.promotionPrice = n.unitPrice! - (n.unitPrice! * (n.vouchers![0] ? n.vouchers![0].promotionRate! : 0)) / 100;
+          n.image = n.productDetails![0].imageUrl;
+        });
       }
     });
   }

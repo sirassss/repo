@@ -44,4 +44,20 @@ public class PaymentRepositoryCustomImpl implements PaymentRepositoryCustom {
         }
         return new PageImpl<>(payments, pageable, total.longValue());
     }
+
+    @Override
+    public List<PaymentDTO> getForUser(String login) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(
+            " select p.ID, u.FirstName as userFirstName, u.LastName as userLastName, " +
+            "       OrderAddress, OrderPhone, TotalAmount, c.CreatedDate, p.Status, OrderID, BankID " +
+            "    from Payment p " +
+            "        left join Bank b on p.BankID = b.ID " +
+            "        left join Cart c on p.OrderID = c.ID " +
+            "        left join Account u on u.ID = c.UserID where u.Login = :login "
+        );
+        Query res = entityManager.createNativeQuery(sql.toString(), "PaymentDTO");
+        res.setParameter("login", login);
+        return res.getResultList();
+    }
 }

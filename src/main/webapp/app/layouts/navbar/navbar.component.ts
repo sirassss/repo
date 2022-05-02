@@ -89,10 +89,12 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   }
 
   changeSearch(type?: any): void {
+    const content = { name: type ? 'type' : 'vars', data: type ? type : this.varSearch };
     this.eventManager.broadcast({
       name: 'varSearch',
-      content: { name: type ? 'type' : 'vars', data: type ? type : this.varSearch },
+      content: content,
     });
+    this.sessionStorageService.store('varSearch', content);
   }
 
   registerChangeCart(): void {

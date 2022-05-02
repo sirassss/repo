@@ -19,7 +19,7 @@ import { ProductUpdateComponent } from '../../../product-for-client/update/produ
 })
 export class ListProComponent extends BaseComponent implements OnInit {
   listProduct!: IViewBanner;
-  productDoubles!: IProduct[][];
+  productDoubles!: IProduct[];
 
   eventSubscriber: Subscription | any;
   modalRef!: NgbModalRef;
@@ -36,11 +36,16 @@ export class ListProComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productDoubles = [[]];
+    this.productDoubles = [];
     this.bannerService.getListProduct({ TypeID: TypeID.BANNER_LIST_PRO }).subscribe(res => {
       if (res && res.body) {
         this.listProduct = res.body;
-        this.productDoubles = this.listProduct.listProduct2!;
+        this.productDoubles = this.listProduct.listProduct!;
+        this.productDoubles.forEach(n => {
+          n.isPromotion = n.vouchers!.length > 0;
+          n.promotionPrice = n.unitPrice! - (n.unitPrice! * (n.vouchers![0] ? n.vouchers![0].promotionRate! : 0)) / 100;
+          n.image = n.productDetails![0].imageUrl;
+        });
       }
     });
   }

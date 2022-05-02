@@ -62,7 +62,17 @@ export class CheckOutComponent extends BaseComponent implements OnInit {
   }
 
   setupValue() {
-    this.user = { activated: true, authorities: [], email: '', firstName: '', lastName: '', login: '', imageUrl: '', langKey: '' };
+    this.user = {
+      activated: true,
+      authorities: [],
+      email: '',
+      firstName: '',
+      lastName: '',
+      login: '',
+      imageUrl: '',
+      langKey: '',
+      phone: '',
+    };
     this.cart = { orderPhone: '', orderAddress: '' };
     this.orderDetails = [];
     this.bank = {};

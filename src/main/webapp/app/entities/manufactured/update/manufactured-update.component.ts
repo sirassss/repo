@@ -7,6 +7,10 @@ import { finalize } from 'rxjs/operators';
 
 import { IManufactured, Manufactured } from '../manufactured.model';
 import { ManufacturedService } from '../service/manufactured.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { EventManager } from '../../../core/util/event-manager.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-manufactured-update',
@@ -14,33 +18,40 @@ import { ManufacturedService } from '../service/manufactured.service';
 })
 export class ManufacturedUpdateComponent implements OnInit {
   isSaving = false;
+  manufactured!: IManufactured;
+  manufacturedID!: number;
 
-  editForm = this.fb.group({
-    id: [],
-    name: [],
-    image: [],
-    description: [],
-  });
+  url: string = '';
 
-  constructor(protected manufacturedService: ManufacturedService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected manufacturedService: ManufacturedService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    private activeModal: NgbActiveModal,
+    private toastr: ToastrService,
+    private eventManager: EventManager,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ manufactured }) => {
-      this.updateForm(manufactured);
-    });
-  }
-
-  previousState(): void {
-    window.history.back();
+    this.manufactured = {};
+    if (this.manufacturedID) {
+      this.manufacturedService.find(this.manufacturedID).subscribe(res => {
+        if (res && res.body) {
+          this.manufactured = res.body;
+          this.updateForm(this.manufactured);
+        }
+      });
+    }
   }
 
   save(): void {
     this.isSaving = true;
-    const manufactured = this.createFromForm();
-    if (manufactured.id !== undefined) {
-      this.subscribeToSaveResponse(this.manufacturedService.update(manufactured));
+    this.manufactured.image = this.url;
+    if (this.manufactured.id !== undefined) {
+      this.subscribeToSaveResponse(this.manufacturedService.update(this.manufactured));
     } else {
-      this.subscribeToSaveResponse(this.manufacturedService.create(manufactured));
+      this.subscribeToSaveResponse(this.manufacturedService.create(this.manufactured));
     }
   }
 
@@ -52,33 +63,40 @@ export class ManufacturedUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    if (this.manufactured.id) {
+      this.toastr.success('Sửa hãng thành công');
+    } else {
+      this.toastr.success('Thêm hãng phẩm thành công');
+    }
+    this.eventManager.broadcast({
+      name: 'newmanu',
+      content: { data: true },
+    });
   }
 
   protected onSaveError(): void {
-    // Api for inheritance.
+    this.toastr.error(this.translate.instant('error.internalServerError'));
   }
 
   protected onSaveFinalize(): void {
     this.isSaving = false;
+    this.closePopup();
   }
 
-  protected updateForm(manufactured: IManufactured): void {
-    this.editForm.patchValue({
-      id: manufactured.id,
-      name: manufactured.name,
-      image: manufactured.image,
-      description: manufactured.description,
-    });
+  protected updateForm(manufactured: IManufactured): void {}
+
+  closePopup() {
+    this.activeModal.close(false);
   }
 
-  protected createFromForm(): IManufactured {
-    return {
-      ...new Manufactured(),
-      id: this.editForm.get(['id'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      image: this.editForm.get(['image'])!.value,
-      description: this.editForm.get(['description'])!.value,
-    };
+  readUrl(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.url = e.target.result;
+        console.log(this.url);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 }

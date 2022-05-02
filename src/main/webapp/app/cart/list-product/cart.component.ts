@@ -65,6 +65,7 @@ export class CartComponent extends BaseComponent implements OnInit, OnDestroy {
             this.listProducts = res2.body;
             this.orderDetails.forEach(n => {
               n.product = this.listProducts.find(m => m.id === n.productID);
+              n.image = n.product?.productDetails![0].imageUrl;
             });
           }
           this.copy();

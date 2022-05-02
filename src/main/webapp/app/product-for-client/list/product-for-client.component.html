@@ -1,11 +1,11 @@
-<div class="container col-lg-9" style="display: flex">
+<!--<h2 style="font-size: 25px; font-family: Verdana, Geneva, Tahoma, sans-serif; text-decoration: underline" *ngIf="getTitel() !== ''"> {{ getTitel() }} </h2>-->
+<div class="container col-lg-12" style="display: flex">
   <div class="row">
     <div class="single-product" *ngFor="let product of products; trackBy: trackId; let i = index" data-cy="entityTable">
       <!-- Product Image Start -->
       <div class="pro-img">
         <a (click)="viewDetail(product)">
-          <img class="primary-img" src="./content/img/products/36.jpg" alt="single-product" />
-          <img class="secondary-img" src="./content/img/products/37.jpg" alt="single-product" />
+          <img class="primary-img" [src]="product.image" alt="single-product" height="268px" />
         </a>
       </div>
       <!-- Product Image End -->

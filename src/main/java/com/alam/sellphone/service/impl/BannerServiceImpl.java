@@ -227,8 +227,10 @@ public class BannerServiceImpl implements BannerService {
                 }
             }
         );
-        listBanner.setListProduct2(Lists.partition(lstDouble, 2));
-        if (listBanner.getListProduct2().size() <= 4) {
+        if (lstDouble.size() <= 8) {
+            listBanner.setListProduct(lstDouble);
+        } else {
+            lstDouble.subList(0, 7);
             listBanner.setListProduct(lstDouble);
         }
         return listBanner;

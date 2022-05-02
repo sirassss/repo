@@ -177,4 +177,11 @@ public class PaymentResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/payments/get-for-user")
+    public ResponseEntity<List<PaymentDTO>> getForUser(@RequestParam String login) {
+        log.debug("REST request to get a page of Payments");
+        List<PaymentDTO> paymentDTOS = paymentService.getForUser(login);
+        return ResponseEntity.ok().body(paymentDTOS);
+    }
 }

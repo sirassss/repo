@@ -82,11 +82,7 @@ export class PaymentUpdateComponent implements OnInit {
     } else if (this.payment.status === 3) {
       this.toastr.success('Hủy đơn thành công');
     }
-    this.eventManager.broadcast({
-      name: 'newpay',
-      content: { data: true },
-    });
-    this.closePopup();
+    this.closePopup(true);
   }
 
   protected onSaveError(): void {
@@ -112,7 +108,11 @@ export class PaymentUpdateComponent implements OnInit {
     this.save();
   }
 
-  closePopup() {
-    this.activeModal.close(false);
+  closePopup(reason?: any) {
+    if (reason) {
+      this.activeModal.close(reason);
+    } else {
+      this.activeModal.close(false);
+    }
   }
 }

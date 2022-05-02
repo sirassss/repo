@@ -9,9 +9,7 @@
         <!-- Thumbnail Large Image start -->
         <div class="tab-content">
           <div id="thumb1" class="tab-pane fade show active">
-            <a data-fancybox="images" href="../../../../content/img/products/35.jpg"
-              ><img src="../../../../content/img/products/35.jpg" alt="product-view"
-            /></a>
+            <a data-fancybox="images"><img [src]="productDetail.imageUrl" alt="product-view" /></a>
           </div>
         </div>
         <!-- Thumbnail image end -->
@@ -33,12 +31,12 @@
           </div>
           <div class="pro-price mtb-30">
             <p class="d-flex align-items-center">
-              <ng-container *ngIf="productInCart.isPromotion; else notpromotion">
+              <ng-container *ngIf="productInCart.isPromotion; else notPromotion">
                 <span class="prev-price">{{ productInCart.unitPrice | currency: 'VND':true }}</span>
                 <span class="price">{{ productInCart.promotionPrice | currency: 'VND':true }}</span>
                 <span class="saving-price">save {{ productInCart.vouchers![0].promotionRate }}%</span>
               </ng-container>
-              <ng-template #notpromotion>
+              <ng-template #notPromotion>
                 <span class="price">{{ productInCart.promotionPrice | currency: 'VND':true }}</span>
               </ng-template>
             </p>

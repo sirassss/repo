@@ -82,7 +82,6 @@ export class PaymentComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
-    this.registerAddNew();
   }
 
   protected sort(): string[] {
@@ -143,6 +142,11 @@ export class PaymentComponent extends BaseComponent implements OnInit {
   edit(payment: IPayment) {
     this.modalRef = this.modalService.open(PaymentUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
     this.modalRef.componentInstance.payment = payment;
+    this.modalRef.closed.subscribe(reason => {
+      if (reason === true) {
+        this.loadPage();
+      }
+    });
   }
 
   delete(payment: IPayment, name: string) {
@@ -171,13 +175,6 @@ export class PaymentComponent extends BaseComponent implements OnInit {
     }
   }
 
-  registerAddNew(): void {
-    this.eventSubscriber = this.eventManager.subscribe('newpay', () => {
-      this.loadPage();
-    });
-    this.eventSubscribers.push(this.eventSubscriber);
-  }
-
   getStatus(status: any) {
     if (status) {
       if (status === 0) {
@@ -186,8 +183,10 @@ export class PaymentComponent extends BaseComponent implements OnInit {
         return 'Đang giao';
       } else if (status === 2) {
         return 'Đã giao/thanh toán';
-      } else {
+      } else if (status === 3) {
         return 'Đã hủy';
+      } else {
+        return 'Khách hàng hủy';
       }
     } else {
       return 'Chờ xác nhận';

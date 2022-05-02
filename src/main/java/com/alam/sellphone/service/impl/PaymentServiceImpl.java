@@ -4,6 +4,7 @@ import com.alam.sellphone.domain.Payment;
 import com.alam.sellphone.repository.PaymentRepository;
 import com.alam.sellphone.service.PaymentService;
 import com.alam.sellphone.service.dto.PaymentDTO;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,5 +76,10 @@ public class PaymentServiceImpl implements PaymentService {
     public void delete(Long id) {
         log.debug("Request to delete Payment : {}", id);
         paymentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PaymentDTO> getForUser(String login) {
+        return paymentRepository.getForUser(login);
     }
 }

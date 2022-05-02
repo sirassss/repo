@@ -1,30 +1,219 @@
-<div>
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h2 jhiTranslate="settings.title" [translateValues]="{ username: account.login }" *ngIf="account">
-        User settings for [<strong>{{ account.login }}</strong
-        >]
-      </h2>
-
-      <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
-        <strong>Settings saved!</strong>
+<section class="" style="min-height: 700px">
+  <div
+    class="container my-5"
+    style="border: 1px solid rgb(235, 235, 235); border-radius: 15px; min-height: 470px; box-shadow: 0 0 6px rgb(226, 226, 226)"
+  >
+    <div class="row">
+      <div class="col-4 offset-4 text-center mt-2">
+        <img [src]="account.imageUrl" style="width: 80px" class="img-fluid rounded-circle" />
+        <h2 style="font-size: 23px; margin-top: 3%">Xin chào {{ account.login }} !</h2>
       </div>
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="account" novalidate>
-        <div class="form-group">
-          <label class="form-control-label" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
+      <div class="col-8 offset-2 row">
+        <div class="form-group col-6 p-3">
+          <label for="name">Họ tên:</label>
           <input
             type="text"
+            id="name"
+            [value]="account.lastName + ' ' + account.firstName"
+            [title]="account.lastName + ' ' + account.firstName"
             class="form-control"
-            id="firstName"
-            name="firstName"
-            placeholder="{{ 'settings.form.firstname.placeholder' | translate }}"
-            formControlName="firstName"
-            data-cy="firstname"
+            readonly
           />
+        </div>
+        <div class="form-group col-6 p-3">
+          <label for="emailv">Email:</label>
+          <input type="text" id="emailv" [value]="account.email" [title]="account.email" class="form-control" readonly />
+        </div>
+      </div>
+      <div class="col-8 offset-2 row">
+        <button class="setting m-3" (click)="changeProfile()">Sửa thông tin</button>
+      </div>
+      <hr class="col-8 offset-2" />
+      <!-- <mat-tab-group mat-align-tabs="start" class="col-8 offset-2 mt-4 mb-4">
+          <mat-tab label="Đơn hàng chờ xác nhận">
 
+          </mat-tab>
+          <mat-tab label="Đơn hàng đã huỷ">Content 2</mat-tab>
+          <mat-tab label="Đơn hàng đã thanh toán">Content 3</mat-tab>
+      </mat-tab-group> -->
+      <div class="col-8 offset-2 mb-4" *ngIf="isLoadingOrder">
+        <div class="pull-right label label-info row col" style="min-height: 200px !important">
+          <div
+            class="spinner-border"
+            role="status"
+            style="margin: auto; width: 6em; height: 6em; border: 0.7em solid black currentColor"
+          ></div>
+        </div>
+      </div>
+      <div class="col-8 offset-2 mt-4 mb-4">
+        <h3 style="font-size: 25px; font-family: Verdana, Geneva, Tahoma, sans-serif; text-decoration: underline">Lịch sử đặt hàng</h3>
+        <table mat-table [dataSource]="listOrder" matSort class="mat-elevation-z8" style="width: 729px">
+          <ng-container matColumnDef="totalAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 19%">Tổng tiền</th>
+            <td class="hidden-text" mat-cell *matCellDef="let row">{{ row.totalAmount | currency: 'VND' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="orderAddress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ</th>
+            <td placement="bottom" tooltip="{{ row.orderAddress }}" class="hidden-text" mat-cell *matCellDef="let row">
+              {{ row.orderAddress }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="orderPhone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%">Số điện thoại</th>
+            <td class="hidden-text" mat-cell *matCellDef="let row">{{ row.orderPhone }}</td>
+          </ng-container>
+          <ng-container matColumnDef="orderDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%">Ngày mua</th>
+            <td class="hidden-text" mat-cell *matCellDef="let row">{{ row.orderDate | date: 'dd-MM-yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng Thái</th>
+            <td
+              placement="bottom"
+              tooltip="{{
+                row.status === 0
+                  ? 'Chờ xác nhận'
+                  : row.status === 1
+                  ? 'Đang giao'
+                  : row.status === 2
+                  ? 'Đã giao hàng'
+                  : row.status === 3
+                  ? 'Đã hủy'
+                  : row.status === 4
+                  ? 'Đang hủy, chờ xác nhận'
+                  : 'Chờ xác nhận'
+              }}"
+              class="hidden-text-2"
+              mat-cell
+              *matCellDef="let row"
+            >
+              {{
+                row.status === 0
+                  ? 'Chờ xác nhận'
+                  : row.status === 1
+                  ? 'Đang giao'
+                  : row.status === 2
+                  ? 'Đã giao hàng'
+                  : row.status === 3
+                  ? 'Đã hủy'
+                  : row.status === 4
+                  ? 'Đang hủy, chờ xác nhận'
+                  : 'Chờ xác nhận'
+              }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="view">
+            <th mat-header-cell *matHeaderCellDef style="width: 15%" class="text-center">Chi tiết</th>
+            <td mat-cell *matCellDef="let row">
+              <a class="center-parent"><fa-icon [icon]="'eye'" [size]="'1x'" (click)="viewPayment(row)" tooltip="Chi tiết"></fa-icon></a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%">Huỷ đơn</th>
+            <td mat-cell *matCellDef="let row">
+              <span *ngIf="row.status === 1">Đang giao</span>
+              <span *ngIf="row.status === 2">Đã giao</span>
+              <!--              <span *ngIf="row.status === 3">Đã hủy</span>-->
+              <a class="center-parent" *ngIf="row.status === 0 || !row.status"
+                ><fa-icon [icon]="'circle-xmark'" [size]="'1x'" (click)="cancelPayment(row)" tooltip="Hủy đơn"></fa-icon
+              ></a>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columns"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>
+        <mat-paginator [length]="orderLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"> </mat-paginator>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title m-0">Cài đặt tài khoản</h2>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form name="editForm" role="form" novalidate [formGroup]="settingsForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="login">Tên đăng nhập:</label>
+            <input
+              type="text"
+              name="login"
+              id="login"
+              [ngClass]="{ 'is-invalid': settingsForm.get('login')!.invalid }"
+              formControlName="login"
+              class="form-control"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              [ngClass]="{ 'is-invalid': settingsForm.get('email')!.invalid }"
+              formControlName="email"
+              class="form-control"
+            />
+            <div *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)">
+              <small
+                class="text-danger"
+                *ngIf="settingsForm.get('email')?.errors?.required"
+                jhiTranslate="global.messages.validate.email.required"
+              >
+                Your email is required.
+              </small>
+
+              <small
+                class="text-danger"
+                *ngIf="settingsForm.get('email')?.errors?.email"
+                jhiTranslate="global.messages.validate.email.invalid"
+              >
+                Your email is invalid.
+              </small>
+
+              <small
+                class="text-danger"
+                *ngIf="settingsForm.get('email')?.errors?.minlength"
+                jhiTranslate="global.messages.validate.email.minlength"
+              >
+                Your email is required to be at least 5 characters.
+              </small>
+
+              <small
+                class="text-danger"
+                *ngIf="settingsForm.get('email')?.errors?.maxlength"
+                jhiTranslate="global.messages.validate.email.maxlength"
+              >
+                Your email cannot be longer than 100 characters.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <img [src]="url" width="200px" id="blah" class="img-fluid" alt="ảnh" />
+          <div class="input-group col-10 offset-1 mt-10">
+            <label for="inputGroupFile01" class="ml-120 btn btn-dark">Chọn ảnh</label>
+            <input type="file" accept="image/*" (change)="readUrl($event)" class="form-control d-none" id="inputGroupFile01" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-2">
+          <label for="firstName">Họ:</label>
+          <div class="input-group">
+            <input
+              name="firstName"
+              id="firstName"
+              [ngClass]="{ 'is-invalid': settingsForm.get('firstName')!.invalid }"
+              formControlName="firstName"
+              class="form-control"
+            />
+          </div>
           <div
             *ngIf="
               settingsForm.get('firstName')!.invalid && (settingsForm.get('firstName')!.dirty || settingsForm.get('firstName')!.touched)
@@ -32,135 +221,39 @@
           >
             <small
               class="form-text text-danger"
-              *ngIf="settingsForm.get('firstName')?.errors?.required"
-              jhiTranslate="settings.messages.validate.firstname.required"
-            >
-              Your first name is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('firstName')?.errors?.minlength"
-              jhiTranslate="settings.messages.validate.firstname.minlength"
-            >
-              Your first name is required to be at least 1 character.
-            </small>
-
-            <small
-              class="form-text text-danger"
               *ngIf="settingsForm.get('firstName')?.errors?.maxlength"
-              jhiTranslate="settings.messages.validate.firstname.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
             >
-              Your first name cannot be longer than 50 characters.
+              This field cannot be longer than 50 characters.
             </small>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
+        <div class="form-group col-md-2">
+          <label for="lastName">Tên:</label>
           <input
             type="text"
-            class="form-control"
-            id="lastName"
             name="lastName"
-            placeholder="{{ 'settings.form.lastname.placeholder' | translate }}"
+            id="lastName"
+            [ngClass]="{ 'is-invalid': settingsForm.get('lastName')!.invalid }"
             formControlName="lastName"
-            data-cy="lastname"
+            class="form-control"
           />
-
           <div
             *ngIf="settingsForm.get('lastName')!.invalid && (settingsForm.get('lastName')!.dirty || settingsForm.get('lastName')!.touched)"
           >
             <small
               class="form-text text-danger"
-              *ngIf="settingsForm.get('lastName')?.errors?.required"
-              jhiTranslate="settings.messages.validate.lastname.required"
-            >
-              Your last name is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('lastName')?.errors?.minlength"
-              jhiTranslate="settings.messages.validate.lastname.minlength"
-            >
-              Your last name is required to be at least 1 character.
-            </small>
-
-            <small
-              class="form-text text-danger"
               *ngIf="settingsForm.get('lastName')?.errors?.maxlength"
-              jhiTranslate="settings.messages.validate.lastname.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
             >
-              Your last name cannot be longer than 50 characters.
+              This field cannot be longer than 50 characters.
             </small>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            placeholder="{{ 'global.form.email.placeholder' | translate }}"
-            formControlName="email"
-            data-cy="email"
-          />
-
-          <div *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.required"
-              jhiTranslate="global.messages.validate.email.required"
-            >
-              Your email is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.email"
-              jhiTranslate="global.messages.validate.email.invalid"
-            >
-              Your email is invalid.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.minlength"
-              jhiTranslate="global.messages.validate.email.minlength"
-            >
-              Your email is required to be at least 5 characters.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.maxlength"
-              jhiTranslate="global.messages.validate.email.maxlength"
-            >
-              Your email cannot be longer than 100 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group" *ngIf="languages && languages.length > 0">
-          <label for="langKey" jhiTranslate="settings.form.language">Language</label>
-          <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
-            <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          [disabled]="settingsForm.invalid"
-          class="btn btn-primary"
-          jhiTranslate="settings.form.button"
-          data-cy="submit"
-        >
-          Save
-        </button>
-      </form>
-    </div>
+      </div>
+      <button mat-raised-button class="accept col-2 m-3" (click)="save()" [disabled]="!account" type="submit">Sửa</button>
+    </form>
   </div>
-</div>
+</ng-template>
