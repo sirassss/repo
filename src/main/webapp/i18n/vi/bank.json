@@ -2,7 +2,7 @@
   "sellphonealamApp": {
     "bank": {
       "home": {
-        "title": "Banks",
+        "title": "Ngân hàng",
         "refreshListLabel": "Refresh list",
         "createLabel": "Thêm mới một Bank",
         "createOrEditLabel": "Thêm mới hoặc cập nhật Bank",

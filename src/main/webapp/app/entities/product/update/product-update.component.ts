@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { EventManager } from '../../../core/util/event-manager.service';
 import { BaseComponent } from '../../../shared/base-component/base.component';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'jhi-product-update',
@@ -82,6 +83,7 @@ export class ProductUpdateComponent extends BaseComponent implements OnInit {
     if (this.product.id !== undefined) {
       this.subscribeToSaveResponse(this.productService.update(this.product));
     } else {
+      this.product.createdDate = dayjs(new Date());
       this.subscribeToSaveResponse(this.productService.create(this.product));
     }
   }

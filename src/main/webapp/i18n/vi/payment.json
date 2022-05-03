@@ -2,7 +2,7 @@
   "sellphonealamApp": {
     "payment": {
       "home": {
-        "title": "Payments",
+        "title": "Hóa đơn",
         "refreshListLabel": "Refresh list",
         "createLabel": "Thêm mới một Payment",
         "createOrEditLabel": "Thêm mới hoặc cập nhật Payment",

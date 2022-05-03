@@ -2,7 +2,7 @@
   "sellphonealamApp": {
     "product": {
       "home": {
-        "title": "Products",
+        "title": "Sell Phone",
         "refreshListLabel": "Refresh list",
         "createLabel": "Thêm mới một Product",
         "createOrEditLabel": "Thêm mới hoặc cập nhật Product",

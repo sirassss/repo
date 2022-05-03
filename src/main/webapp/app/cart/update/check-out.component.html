@@ -98,7 +98,7 @@
             </ng-container>
           </div>
         </div>
-        <button class="btn btn-outline-dark float-right" type="button" (click)="checkOut()">Thanh toán</button>
+        <button class="btn btn-outline-dark float-right" type="button" (click)="checkOut()">Đặt hàng</button>
       </div>
       <div class="col-lg-6 col-md-6">
         <div class="your-order">
@@ -129,7 +129,7 @@
                   </td>
                 </tr>
                 <tr class="order-total">
-                  <th style="padding-top: 56px">Tổng thanh toán</th>
+                  <th style="padding-top: 56px">Tổng giá trị đơn hàng</th>
                   <td>
                     <button class="btn btn-outline-danger" type="button" (click)="selectVoucher()">Chọn mã giảm giá</button>
                     <span class="total amount">{{ cart.totalAmount | currency: 'VND':true }}</span>
@@ -138,34 +138,34 @@
               </tfoot>
             </table>
           </div>
-          <div class="payment-method">
-            <div id="accordion">
-              <div class="card">
-                <div class="card-header" id="headingone">
-                  <h5 class="mb-0">
-                    <button
-                      class="btn btn-link"
-                      data-toggle="collapse"
-                      data-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      Direct Bank Transfer
-                    </button>
-                  </h5>
-                </div>
+          <!--          <div class="payment-method">-->
+          <!--            <div id="accordion">-->
+          <!--              <div class="card">-->
+          <!--                <div class="card-header" id="headingone">-->
+          <!--                  <h5 class="mb-0">-->
+          <!--                    <button-->
+          <!--                      class="btn btn-link"-->
+          <!--                      data-toggle="collapse"-->
+          <!--                      data-target="#collapseOne"-->
+          <!--                      aria-expanded="true"-->
+          <!--                      aria-controls="collapseOne"-->
+          <!--                    >-->
+          <!--                      Direct Bank Transfer-->
+          <!--                    </button>-->
+          <!--                  </h5>-->
+          <!--                </div>-->
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingone" data-parent="#accordion">
-                  <div class="card-body">
-                    <p>
-                      Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t
-                      be shipped until the funds have cleared in our account.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!--                <div id="collapseOne" class="collapse show" aria-labelledby="headingone" data-parent="#accordion">-->
+          <!--                  <div class="card-body">-->
+          <!--                    <p>-->
+          <!--                      Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t-->
+          <!--                      be shipped until the funds have cleared in our account.-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>

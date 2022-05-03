@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { PasswordService } from './password.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'jhi-password',
@@ -21,7 +23,13 @@ export class PasswordComponent implements OnInit {
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
 
-  constructor(private passwordService: PasswordService, private accountService: AccountService, private fb: FormBuilder) {}
+  constructor(
+    private passwordService: PasswordService,
+    private accountService: AccountService,
+    private fb: FormBuilder,
+    protected router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.account$ = this.accountService.identity();
@@ -37,7 +45,11 @@ export class PasswordComponent implements OnInit {
       this.doNotMatch = true;
     } else {
       this.passwordService.save(newPassword, this.passwordForm.get(['currentPassword'])!.value).subscribe(
-        () => (this.success = true),
+        () => {
+          this.success = true;
+          this.toastr.success('Đổi mật khẩu thành công');
+          this.router.navigate(['./']);
+        },
         () => (this.error = true)
       );
     }

@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../../entities/payment/service/payment.service';
+import { PaymentUpdateComponent } from '../../entities/payment/update/payment-update.component';
 
 @Component({
   selector: 'jhi-settings',
@@ -144,5 +145,8 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  viewPayment(row: IPayment) {}
+  viewPayment(row: IPayment) {
+    this.modalRef = this.modalService.open(PaymentUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
+    this.modalRef.componentInstance.payment = row;
+  }
 }

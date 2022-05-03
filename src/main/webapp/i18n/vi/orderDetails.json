@@ -2,7 +2,7 @@
   "sellphonealamApp": {
     "orderDetails": {
       "home": {
-        "title": "Order Details",
+        "title": "Giỏ hàng",
         "refreshListLabel": "Refresh list",
         "createLabel": "Thêm mới một Order Details",
         "createOrEditLabel": "Thêm mới hoặc cập nhật Order Details",
