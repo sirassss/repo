@@ -29,9 +29,7 @@ a {
 .bossWrapp {
   overflow: hidden;
   margin: 0vh 0 20vh 0;
-  border-radius: 8px;
   width: 100%;
-  border-radius: 4px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -136,14 +134,11 @@ a {
   color: #162d3d;
   padding: 0 30px;
   height: 72px;
-  background: white;
   width: 100%;
   display: flex;
   align-content: center;
   align-items: center;
   border-bottom: 1px solid #e3ebf1;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
 }
 
 .soon {

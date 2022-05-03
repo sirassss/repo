@@ -31,7 +31,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChildsModule } from './layouts/childs/childs.module';
-import { FlexModule } from '@angular/flex-layout';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [

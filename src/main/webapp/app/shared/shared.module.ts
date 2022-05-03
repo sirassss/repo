@@ -42,6 +42,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BsDatepickerActions } from 'ngx-bootstrap/datepicker/reducer/bs-datepicker.actions';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { BsDatepickerActions } from 'ngx-bootstrap/datepicker/reducer/bs-datepic
     MatSortModule,
     MatPaginatorModule,
     BsDatepickerModule,
+    AngularSvgIconModule.forRoot(),
   ],
   declarations: [
     FindLanguageFromKeyPipe,
@@ -112,6 +114,7 @@ import { BsDatepickerActions } from 'ngx-bootstrap/datepicker/reducer/bs-datepic
     MatSortModule,
     MatPaginatorModule,
     BsDatepickerModule,
+    AngularSvgIconModule,
   ],
   providers: [BsDropdownConfig, NgbActiveModal, TooltipConfig, EbCurrencyPipe, BsDatepickerConfig, BsLocaleService],
 })

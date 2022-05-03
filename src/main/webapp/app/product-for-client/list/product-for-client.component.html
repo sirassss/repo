@@ -1,5 +1,17 @@
-<!--<h2 style="font-size: 25px; font-family: Verdana, Geneva, Tahoma, sans-serif; text-decoration: underline" *ngIf="getTitel() !== ''"> {{ getTitel() }} </h2>-->
-<div class="container col-lg-12" style="display: flex">
+<div class="breadcrumb-area mb-30">
+  <div class="container">
+    <div class="breadcrumb">
+      <ul class="d-flex align-items-center">
+        <li><a>Trang chủ</a></li>
+        <li class="active">
+          <a>{{ getTitel() }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container col-lg-9" style="display: flex">
   <div class="row">
     <div class="single-product" *ngFor="let product of products; trackBy: trackId; let i = index" data-cy="entityTable">
       <!-- Product Image Start -->
@@ -27,11 +39,8 @@
           </div>
         </div>
         <div class="pro-actions">
-          <div class="actions-primary">
+          <div class="actions-primary mt-5">
             <a title="Thêm vào giỏ hàng" (click)="addToCart(product)"> + Thêm vào giỏ hàng</a>
-          </div>
-          <div class="actions-secondary">
-            <a href="#" title="WishList"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>
           </div>
         </div>
       </div>

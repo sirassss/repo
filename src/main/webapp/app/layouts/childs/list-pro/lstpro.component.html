@@ -3,7 +3,7 @@
     <div>
       <h2 class="section-ttitle2 mb-30">Có thể bạn thích</h2>
       <div class="row">
-        <div class="single-product mr-3" *ngFor="let pro of productDoubles; let i = index">
+        <div class="single-product mr-3 border-fix" *ngFor="let pro of productDoubles; let i = index">
           <div class="pro-img">
             <a (click)="viewDetail(pro)">
               <img class="primary-img" [src]="pro.image" alt="single-product" />
@@ -26,11 +26,8 @@
               </div>
             </div>
             <div class="pro-actions">
-              <div class="actions-primary">
+              <div class="actions-primary mt-5">
                 <a title="Add to Cart" (click)="addToCart(pro)"> + Thêm vào giỏ hàng</a>
-              </div>
-              <div class="actions-secondary">
-                <a title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
               </div>
             </div>
           </div>

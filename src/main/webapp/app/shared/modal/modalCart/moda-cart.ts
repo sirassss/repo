@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IProductDetails } from '../../../entities/product-details/product-details.model';
 
 @Component({
-  selector: 'jhi-product-for-client',
+  selector: 'jhi-moda-cart',
   templateUrl: './moda-cart.html',
   styleUrls: ['./moda-cart.scss'],
 })

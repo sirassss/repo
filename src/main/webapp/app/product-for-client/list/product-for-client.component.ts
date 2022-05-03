@@ -39,6 +39,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
 
   varSearch: any;
   typeSearch: any;
+  tiTle: any;
   productInCart!: IProduct;
 
   constructor(
@@ -78,6 +79,8 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.typeSearch = {};
+    // this.varSearch = {};
     const content = this.sessionStorageService.retrieve('varSearch');
     if (content.name === 'type') {
       this.typeSearch = content;
@@ -166,6 +169,7 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
       n.promotionPrice = n.unitPrice! - (n.unitPrice! * (n.vouchers![0] ? n.vouchers![0].promotionRate! : 0)) / 100;
       n.image = n.productDetails![0].imageUrl;
     });
+    this.tiTle = this.typeSearch;
     this.varSearch = undefined;
     this.typeSearch = undefined;
     this.ngbPaginationPage = this.page;
@@ -186,25 +190,21 @@ export class ProductClientComponent extends BaseComponent implements OnInit {
   }
 
   getTitel(): any {
-    if (!this.varSearch || this.varSearch === '') {
-      if (this.typeSearch) {
-        if (this.typeSearch.data === TypeID.PRODUCT_SMART_PHONE) {
-          return 'Điện thoại';
-        }
-        if (this.typeSearch.data === TypeID.PRODUCT_LAPTOP) {
-          return 'Laptop';
-        }
-        if (this.typeSearch.data === TypeID.PRODUCT_TAPBLET) {
-          return 'Tablet';
-        }
-        if (this.typeSearch.data === TypeID.PRODUCT_SMART_WATCH) {
-          return 'Đồng hồ thông minh';
-        }
-        if (this.typeSearch.data === TypeID.PRODUCT_ACCESSORY) {
-          return 'Phụ kiện';
-        }
-      } else {
-        return '';
+    if (this.tiTle) {
+      if (this.tiTle.data === TypeID.PRODUCT_SMART_PHONE) {
+        return 'Điện thoại';
+      }
+      if (this.tiTle.data === TypeID.PRODUCT_LAPTOP) {
+        return 'Laptop';
+      }
+      if (this.tiTle.data === TypeID.PRODUCT_TAPBLET) {
+        return 'Tablet';
+      }
+      if (this.tiTle.data === TypeID.PRODUCT_SMART_WATCH) {
+        return 'Đồng hồ thông minh';
+      }
+      if (this.tiTle.data === TypeID.PRODUCT_ACCESSORY) {
+        return 'Phụ kiện';
       }
     } else {
       return '';

@@ -26,6 +26,7 @@ import { VoucherComponent } from '../../entities/voucher/list/voucher.component'
 @Component({
   selector: 'jhi-cart-checkout',
   templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent extends BaseComponent implements OnInit, OnDestroy {
   cart!: IOrder;

@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
+  <button type="button" class="close modal__btn" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
 </div>
 <div class="main-product-thumbnail ptb-50 ptb-sm-60">
   <div class="container">
@@ -45,7 +45,7 @@
           <div class="product-size mb-20 clearfix d-flex">
             <div>
               <label>Màu</label>
-              <select class="">
+              <select class="border-fix">
                 <option>Hồng</option>
                 <option>Đen</option>
                 <option>Trắng</option>
@@ -53,16 +53,16 @@
             </div>
             <div class="ml-30">
               <label for="quantity">Số lượng</label>
-              <input class="quantity mr-15" id="quantity" type="number" min="1" [(ngModel)]="productInCart.quantity" />
+              <input class="quantity mr-15 border-fix" id="quantity" type="number" min="1" [(ngModel)]="productInCart.quantity" />
             </div>
           </div>
           <div class="box-quantity d-flex hot-product2">
             <div class="pro-actions">
               <div class="actions-primary">
-                <a tooltip="Thêm vào giỏ hàng" (click)="fillToCart()"> + Thêm vào giỏ hàng</a>
-              </div>
-              <div class="actions-secondary">
-                <a tooltip="Thêm vào yêu thích"><i class="lnr lnr-heart"></i> <span>Thêm vào yêu thích</span></a>
+                <button class="accept-cart" placement="right" tooltip="Thêm vào giỏ hàng" (click)="fillToCart()">
+                  + Thêm vào giỏ hàng
+                </button>
+                <!--                <a tooltip="Thêm vào giỏ hàng" (click)="fillToCart()"> + Thêm vào giỏ hàng</a>-->
               </div>
             </div>
           </div>

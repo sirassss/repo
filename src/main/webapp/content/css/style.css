@@ -3951,7 +3951,7 @@ p.checkout-coupon input[type='submit'] {
 .table-content table td.product-subtotal {
   font-size: 15px;
   font-weight: 600;
-  width: 120px;
+  width: 165px;
 }
 
 .table-content table td.product-name a,
@@ -3973,7 +3973,7 @@ p.checkout-coupon input[type='submit'] {
 }
 
 .table-content table td.product-thumbnail {
-  width: 100px;
+  width: 115px;
 }
 
 .table-content table td.product-remove i {
@@ -4000,7 +4000,7 @@ p.checkout-coupon input[type='submit'] {
 }
 
 .table-content table td.product-remove {
-  width: 150px;
+  width: 95px;
 }
 
 .table-content table td.product-price {

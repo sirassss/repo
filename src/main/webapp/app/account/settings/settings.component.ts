@@ -149,4 +149,8 @@ export class SettingsComponent implements OnInit {
     this.modalRef = this.modalService.open(PaymentUpdateComponent, { backdrop: 'static', windowClass: 'width-60' });
     this.modalRef.componentInstance.payment = row;
   }
+
+  getName(last: string, first: string) {
+    return (first ? first + ' ' : '') + (last ? last : '');
+  }
 }

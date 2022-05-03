@@ -1,7 +1,19 @@
+<div class="breadcrumb-area mb-30">
+  <div class="container">
+    <div class="breadcrumb">
+      <ul class="d-flex align-items-center">
+        <li><a>Trang chủ</a></li>
+        <li><a>Giỏ hàng</a></li>
+        <li class="active"><a>Đặt hàng</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <div class="checkout-area pb-100 pt-15 pb-sm-60">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-md-6">
+    <div class="row border-fix">
+      <div class="col-lg-6 mt-5 mb-5">
         <div class="checkbox-form mb-sm-40">
           <h3>Thông tin người nhận</h3>
           <div class="row">
@@ -20,88 +32,91 @@
             <div class="col-md-6">
               <div class="checkout-form-list mb-sm-0">
                 <label>Họ <span class="required">*</span></label>
-                <input type="text" placeholder="" [(ngModel)]="user.firstName" readonly />
+                <input type="text" [(ngModel)]="user.firstName" [ngClass]="{ 'is-invalid': !user.firstName }" readonly />
               </div>
             </div>
             <div class="col-md-6">
               <div class="checkout-form-list mb-10">
                 <label>Tên <span class="required">*</span></label>
-                <input type="text" placeholder="" [(ngModel)]="user.lastName" readonly />
+                <input type="text" [(ngModel)]="user.lastName" [ngClass]="{ 'is-invalid': !user.lastName }" readonly />
               </div>
             </div>
+            <small class="text-danger col-md-12" *ngIf="!user.firstName">
+              Bạn chưa nhập đủ tên cho tài khoản, <a routerLink="/account/settings" routerLinkActive="active">nhập ngay</a>
+            </small>
             <div class="col-md-12">
               <div class="checkout-form-list mb-10">
                 <label>Địa chỉ <span class="required">*</span></label>
-                <input type="text" placeholder="Địa chỉ" [(ngModel)]="address" (ngModelChange)="changeAddress()" />
+                <input type="text" placeholder="...., Thành phố {{ city }}" [(ngModel)]="address" (ngModelChange)="changeAddress()" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="checkout-form-list mb-10">
-                <label>Email Address <span class="required">*</span></label>
+                <label>Email <span class="required">*</span></label>
                 <input type="email" placeholder="" [(ngModel)]="user.email" readonly />
               </div>
             </div>
             <div class="col-md-6">
               <div class="checkout-form-list mb-10">
-                <label>Phone <span class="required">*</span></label>
-                <input type="text" placeholder="Phone" [(ngModel)]="cart.orderPhone" />
+                <label>Số điện thoại <span class="required">*</span></label>
+                <input type="text" [(ngModel)]="cart.orderPhone" />
               </div>
             </div>
           </div>
-          <h3>Loại hình thanh toán</h3>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="checkout-form-list mb-10 d-flex">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  id="paymentNormal"
-                  [(ngModel)]="paymentMethod"
-                  [value]="0"
-                  (click)="changePaymentMethod()"
-                />
-                <label for="paymentNormal" class="label-radio">Thanh toán tiền mặt <span class="required">*</span></label>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="checkout-form-list mb-10 d-flex">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  id="paymentByBank"
-                  [(ngModel)]="paymentMethod"
-                  [value]="1"
-                  (click)="changePaymentMethod()"
-                />
-                <label for="paymentByBank" class="label-radio">Thanh toán bằng tài khoản ngân hàng <span class="required">*</span></label>
-              </div>
-            </div>
-            <ng-container *ngIf="paymentMethod === 1">
-              <div class="col-md-12">
-                <div class="checkout-form-list mb-10">
-                  <label for="bankName">Tên ngân hàng<span class="required">*</span></label>
-                  <input type="text" name="bankName" id="bankName" [(ngModel)]="bank.bankName" />
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="checkout-form-list mb-10">
-                  <label for="accountNumber">Số tài khoản <span class="required">*</span></label>
-                  <input type="text" name="accountNumber" id="accountNumber" [(ngModel)]="bank.accountNumber" />
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="checkout-form-list mb-10">
-                  <label for="accountName">Tên tài khoản <span class="required">*</span></label>
-                  <input type="text" name="accountName" id="accountName" [(ngModel)]="bank.accountName" />
-                </div>
-              </div>
-            </ng-container>
-          </div>
+          <!--          <h3>Loại hình thanh toán</h3>-->
+          <!--          <div class="row">-->
+          <!--            <div class="col-md-12">-->
+          <!--              <div class="checkout-form-list mb-10 d-flex">-->
+          <!--                <input-->
+          <!--                  type="radio"-->
+          <!--                  name="paymentMethod"-->
+          <!--                  id="paymentNormal"-->
+          <!--                  [(ngModel)]="paymentMethod"-->
+          <!--                  [value]="0"-->
+          <!--                  (click)="changePaymentMethod()"-->
+          <!--                />-->
+          <!--                <label for="paymentNormal" class="label-radio">Thanh toán tiền mặt <span class="required">*</span></label>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--            <div class="col-md-12">-->
+          <!--              <div class="checkout-form-list mb-10 d-flex">-->
+          <!--                <input-->
+          <!--                  type="radio"-->
+          <!--                  name="paymentMethod"-->
+          <!--                  id="paymentByBank"-->
+          <!--                  [(ngModel)]="paymentMethod"-->
+          <!--                  [value]="1"-->
+          <!--                  (click)="changePaymentMethod()"-->
+          <!--                />-->
+          <!--                <label for="paymentByBank" class="label-radio">Thanh toán bằng tài khoản ngân hàng <span class="required">*</span></label>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--            <ng-container *ngIf="paymentMethod === 1">-->
+          <!--              <div class="col-md-12">-->
+          <!--                <div class="checkout-form-list mb-10">-->
+          <!--                  <label for="bankName">Tên ngân hàng<span class="required">*</span></label>-->
+          <!--                  <input type="text" name="bankName" id="bankName" [(ngModel)]="bank.bankName" />-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="col-md-12">-->
+          <!--                <div class="checkout-form-list mb-10">-->
+          <!--                  <label for="accountNumber">Số tài khoản <span class="required">*</span></label>-->
+          <!--                  <input type="text" name="accountNumber" id="accountNumber" [(ngModel)]="bank.accountNumber" />-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="col-md-12">-->
+          <!--                <div class="checkout-form-list mb-10">-->
+          <!--                  <label for="accountName">Tên tài khoản <span class="required">*</span></label>-->
+          <!--                  <input type="text" name="accountName" id="accountName" [(ngModel)]="bank.accountName" />-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </ng-container>-->
+          <!--          </div>-->
         </div>
-        <button class="btn btn-outline-dark float-right" type="button" (click)="checkOut()">Đặt hàng</button>
+        <button class="float-right accept-cart mt-5" type="button" (click)="checkOut()">Đặt hàng</button>
       </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="your-order">
+      <div class="col-lg-6 mt-5 mb-5">
+        <div class="your-order border-fix">
           <h3>Giỏ hàng của bạn</h3>
           <div class="your-order-table table-responsive">
             <table>
@@ -128,44 +143,24 @@
                     <span class="amount">{{ getTotalAmount() | currency: 'VND':true }}</span>
                   </td>
                 </tr>
-                <tr class="order-total">
-                  <th style="padding-top: 56px">Tổng giá trị đơn hàng</th>
+                <tr>
+                  <th>
+                    <img src="./content/img/icon/coupon.png" alt="" class="icon-img" />
+                    <span class="text-lowercase">Voucher của bạn</span>
+                  </th>
                   <td>
-                    <button class="btn btn-outline-danger" type="button" (click)="selectVoucher()">Chọn mã giảm giá</button>
+                    <button class="select-voucher" type="button" (click)="selectVoucher()">Chọn mã giảm giá</button>
+                  </td>
+                </tr>
+                <tr class="order-total">
+                  <th>Tổng giá trị đơn hàng</th>
+                  <td>
                     <span class="total amount">{{ cart.totalAmount | currency: 'VND':true }}</span>
                   </td>
                 </tr>
               </tfoot>
             </table>
           </div>
-          <!--          <div class="payment-method">-->
-          <!--            <div id="accordion">-->
-          <!--              <div class="card">-->
-          <!--                <div class="card-header" id="headingone">-->
-          <!--                  <h5 class="mb-0">-->
-          <!--                    <button-->
-          <!--                      class="btn btn-link"-->
-          <!--                      data-toggle="collapse"-->
-          <!--                      data-target="#collapseOne"-->
-          <!--                      aria-expanded="true"-->
-          <!--                      aria-controls="collapseOne"-->
-          <!--                    >-->
-          <!--                      Direct Bank Transfer-->
-          <!--                    </button>-->
-          <!--                  </h5>-->
-          <!--                </div>-->
-
-          <!--                <div id="collapseOne" class="collapse show" aria-labelledby="headingone" data-parent="#accordion">-->
-          <!--                  <div class="card-body">-->
-          <!--                    <p>-->
-          <!--                      Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t-->
-          <!--                      be shipped until the funds have cleared in our account.-->
-          <!--                    </p>-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
         </div>
       </div>
     </div>

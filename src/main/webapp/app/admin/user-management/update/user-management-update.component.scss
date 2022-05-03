@@ -1,37 +1,4 @@
-button.accept {
-  background-color: #423d3d;
-  border: none;
-  border-radius: 5px;
-  width: 200px;
-  padding: 14px;
-  font-size: 16px;
-  color: white;
-  box-shadow: 0px 6px 18px -5px rgb(133, 119, 117);
-}
-
-.modal__btn {
-  margin-top: 4rem;
-  padding: 1rem 1.6rem;
-  border: 1px solid var(--border-color);
-  border-radius: 100rem;
-
-  color: inherit;
-  background: transparent;
-  font-size: 1.4rem;
-  font-family: inherit;
-  letter-spacing: 0.2rem;
-
-  transition: 0.2s;
-  cursor: pointer;
-}
-
-.modal__btn:nth-of-type(1) {
-  margin-right: 1rem;
-}
-
-.modal__btn:hover,
-.modal__btn:focus {
-  background: var(--focus);
-  border-color: var(--focus);
-  transform: translateY(-0.2rem);
+.img-avatar {
+  border: 0.1875em solid #b5bfd7;
+  border-radius: 50%;
 }

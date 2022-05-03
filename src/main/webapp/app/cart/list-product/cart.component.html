@@ -1,9 +1,29 @@
-<div class="cart-main-area ptb-100 ptb-sm-60">
+<div class="breadcrumb-area mb-30">
+  <div class="container">
+    <div class="breadcrumb">
+      <ul class="d-flex align-items-center">
+        <li><a>Trang chủ</a></li>
+        <li class="active"><a>Giỏ hàng</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cart-main-area ptb-sm-60">
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12">
-        <!-- Table Content Start -->
-        <div class="table-content table-responsive mb-45">
+        <div class="float-right d-flex">
+          <label for="total"><h3>Tổng tiền:&ensp;</h3></label>
+          <strong>
+            <span id="total" class="amount"
+              ><h3>
+                {{ getTotalAmount() | currency: 'VND':true }}
+              </h3></span
+            >
+          </strong>
+        </div>
+        <div class="table-content table-responsive mb-45 border-fix">
           <table>
             <thead>
               <tr>
@@ -12,7 +32,7 @@
                 <th class="product-price">Đơn giá</th>
                 <th class="product-quantity">Số lượng</th>
                 <th class="product-subtotal">Tổng tiền</th>
-                <th class="product-remove">Xóa</th>
+                <th class="product-remove">Hủy</th>
               </tr>
             </thead>
             <tbody>
@@ -31,50 +51,23 @@
                 </td>
                 <td class="product-subtotal">{{ product.total | currency: 'VND':true }}</td>
                 <td class="product-remove">
-                  <a (click)="deleteInCart(i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                  <a><fa-icon [icon]="'trash'" [size]="'2x'" (click)="deleteInCart(i)" tooltip="Hủy"></fa-icon></a>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!-- Table Content Start -->
         <div class="row">
-          <!-- Cart Button Start -->
-          <div class="col-md-8 col-sm-12">
+          <div class="col-md-6">
             <div class="buttons-cart">
               <a routerLink="/">Tiếp tục mua hàng</a>
             </div>
           </div>
-          <!-- Cart Button Start -->
-          <!-- Cart Totals Start -->
-          <div class="col-md-4 col-sm-12">
-            <div class="cart_totals float-md-right text-md-right">
-              <h2>Tiền Hàng</h2>
-              <br />
-              <table class="float-md-right">
-                <tbody>
-                  <tr class="cart-subtotal">
-                    <th>Ước tính</th>
-                    <td>
-                      <span class="amount">{{ getTotalAmount() | currency: 'VND':true }}</span>
-                    </td>
-                  </tr>
-                  <tr class="order-total">
-                    <th>Tổng tiền</th>
-                    <td>
-                      <strong
-                        ><span class="amount">{{ getTotalAmount() | currency: 'VND':true }}</span></strong
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="wc-proceed-to-checkout">
-                <a (click)="checkOut()" style="color: #ffff">Thanh toán</a>
-              </div>
+          <div class="col-md-6">
+            <div class="buttons-cart float-right">
+              <a (click)="checkOut()" style="color: #ffff">Đăt hàng</a>
             </div>
           </div>
-          <!-- Cart Totals End -->
         </div>
       </div>
     </div>

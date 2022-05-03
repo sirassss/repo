@@ -263,26 +263,20 @@ body {
   min-width: 80%;
 }
 
-.width-60 .modal-dialog {
-  width: 60%;
-  min-width: 60%;
-}
-
 .width-40 .modal-dialog {
   width: 45%;
   min-width: 45%;
 }
 
-.width-60-fix .modal-dialog {
+.width-60 .modal-dialog {
   width: 60%;
   min-width: 60%;
-  visibility: visible;
-  opacity: 1;
-  .popup-inner {
-    bottom: 0;
-    right: 0;
-    transform: rotate(0);
-  }
+}
+
+.width-60 .modal-dialog .modal-content {
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 30px;
+  box-shadow: 0 0 6px rgb(226, 226, 226);
 }
 
 .height-90 {
@@ -308,4 +302,45 @@ button.accept {
   font-size: 16px;
   color: white;
   box-shadow: 0px 6px 18px -5px rgb(83, 144, 201);
+}
+
+button.accept-cart {
+  background-color: #f33c41;
+  border: none;
+  border-radius: 5px;
+  width: 180px;
+  padding: 5px;
+  font-size: 16px;
+  color: white;
+  box-shadow: 0px 6px 18px -5px rgb(255, 142, 144);
+}
+
+button.select-voucher {
+  background-color: #f33c41;
+  border: none;
+  border-radius: 5px;
+  width: 160px;
+  padding: 1px;
+  font-size: 16px;
+  color: white;
+  box-shadow: 0px 6px 18px -5px rgb(255, 142, 144);
+}
+
+.modal__btn {
+  border: 1px solid #2c2c2c !important;
+  border-radius: 100rem;
+  padding: 8px !important;
+  height: 41px !important;
+  color: white !important;
+  background: #0d0d0d !important;
+
+  transition: 0.2s;
+  margin-right: 1rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.modal__btn:hover {
+  transform: translateY(-0.2rem) !important;
+  color: white !important;
+  background: #4f4a4a !important;
 }

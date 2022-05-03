@@ -1,8 +1,5 @@
 <section class="" style="min-height: 700px">
-  <div
-    class="container my-5"
-    style="border: 1px solid rgb(235, 235, 235); border-radius: 15px; min-height: 470px; box-shadow: 0 0 6px rgb(226, 226, 226)"
-  >
+  <div class="container my-5 border-fix">
     <div class="row">
       <div class="col-4 offset-4 text-center mt-2">
         <img [src]="account.imageUrl" style="width: 80px" class="img-fluid rounded-circle" />
@@ -14,8 +11,8 @@
           <input
             type="text"
             id="name"
-            [value]="account.lastName + ' ' + account.firstName"
-            [title]="account.lastName + ' ' + account.firstName"
+            [value]="getName(account.lastName!, account.firstName!)"
+            [title]="getName(account.lastName!, account.firstName!)"
             class="form-control"
             readonly
           />
@@ -130,8 +127,8 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h2 class="modal-title m-0">Cài đặt tài khoản</h2>
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
+    <h2 class="modal-title m-0 text-uppercase">Cài đặt</h2>
+    <button type="button" class="modal__btn close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">&times;</button>
   </div>
   <div class="modal-body">
     <form name="editForm" role="form" novalidate [formGroup]="settingsForm">

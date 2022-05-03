@@ -85,6 +85,7 @@
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
     "@types/jquery": "^3.5.14",
+    "angular-svg-icon": "^13.0.0",
     "bootstrap": "4.6.0",
     "bootstrap-icons": "^1.8.1",
     "bootswatch": "4.6.0",
