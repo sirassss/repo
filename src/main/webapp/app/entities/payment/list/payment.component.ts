@@ -161,7 +161,7 @@ export class PaymentComponent extends BaseComponent implements OnInit {
         if (result.isConfirmed) {
           this.paymentService.delete(payment.id!).subscribe(
             data => {
-              this.ngOnInit();
+              this.loadPage();
               this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
             },
             error => {

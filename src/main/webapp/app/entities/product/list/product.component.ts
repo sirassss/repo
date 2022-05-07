@@ -151,7 +151,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
       if (result.isConfirmed) {
         this.productService.delete(id).subscribe(
           data => {
-            this.ngOnInit();
+            this.loadPage();
             this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
           },
           error => {

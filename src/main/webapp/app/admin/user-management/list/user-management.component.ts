@@ -149,7 +149,7 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.delete(login).subscribe(
           data => {
-            this.ngOnInit();
+            this.loadAll();
             this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
           },
           error => {
