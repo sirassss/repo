@@ -1,8 +1,14 @@
 package com.alam.sellphone.service.impl;
 
 import com.alam.sellphone.domain.Payment;
+import com.alam.sellphone.domain.User;
+import com.alam.sellphone.repository.OrderDetailsRepository;
+import com.alam.sellphone.repository.OrderRepository;
 import com.alam.sellphone.repository.PaymentRepository;
+import com.alam.sellphone.service.MailService;
 import com.alam.sellphone.service.PaymentService;
+import com.alam.sellphone.service.UserService;
+import com.alam.sellphone.service.dto.OrderDetailsDTO;
 import com.alam.sellphone.service.dto.PaymentDTO;
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +30,36 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
 
-    public PaymentServiceImpl(PaymentRepository paymentRepository) {
+    private final MailService mailService;
+
+    private final UserService userService;
+
+    private final OrderDetailsRepository orderDetailsRepository;
+
+    public PaymentServiceImpl(
+        PaymentRepository paymentRepository,
+        MailService mailService,
+        UserService userService,
+        OrderRepository orderRepository,
+        OrderDetailsRepository orderDetailsRepository
+    ) {
         this.paymentRepository = paymentRepository;
+        this.mailService = mailService;
+        this.userService = userService;
+        this.orderDetailsRepository = orderDetailsRepository;
     }
 
     @Override
     public Payment save(Payment payment) {
         log.debug("Request to save Payment : {}", payment);
+        if (payment.getStatus() == 1) {
+            Optional<User> user = userService.getUserWithAuthorities();
+            if (user.isPresent()) {
+                List<OrderDetailsDTO> order = orderDetailsRepository.getByOderID(payment.getOrderID());
+                mailService.sendPayment(user.get(), order);
+            }
+        }
+
         return paymentRepository.save(payment);
     }
 

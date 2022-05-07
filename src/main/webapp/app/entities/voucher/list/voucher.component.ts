@@ -146,7 +146,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
       if (result.isConfirmed) {
         this.voucherService.delete(id).subscribe(
           data => {
-            this.ngOnInit();
+            this.loadPage();
             this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
           },
           error => {

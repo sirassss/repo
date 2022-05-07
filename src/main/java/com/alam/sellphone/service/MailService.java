@@ -1,7 +1,9 @@
 package com.alam.sellphone.service;
 
 import com.alam.sellphone.domain.User;
+import com.alam.sellphone.service.dto.OrderDetailsDTO;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -108,5 +110,25 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    public void sendPayment(User user, List<OrderDetailsDTO> order) {
+        log.debug("Sending password reset email to '{}'", user.getEmail());
+        sendEmailPaymentSuccessFromTemplate(user, order, "mail/senPayment", "payment.success");
+    }
+
+    public void sendEmailPaymentSuccessFromTemplate(User user, List<OrderDetailsDTO> order, String templateName, String titleKey) {
+        if (user.getEmail() == null) {
+            log.debug("Email doesn't exist for user '{}'", user.getLogin());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable("order", order);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
     }
 }

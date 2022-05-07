@@ -153,7 +153,7 @@ export class ManufacturedComponent extends BaseComponent implements OnInit {
       if (result.isConfirmed) {
         this.manufacturedService.delete(id).subscribe(
           data => {
-            this.ngOnInit();
+            this.loadPage();
             this.toastr.success('Thông báo xoá thành công!', 'Hệ thống');
           },
           error => {
